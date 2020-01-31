@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="en">
+
+<script src="bootstrap/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
  
 <head>
     <!-- Required meta tags -->
@@ -43,23 +45,23 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    username<input class="form-control form-control-lg" type="text" name="username" required="" placeholder="Username" autocomplete="off">
+                    <input class="form-control form-control-lg" type="text" name="user_name" required="" placeholder="Username" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    email<input class="form-control form-control-lg" type="email" name="email" required="" placeholder="E-mail" autocomplete="off">
+                    <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="E-mail" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    pwd<input class="form-control form-control-lg" id="pass1" type="password" name="pwd" required="" placeholder="Password">
+                    <input class="form-control form-control-lg" id="pwd1" type="password" name="pwd" required="" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    pwd_confirm<input class="form-control form-control-lg" id="pass2" type="password" name="pwd_confirm" required="" placeholder="Confirm">
+                    <input class="form-control form-control-lg" id="pwd2" type="password" name="pwd_confirm" required="" placeholder="Confirm">
                 </div>
                 <div class="form-group pt-2">
-                    <button class="btn btn-block btn-primary" type="submit">Register My Account</button>
+                    <button class="btn btn-block btn-primary" id ="register" type="submit" disabled>Register My Account</button>
                 </div>
                 <div class="form-group">
                     <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox"><span class="custom-control-label">By creating an account, you agree the <a href="#">terms and conditions</a></span>
+                        <input class="custom-control-input" type="checkbox" id="agree" name="agree"><span class="custom-control-label">By creating an account, you agree the <a href="#">terms and conditions</a></span>
                     </label>
                 </div>
                 {# <div class="form-group row pt-0">
@@ -72,11 +74,22 @@
                 </div> #}
             </div>
             <div class="card-footer bg-white">
-                <p>Already member? <a href="#" class="text-secondary">Login Here.</a></p>
+                <p>Already member? <a href="signin" class="text-secondary">Login Here.</a></p>
             </div>
         </div>
     </form>
 </body>
 
+<script>
+    $("#pwd2").keyup(function(){
+        var pwd1 = $("#pwd1").val();
+        var pwd2 = $("#pwd2").val();
+        
+        if (pwd1 == pwd2) 
+            $("#register").removeAttr("disabled");
+        else 
+            $("#register").attr("disabled", "disabled");
+    })
+</script>
  
 </html>
