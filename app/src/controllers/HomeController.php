@@ -19,26 +19,6 @@ final class HomeController extends BaseController
         return $response;
     }
 
-    public function signUp(Request $request, Response $response, $args) {
-        $this->view->render($response, 'sign_up.twig', ['username'=>$username, 'email'=>$email, 'pwd'=>$pwd, 'pwd_confirm'=>$pwd_confirm]);
-    }
-
-    public function signUpHandle(Request $request, Response $response, $args) {
-        print_r($_POST);
-
-        exit;
-    }
-
-    public function signIn(Request $request, Response $response, $args) {
-        $this->view->render($response, 'sign_in.twig', ['username'=>$username, 'pwd'=>$pwd, 'remember'=>$remember]);
-    }
-
-    public function signInHandle(Request $request, Response $response, $args) {
-        print_r($_POST);
-
-        exit;
-    }
-
     public function viewPost(Request $request, Response $response, $args) {
         $this->logger->info("View post using Doctrine with Slim 3");
 
