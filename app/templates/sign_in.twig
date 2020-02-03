@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Rumer sign in</title>
+    <title>Sign in</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="bootstrap/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -18,6 +18,7 @@
     }
 
     body {
+        
         display: -ms-flexbox;
         display: flex;
         -ms-flex-align: center;
@@ -28,24 +29,24 @@
     </style>
 </head>
 
-<body>
+<body >
     <!-- ============================================================== -->
     <!-- login page  -->
     <!-- ============================================================== -->
     <div class="splash-container">
         <div class="card ">
-            <div class="card-header text-center"><a href="index.html"><img class="logo-img" src="bootstrap/assets/images/logo.png" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
+            <div class="card-header text-center"><a href="index.html"><img class="logo-img" src="bootstrap/assets/images/lo-go.png" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
             <div class="card-body">
-                <form method="post" action="signinhandle">
+                <form>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" id="user_name" type="text" name="user_name" required="" placeholder="Username" autocomplete="off">
+                        <input class="form-control form-control-lg" id="username" type="text" placeholder="Username" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" id="pwd" type="password" name="pwd" required="" placeholder="Password">
+                        <input class="form-control form-control-lg" id="password" type="password" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" name="remember"><span class="custom-control-label">Remember Me</span>
+                            <input class="custom-control-input" type="checkbox"><span class="custom-control-label">Remember Me</span>
                         </label>
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>

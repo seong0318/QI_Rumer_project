@@ -26,10 +26,10 @@ return [
             'connection' => [
                 'driver'   => 'pdo_mysql',
                 'host'     => '127.0.0.1',
-                'port'     => 8889,
-                'dbname'   => 'blog',
+                'port'     => 3306,
+                'dbname'   => 'mydb',
                 'user'     => 'root',
-                'password' => 'root',
+                'password' => '12345678',
             ]
         ],
 
@@ -38,5 +38,29 @@ return [
             'name' => 'app',
             'path' => __DIR__ . '/../log/app.log',
         ],
+
+        'db' => [
+            'host' => '127.0.0.1',
+            'user' => 'root',
+            'pass' => '12345678',
+            'dbname' => 'mydb'
+        ]
     ],
 ];
+
+// set database parameters based on server
+// if ($_SERVER['HTTP_HOST'] == '192.168.33.99') {
+//     $db_array = array(
+//         'host' => '127.0.0.1',
+//         'user' => 'root',
+//         'pass' => '12345678',
+//         'dbname' => 'rumer_local'
+//     );
+// } else {
+//     $db_array = array(
+//         'host' => '127.0.0.1',
+//         'user' => 'root',
+//         'pass' => '',
+//         'dbname' => 'rumer_server'
+//     );
+// }

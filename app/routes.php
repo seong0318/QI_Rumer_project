@@ -13,6 +13,9 @@ $app->get('/signup', 'App\Controller\SignUpController:signUp')
 $app->post('/signuphandle', 'App\Controller\SignUpController:signUpHandle')
     ->setName('sign_up_handle');
 
+$app->post('/signupverify', 'App\Controller\SignUpController:signUpVerify')
+    ->setName('sign_up_verify');
+
 $app->get('/signin', 'App\Controller\SignInController:signIn')
     ->setName('sign_in');
 
