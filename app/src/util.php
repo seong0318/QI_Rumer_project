@@ -55,8 +55,10 @@ function sendMail($recipient, $username, $nonce) {
         $mail->AltBody = "Thank you . Please click the link to activate your account.";
 
         $mail->send();
-        echo 'Message has been sent';
+        // echo 'Message has been sent';
+        return 0;
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        return -1;
     }
 }

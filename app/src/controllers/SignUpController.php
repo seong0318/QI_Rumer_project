@@ -63,35 +63,33 @@ final class SignUpController extends BaseController {
     }    
 
     public function signUpHandle(Request $request, Response $response, $args) {
-        /*  메일로 nonce link를 보내기까지의 sign up 과정
-        **  정상적으로 진행할 경우, sign in 페이지로 넘어가고 중복된 user_name이 입력될 경우 sign up 페이지로 넘어감
+        /*  sign up 페이지의 register 버튼
+        **  
         */
-        $isDup = $this->duplicateUser($_POST['user_name']);
-        
-        if ($isDup == -1) {
-            echo "<script> alert('duplicateUser Query error')
-            window.location = '/signup'</script>";
-            exit;
-        }
-        if ($isDup != 0) {
-            echo "<script> alert('This username is already exists.')
-            window.location = '/signup'</script>";
-            exit;
-        }
    
-        $nonce = makeRandomString(); // make nonce link
-        if ($this->storeUsernameAndNonce($_POST['user_name'], $nonce) != 0){
-            echo "storeUsernameAndNonce Query error";
-            exit;
-        }
-        
-        echo "
-        <script>
-            alert('We will send you a confirmation email, so please check it.') 
-            window.location = '/signin'
-        </script>";
+    }
 
-        sendMail($_POST['email'], $_POST['user_name'], $nonce);
+    public function usernameCheck(Request $request, Response $response, $args) {
+        /*  username 중복 검사를 실행하는 버튼
+        **  아이디 사용자 수를 json 형식으로 반환함
+        */
+        $isDup = $this->duplicateUser($_GET['user_name']);
+        return json_encode($isDup);
+    }
+
+    public function emailVerify(Request $request, Response $response, $args) {
+        /*  email을 이용하여 인증을 시작하는 버튼
+        **  성공시 0을 반환
+        */
+        $nonce = makeRandomString(); // make nonce link
+        if ($this->storeUsernameAndNonce($_GET['user_name'], $nonce) != 0)
+            return json_encode(-1);
+
+
+        if (sendMail($_GET['email'], $_GET['user_name'], $nonce) != 0)
+            return json_encode(-1);
+
+        return json_encode(0);
     }
 
     public function signUpVerify(Request $request, Response $response, $args) {
@@ -104,7 +102,6 @@ final class SignUpController extends BaseController {
             exit;
         }
 
-        
-        // password_hash()
+        echo "success email verify";        
     }
 }

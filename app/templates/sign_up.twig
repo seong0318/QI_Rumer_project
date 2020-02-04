@@ -46,12 +46,12 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" name="user_name" required="" placeholder="Username" autocomplete="off" style = "display : inleine; width :70%">
-                    <button class = "btn" style="background-color : #2e2f39"> sample</button>
+                    <input class="form-control form-control-lg" type="text" id = 'user_name' name="user_name" required="" placeholder="Username" autocomplete="off" style = "display : inleine; width :70%">
+                    <button class = "btn" id ='username_btn' style="background-color : #2e2f39"> Check ID</button>
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="E-mail" autocomplete="off" style = "display : inleine; width :70%">
-                    <button class = "btn" style="background-color : #2e2f39"> sample</button>
+                    <input class="form-control form-control-lg" type="email" id = 'email' name="email" required="" placeholder="E-mail" autocomplete="off" style = "display : inleine; width :70%">
+                    <button class = "btn" id='email_btn' style="background-color : #2e2f39"> Verify</button>
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" id="pwd1" type="password" name="pwd" required="" placeholder="Password">
@@ -93,6 +93,55 @@
             $("#register").removeAttr("disabled");
         else 
             $("#register").attr("disabled", "disabled");
+    });
+
+    $("#username_btn").click(function() {
+        var username = $("#user_name").val();
+        $.ajax({
+            type: 'GET',
+            url: './usernamecheck',
+            data: {user_name: username},
+            datatype: 'JSON'
+        })
+        .done(function(json) {
+            var num_user = JSON.parse(json)
+            if (num_user < 0) 
+                alert("query error");
+            else if (num_user == 0) {
+                alert("usable username");
+                $('#user_name').attr("disabled", "disabled");
+                $('#username_btn').attr("disabled", "disabled");
+            }
+            else
+                alert("duplicate username");
+        })
+        .fail(function(json) {
+            alert("fail response");
+        })
+    });
+
+    $("#email_btn").click(function() {
+        var username = $("#user_name").val();
+        var email = $("#email").val();
+        $.ajax({
+            type: 'GET',
+            url: './emailverify',
+            data: {'user_name': username, 'email': email},
+            datatype: 'JSON'
+        })
+        .done(function(json) {
+            var result = JSON.parse(json);
+            if (result == 0) {
+                alert("We will send you a confirmation email, so please check it.");
+                $('#email').attr("disabled", "disabled");
+                $('#email_btn').attr("disabled", "disabled");
+            }
+            else 
+                alert("email sending error");
+        })
+        .fail(function(json) {
+            alert("fail response");
+        })
     })
 </script>
  
