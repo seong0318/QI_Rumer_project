@@ -16,7 +16,7 @@ function makeRandomString($length = 64) {
     return $randomString;
 }
 
-function sendMail($recipient, $nonce) {   
+function sendMail($recipient, $username, $nonce) {   
     $SenderInfo = include '../app/src/send_mail_info.php';
     $mail = new PHPMailer(true);
     try {
@@ -48,9 +48,9 @@ function sendMail($recipient, $nonce) {
         // Content
         $mail->isHTML(true);                                            // Set email format to HTML
         $mail->Subject = 'Website Activation Email';
-        $mail->Body    = "<h1>THANK YOU</h1>Please click the link to activate your account.<br>
-        <input type='button' value='Register My Account' onclick='location.href'='192.168.33.99/signin'>
-        <p>Already member? <a href='192.168.33.99/signin'</a></p>
+        $mail->Body    = "
+        <h1>THANK YOU</h1>Please click the link to activate your account.<br>
+        <a href='http://192.168.33.99/signupverify?user_name=$username&nonce=$nonce'>Register My Account</a><br>
         ";
         $mail->AltBody = "Thank you . Please click the link to activate your account.";
 
@@ -59,5 +59,4 @@ function sendMail($recipient, $nonce) {
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
-
 }
