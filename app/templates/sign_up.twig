@@ -7,7 +7,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Rumer sign up</title>
+    <title>RUMER - Sign up</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="bootstrap/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -25,6 +25,8 @@
         align-items: center;
         padding-top: 40px;
         padding-bottom: 40px;
+          background-size: cover;
+        background-image:url('https://www.francechimie.fr/media/e34580ffb57afb63ff48eeee4f85e8cb.jpg');
     }
     </style>
 </head>
@@ -39,15 +41,17 @@
     <form class="splash-container" method="post" action="signuphandle">
         <div class="card">
             <div class="card-header">
-                <h3 class="mb-1">Registrations Form</h3>
-                <p>Please enter your user information.</p>
+                <h3 class="mb-1" style="color : whitesmoke">Registrations Form</h3>
+                <p style="color : whitesmoke">Please enter your user information.</p>
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" name="user_name" required="" placeholder="Username" autocomplete="off">
+                    <input class="form-control form-control-lg" type="text" name="user_name" required="" placeholder="Username" autocomplete="off" style = "display : inleine; width :70%">
+                    <button class = "btn" style="background-color : #2e2f39"> sample</button>
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="E-mail" autocomplete="off">
+                    <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="E-mail" autocomplete="off" style = "display : inleine; width :70%">
+                    <button class = "btn" style="background-color : #2e2f39"> sample</button>
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" id="pwd1" type="password" name="pwd" required="" placeholder="Password">
@@ -60,7 +64,8 @@
                 </div>
                 <div class="form-group">
                     <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="agree" name="agree"><span class="custom-control-label">By creating an account, you agree the <a href="#">terms and conditions</a></span>
+                        <input class="custom-control-input" type="checkbox" id="agree" name="agree">
+                        {# <span class="custom-control-label">By creating an account, you agree the <a href="#">terms and conditions</a></span> #}
                     </label>
                 </div>
                 {# <div class="form-group row pt-0">
@@ -73,7 +78,7 @@
                 </div> #}
             </div>
             <div class="card-footer bg-white">
-                <p>Already member? <a href="signin" class="text-secondary">Login Here.</a></p>
+                <p>Already member? <a href="signin" class="text-secondary">Sign in Here.</a></p>
             </div>
         </div>
     </form>
