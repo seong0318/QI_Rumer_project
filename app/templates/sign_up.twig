@@ -38,7 +38,7 @@
     <!-- ============================================================== -->
     <!-- signup form  -->
     <!-- ============================================================== -->
-    <form class="splash-container" method="post" action="signuphandle">
+    <form class="splash-container" id = 'input_form' method="post" action="signuphandle">
         <div class="card">
             <div class="card-header">
                 <h3 class="mb-1" style="color : whitesmoke">Registrations Form</h3>
@@ -47,11 +47,11 @@
             <div class="card-body">
                 <div class="form-group">
                     <input class="form-control form-control-lg" type="text" id = 'user_name' name="user_name" required="" placeholder="Username" autocomplete="off" style = "display : inleine; width :70%">
-                    <button class = "btn" id ='username_btn' style="background-color : #2e2f39"> Check ID</button>
+                    <button class = "btn" id ='username_btn' style="background-color : #2e2f39">Check</button>
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" type="email" id = 'email' name="email" required="" placeholder="E-mail" autocomplete="off" style = "display : inleine; width :70%">
-                    <button class = "btn" id='email_btn' style="background-color : #2e2f39"> Verify</button>
+                    <button class = "btn" id='email_btn' disabled="" style="background-color : #2e2f39"> Verify</button>
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" id="pwd1" type="password" name="pwd" required="" placeholder="Password">
@@ -109,14 +109,15 @@
                 alert("query error");
             else if (num_user == 0) {
                 alert("usable username");
-                $('#user_name').attr("disabled", "disabled");
+                $('#user_name').attr("readOnly", "readOnly");
                 $('#username_btn').attr("disabled", "disabled");
+                $("#email_btn").removeAttr("disabled");
             }
             else
                 alert("duplicate username");
         })
-        .fail(function(json) {
-            alert("fail response");
+        .fail(function(jrequest,status,error) {
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         })
     });
 
@@ -133,16 +134,45 @@
             var result = JSON.parse(json);
             if (result == 0) {
                 alert("We will send you a confirmation email, so please check it.");
-                $('#email').attr("disabled", "disabled");
+                $('#email').attr("readOnly", "readOnly");
                 $('#email_btn').attr("disabled", "disabled");
             }
             else 
                 alert("email sending error");
         })
-        .fail(function(json) {
-            alert("fail response");
+        .fail(function(request,status, error) {
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         })
-    })
-</script>
- 
+    });
+
+    $("#register").click(function() {
+        event.preventDefault();
+        var formData = $('#input_form').serialize();
+        $.ajax({
+            type: 'POST',
+            url: './signuphandle',
+            data: formData,
+            datatype: 'JSON'
+        })
+        .done(function(json) {
+            var exec_result = JSON.parse(json);
+
+            if (exec_result == 0) {
+                alert("Successful register.");
+                window.location.href = 'signin';
+            }
+            else if (exec_result == -1)
+                alert("ERROR: Register query error");
+            else if (exec_result == -2)
+                alert("Please verify email before register");
+            else if (exec_result == -3)
+                alert("ERROR: Clear temp_user error");
+            else 
+                alert("ERROR: Too many update");
+        })
+        .fail(function(request, status, error) {
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        })
+    });
+</script> 
 </html>

@@ -48,25 +48,70 @@ final class SignUpController extends BaseController {
         else return -1;
     }
 
-    public function storeUserInfo($userInfo) {
-        /*  user information을 user 테이블에 저장
-        **
+    public function verifyAndstoreUserInfo($userInfo) {
+        /*  비밀번호를 해쉬로 암호화 한 후, 이메일 인증을 받았는지 확인
+        **  마지막으로 user information을 user 테이블에 저장
+        **  정상적으로 끝날 경우 0, mysql 쿼리 오류 시 -1, 이메일 인증을 안했을 경우 -2, 하나 이상이 갱신될 경우 -3을 반환
         */
-        $sql = "";
+        $hashedPwd = password_hash($userInfo['pwd'], PASSWORD_DEFAULT);
+
+        $sql = "insert into user(user_name, hashed_pwd, email, is_signed)
+        select temp_user_name, :hashedPwd, :email, '0'
+        from temp_user
+        where temp_user_name = :username and is_verify = 1";
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $params = [
+            'username' => $userInfo['user_name'],
+            'hashedPwd' => $hashedPwd,
+            'email' => $userInfo['email']
+        ];
+        $exec_result = $stmt->execute($params);
+
+        $numUpdateRows = $stmt->rowCount(); //  1일 경우 성공
+        if ($exec_result) {
+            if ($numUpdateRows < 1) 
+                return -2;  //  이메일 인증을 안했을 경우
+            else if ($numUpdateRows == 1)
+                return 0;   //  정상
+            else
+                return -3;  //  하나 이상이 바뀌었으므로 오류
+        }
+        else return -1; //  쿼리 실행 오류
+    }
+
+    public function clearTempUserTable($username) {
+        /*  user_name을 이용해 temp_user_table 내용을 삭제
+        ** 
+        */
+        $sql = "delete from temp_user where temp_user_name = :username";
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $params = ['username' => $username];
+        
+        if ($stmt->execute($params))
+            return 0;
+        else return -1;
     }
 
     public function signUp(Request $request, Response $response, $args) {
         /*  sign up 페이지를 띄우는 기본 함수
-        **  사용자로부터 입력된 값을 POST 방식으로 전달
+        **  사용자로부터 입력된 값을 Ajax POST 방식으로 전달
         */
-        $this->view->render($response, 'sign_up.twig', ['user_name'=>$user_name, 'email'=>$email, 'pwd'=>$pwd, 'pwd_confirm'=>$pwd_confirm, 'agree'=>$agree]);
+        $this->view->render($response, 'sign_up.twig');
     }    
 
     public function signUpHandle(Request $request, Response $response, $args) {
         /*  sign up 페이지의 register 버튼
-        **  
+        **  verifyAndStoreUserInfo와 오류 코드 공유
+        **  clearTempUserTable에서 오류 발생시 -3 반환
         */
-   
+        $exec_result = $this->verifyAndstoreUserInfo($_POST);
+
+        if($exec_result == 0) {
+            //  정상적으로 진행할 경우
+            if ($this->clearTempUserTable($_POST['user_name']) != 0)
+                return json_encode(-3);
+        }
+        return json_encode($exec_result);
     }
 
     public function usernameCheck(Request $request, Response $response, $args) {
@@ -82,12 +127,15 @@ final class SignUpController extends BaseController {
         **  성공시 0을 반환
         */
         $nonce = makeRandomString(); // make nonce link
-        if ($this->storeUsernameAndNonce($_GET['user_name'], $nonce) != 0)
+        if ($this->storeUsernameAndNonce($_GET['user_name'], $nonce) != 0){
+            $this->clearTempUserTable($_GET['user_name']);
             return json_encode(-1);
+        }
 
-
-        if (sendMail($_GET['email'], $_GET['user_name'], $nonce) != 0)
+        if (sendMail($_GET['email'], $_GET['user_name'], $nonce) != 0){
+            $this->clearTempUserTable($_GET['user_name']);
             return json_encode(-1);
+        }
 
         return json_encode(0);
     }
