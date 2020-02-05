@@ -34,16 +34,13 @@ final class SignUpController extends BaseController {
         else return -1;
     }
 
-    public function verifyNonceAndChangeIsVerify($username, $nonce) {
-        /*  temp_user 테이블의 temp_user_name, nonce_link 열을 이용해
+    public function verifyNonceAndChangeIsVerify($nonce) {
+        /*  temp_user 테이블의 nonce_link 열을 이용해
         **  사용자의 sign up 인증을 진행한다
         */
-        $sql = "update temp_user set is_verify = '1' where (temp_user_name = :username and nonce_link = :nonce)";
+        $sql = "update temp_user set is_verify = '1' where nonce_link = :nonce";
         $stmt = $this->em->getConnection()->prepare($sql);
-        $params = [
-            'username' => $username,
-            'nonce' => $nonce
-        ];
+        $params = ['nonce' => $nonce];
         if ($stmt->execute($params)) return 0;
         else return -1;
     }
@@ -51,30 +48,37 @@ final class SignUpController extends BaseController {
     public function verifyAndstoreUserInfo($userInfo) {
         /*  비밀번호를 해쉬로 암호화 한 후, 이메일 인증을 받았는지 확인
         **  마지막으로 user information을 user 테이블에 저장
-        **  정상적으로 끝날 경우 0, mysql 쿼리 오류 시 -1, 이메일 인증을 안했을 경우 -2, 하나 이상이 갱신될 경우 -3을 반환
+        **  정상적으로 끝날 경우 0, mysql 쿼리 오류 시 -1, 이메일 인증을 안했을 경우 -2, 
+        **  하나 이상이 갱신될 경우 -4, 인증 중 다른 사용자가 username을 선점할 경우 -5 반환
         */
-        $hashedPwd = password_hash($userInfo['pwd'], PASSWORD_DEFAULT);
+        try{
+            $hashedPwd = password_hash($userInfo['pwd'], PASSWORD_DEFAULT);
 
-        $sql = "insert into user(user_name, hashed_pwd, email, is_signed)
-        select temp_user_name, :hashedPwd, :email, '0'
-        from temp_user
-        where temp_user_name = :username and is_verify = 1";
-        $stmt = $this->em->getConnection()->prepare($sql);
-        $params = [
-            'username' => $userInfo['user_name'],
-            'hashedPwd' => $hashedPwd,
-            'email' => $userInfo['email']
-        ];
-        $exec_result = $stmt->execute($params);
+            $sql = "insert into user(user_name, hashed_pwd, email, is_signed)
+            select temp_user_name, :hashedPwd, :email, '0'
+            from temp_user
+            where temp_user_name = :username and is_verify = 1";
+            $stmt = $this->em->getConnection()->prepare($sql);
+            $params = [
+                'username' => $userInfo['user_name'],
+                'hashedPwd' => $hashedPwd,
+                'email' => $userInfo['email']
+            ];
+            $exec_result = $stmt->execute($params);
 
-        $numUpdateRows = $stmt->rowCount(); //  1일 경우 성공
+            $numUpdateRows = $stmt->rowCount(); //  1일 경우 성공
+        }
+        catch (UniqueConstraintViolationException $e) {
+            return -5;  //  인증 중 다른 사용자가 username을 선점할 경우
+        }
+
         if ($exec_result) {
             if ($numUpdateRows < 1) 
                 return -2;  //  이메일 인증을 안했을 경우
             else if ($numUpdateRows == 1)
                 return 0;   //  정상
             else
-                return -3;  //  하나 이상이 바뀌었으므로 오류
+                return -4;  //  하나 이상이 바뀌었으므로 오류
         }
         else return -1; //  쿼리 실행 오류
     }
@@ -127,13 +131,12 @@ final class SignUpController extends BaseController {
         **  성공시 0을 반환
         */
         $nonce = makeRandomString(); // make nonce link
-        if ($this->storeUsernameAndNonce($_GET['user_name'], $nonce) != 0){
-            $this->clearTempUserTable($_GET['user_name']);
+        if ($this->storeUsernameAndNonce($_GET['user_name'], $nonce) != 0)
             return json_encode(-1);
-        }
 
-        if (sendMail($_GET['email'], $_GET['user_name'], $nonce) != 0){
-            $this->clearTempUserTable($_GET['user_name']);
+        if (sendMail($_GET['email'], $nonce) != 0){
+            if ($this->clearTempUserTable($_GET['user_name']) != 0)
+                return json_encode(-3);
             return json_encode(-1);
         }
 
@@ -144,12 +147,12 @@ final class SignUpController extends BaseController {
         /*  사용자가 nonce link를 누른 후부터 진행되는 sign up의 인증 과정
         **
         */
-        if ($this->verifyNonceAndChangeIsVerify($_GET['user_name'], $_GET['nonce']) != 0){
+        if ($this->verifyNonceAndChangeIsVerify($_GET['nonce']) != 0){
             echo "<script> alert('verifyNonceAndChangeIsVerify Query error.')
             window.location = '/signup'</script>";
             exit;
         }
 
-        echo "success email verify";        
+        echo "<script>window.location = '/signup'</script>";        
     }
 }

@@ -114,7 +114,7 @@
                 $("#email_btn").removeAttr("disabled");
             }
             else
-                alert("duplicate username");
+                alert("Duplicate username");
         })
         .fail(function(jrequest,status,error) {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -137,8 +137,10 @@
                 $('#email').attr("readOnly", "readOnly");
                 $('#email_btn').attr("disabled", "disabled");
             }
+            else if (result == -3)
+                alert("ERROR: Clear temp_user error");
             else 
-                alert("email sending error");
+                alert("ERROR: Email sending error");
         })
         .fail(function(request,status, error) {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -166,7 +168,11 @@
             else if (exec_result == -2)
                 alert("Please verify email before register");
             else if (exec_result == -3)
-                alert("ERROR: Clear temp_user error");
+                alert ("ERROR: Clear temp_user error");
+            else if (exec_result == -4)
+                alert("ERROR: Too many update in user table");
+            else if (exec_result == -5)
+                alert("Duplicate username");
             else 
                 alert("ERROR: Too many update");
         })
