@@ -50,7 +50,7 @@ function sendMail($recipient, $nonce) {
         $mail->Subject = 'Website Activation Email';
         $mail->Body    = "
         <h1>THANK YOU</h1>Please click the link to activate your account.<br>
-        <a href='http://192.168.33.99/signupverify?&nonce=$nonce'>Register My Account</a><br>
+        <a href='http://192.168.33.99/signupverify?nonce=$nonce'>Register My Account</a><br>
         ";
         $mail->AltBody = "Thank you . Please click the link to activate your account.";
 
