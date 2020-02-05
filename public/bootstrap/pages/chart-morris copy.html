@@ -5,16 +5,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/libs/css/style.css">
     <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <link rel="stylesheet" href="../assets/vendor/charts/morris-bundle/morris.css">
+    <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
 </head>
 
 <body>
@@ -502,12 +499,89 @@
         <!-- wrapper  -->
         <!-- ============================================================== -->
         <div class="dashboard-wrapper">
-            <div class="container-fluid dashboard-content">
+            <div class="container-fluid  dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div id="myfirstchart" style="height: 250px;"></div>
+                        <div class="page-header">
+                            <h2 class="pageheader-title">Morris.js </h2>
+                            <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce
+                                sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Charts</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Morris.js</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+
+                <div class="row">
+                    <!-- ============================================================== -->
+                    <!--area chart  -->
+                    <!-- ============================================================== -->
+
+                    <!-- ============================================================== -->
+                    <!--end area chart  -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!--line chart  -->
+                    <!-- ============================================================== -->
+
+                    <!-- ============================================================== -->
+                    <!--end line chart  -->
+                    <!-- ============================================================== -->
+                </div>
+                <div class="row">
+                    <!-- ============================================================== -->
+                    <!--bar chart  -->
+                    <!-- ============================================================== -->
+
+                    <!-- ============================================================== -->
+                    <!--end bar chart  -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!--stacked chart  -->
+                    <!-- ============================================================== -->
+
+                    <!-- ============================================================== -->
+                    <!--end stacked chart  -->
+                    <!-- ============================================================== -->
+                </div>
+                <div class="row">
+                    <!-- ============================================================== -->
+                    <!-- upadating chart  -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="card">
+                            <h5 class="card-header">Updating data </h5>
+                            <div class="card-body">
+                                <div id="morris_udateing"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end upadating chart  -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- donut chart  -->
+                    <!-- ============================================================== -->
+
+                    <!-- ============================================================== -->
+                    <!-- end donut chart  -->
+                    <!-- ============================================================== -->
+                </div>
+
             </div>
             <!-- ============================================================== -->
             <!-- footer -->
@@ -538,62 +612,14 @@
     <!-- end main wrapper -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-
     <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <script src="../assets/vendor/charts/morris-bundle/raphael.min.js"></script>
+    <script src="../assets/vendor/charts/morris-bundle/morris.js"></script>
+    <script src="../assets/vendor/charts/morris-bundle/Morrisjs.js"></script>
     <script src="../assets/libs/js/main-js.js"></script>
 </body>
-<script>
-    const morris = new Morris.Line({
-        // ID of the element in which to draw the chart.
-        element: 'myfirstchart',
-        // Chart data records -- each entry in this array corresponds to a point on
-        // the chart.
-        data: [{
-                year: '2008',
-                value: 20
-            },
-            {
-                year: '2009',
-                value: 10
-            },
-            {
-                year: '2010',
-                value: 5
-            },
-            {
-                year: '2011',
-                value: 5
-            },
-            {
-                year: '2012',
-                value: 20
-            }
-        ],
-        // The name of the data record attribute that contains x-values.
-        xkey: 'year',
-        // A list of names of data record attributes that contain y-values.
-        ykeys: ['value'],
-        // Labels for the ykeys -- will be displayed when you hover over the
-        // chart.
-        labels: ['Value']
-    });
 
-    let sensorOne = 80;
-
-    setInterval(() => {
-        morris.setData([{
-            year: "2006",
-            value: sensorOne += 10
-        }, {
-            year: "2007",
-            value: sensorOne += 30
-        }, {
-            year: "2008",
-            value: sensorOne += 100
-        }]);
-    }, 1000)
-</script>
 
 </html>

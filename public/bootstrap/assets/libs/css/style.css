@@ -162,7 +162,7 @@ body {
     font-size: 14px;
     opacity: 1;
     /* color: #71748d; */
-    /* background-color: rgba(0, 0, 0, 0.1); */
+    /* background-color: black; */
     -webkit-font-smoothing: antialiased;
 }
 
@@ -2795,7 +2795,7 @@ input[type=radio] {
 
 .btn-primary {
     color: #fff;
-    background-color: #5969ff;
+    background-color: #6e7e8f;
     border-color: #5969ff;
 }
 

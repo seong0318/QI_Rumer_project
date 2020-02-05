@@ -2,7 +2,7 @@
 <html lang="en">
 
 <script src="bootstrap/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,20 +14,21 @@
     <link rel="stylesheet" href="bootstrap/assets/libs/css/style.css">
     <link rel="stylesheet" href="bootstrap/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <style>
-    html,
-    body {
-        height: 100%;
-    }
-    body {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-          background-size: cover;
-        background-image:url('https://www.francechimie.fr/media/e34580ffb57afb63ff48eeee4f85e8cb.jpg');
-    }
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-size: cover;
+            background-image: url('https://www.francechimie.fr/media/e34580ffb57afb63ff48eeee4f85e8cb.jpg');
+        }
     </style>
 </head>
 <!-- ============================================================== -->
@@ -46,21 +47,28 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" id = 'user_name' name="user_name" required="" placeholder="Username" autocomplete="off" style = "display : inleine; width :70%">
-                    <button class = "btn" id ='username_btn' style="background-color : #2e2f39"> Check ID</button>
+                    <input class="form-control form-control-lg" type="text" id='user_name' name="user_name" required=""
+                        placeholder="Username" autocomplete="off" style="display : inleine; width :60%">
+                    <button class="btn" id='username_btn' style="background-color : #2e2f39;margin-left : 19px;"> Check
+                        ID</button>
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="email" id = 'email' name="email" required="" placeholder="E-mail" autocomplete="off" style = "display : inleine; width :70%">
-                    <button class = "btn" id='email_btn' style="background-color : #2e2f39"> Verify</button>
+                    <input class="form-control form-control-lg" type="email" id='email' name="email" required=""
+                        placeholder="E-mail" autocomplete="off" style="display : inleine; width :60%">
+                    <button class="btn" id='email_btn' style="background-color : #2e2f39;margin-left:17px;width: 31%">
+                        Verify</button>
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" id="pwd1" type="password" name="pwd" required="" placeholder="Password">
+                    <input class="form-control form-control-lg" id="pwd1" type="password" name="pwd" required=""
+                        placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" id="pwd2" type="password" name="pwd_confirm" required="" placeholder="Confirm">
+                    <input class="form-control form-control-lg" id="pwd2" type="password" name="pwd_confirm" required=""
+                        placeholder="Confirm">
                 </div>
                 <div class="form-group pt-2">
-                    <button class="btn btn-block btn-primary" id ="register" type="submit" disabled>Register My Account</button>
+                    <button class="btn btn-block btn-primary" id="register" type="submit" disabled>Register My
+                        Account</button>
                 </div>
                 <div class="form-group">
                     <label class="custom-control custom-checkbox">
@@ -85,64 +93,67 @@
 </body>
 
 <script>
-    $("#pwd2").keyup(function(){
+    $("#pwd2").keyup(function () {
         var pwd1 = $("#pwd1").val();
         var pwd2 = $("#pwd2").val();
-        
-        if (pwd1 == pwd2) 
+
+        if (pwd1 == pwd2)
             $("#register").removeAttr("disabled");
-        else 
+        else
             $("#register").attr("disabled", "disabled");
     });
 
-    $("#username_btn").click(function() {
+    $("#username_btn").click(function () {
         var username = $("#user_name").val();
         $.ajax({
-            type: 'GET',
-            url: './usernamecheck',
-            data: {user_name: username},
-            datatype: 'JSON'
-        })
-        .done(function(json) {
-            var num_user = JSON.parse(json)
-            if (num_user < 0) 
-                alert("query error");
-            else if (num_user == 0) {
-                alert("usable username");
-                $('#user_name').attr("disabled", "disabled");
-                $('#username_btn').attr("disabled", "disabled");
-            }
-            else
-                alert("duplicate username");
-        })
-        .fail(function(json) {
-            alert("fail response");
-        })
+                type: 'GET',
+                url: './usernamecheck',
+                data: {
+                    user_name: username
+                },
+                datatype: 'JSON'
+            })
+            .done(function (json) {
+                var num_user = JSON.parse(json)
+                if (num_user < 0)
+                    alert("query error");
+                else if (num_user == 0) {
+                    alert("usable username");
+                    $('#user_name').attr("disabled", "disabled");
+                    $('#username_btn').attr("disabled", "disabled");
+                } else
+                    alert("duplicate username");
+            })
+            .fail(function (json) {
+                alert("fail response");
+            })
     });
 
-    $("#email_btn").click(function() {
+    $("#email_btn").click(function () {
         var username = $("#user_name").val();
         var email = $("#email").val();
         $.ajax({
-            type: 'GET',
-            url: './emailverify',
-            data: {'user_name': username, 'email': email},
-            datatype: 'JSON'
-        })
-        .done(function(json) {
-            var result = JSON.parse(json);
-            if (result == 0) {
-                alert("We will send you a confirmation email, so please check it.");
-                $('#email').attr("disabled", "disabled");
-                $('#email_btn').attr("disabled", "disabled");
-            }
-            else 
-                alert("email sending error");
-        })
-        .fail(function(json) {
-            alert("fail response");
-        })
+                type: 'GET',
+                url: './emailverify',
+                data: {
+                    'user_name': username,
+                    'email': email
+                },
+                datatype: 'JSON'
+            })
+            .done(function (json) {
+                var result = JSON.parse(json);
+                if (result == 0) {
+                    alert("We will send you a confirmation email, so please check it.");
+                    $('#email').attr("disabled", "disabled");
+                    $('#email_btn').attr("disabled", "disabled");
+                } else
+                    alert("email sending error");
+            })
+            .fail(function (json) {
+                alert("fail response");
+            })
     })
 </script>
- 
+
 </html>
