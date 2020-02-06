@@ -104,7 +104,7 @@
             async: false
         })
         .done(function(json) {
-            var num_user = JSON.parse(json)
+            var num_user = JSON.parse(json);
             if (num_user < 0) 
                 alert("query error");
             else if (num_user == 0) {
@@ -151,7 +151,7 @@
                 else if (execResult == -4)
                     alert("ERROR: Send mail error");
                 else
-                    alert("Invalid access");
+                    alert("ERROR: Invalid access");
             })
             .fail(function(request, status, error) {
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

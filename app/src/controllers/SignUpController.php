@@ -34,7 +34,7 @@ final class SignUpController extends BaseController {
         /*  temp_user 테이블에 값 저장
         **  
         */
-        $sql = "insert into temp_user values (:username, :nonce)";
+        $sql = "insert into temp_user values (:username, :nonce, NOW())";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = [
             'username' => $username,
@@ -65,8 +65,8 @@ final class SignUpController extends BaseController {
         */
         $hashedPwd = password_hash($userInfo['pwd'], PASSWORD_DEFAULT);
 
-        $sql = "insert into user(user_name, hashed_pwd, email, is_signed, verify_state)
-        values(:username, :hashedPwd, :email, '0', '0')";
+        $sql = "insert into user(user_name, hashed_pwd, email, verify_state, register_date)
+        values(:username, :hashedPwd, :email, '0', NOW())";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = [
             'username' => $userInfo['user_name'],

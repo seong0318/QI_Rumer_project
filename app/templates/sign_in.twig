@@ -78,6 +78,7 @@
 
 <script>
     $("#signin_btn").click(function() {
+        event.preventDefault();
         var formData = $('#input_form').serialize();
         $.ajax({
             type: 'POST',
@@ -87,11 +88,22 @@
         })
         .done(function(json) {
             var execResult = JSON.parse(json);
-            alert("success");
+            if (execResult == 0) {
+                alert("Success Sign in");
+                
+            }
+            else if (execResult == -1) 
+                alert("ERROR: Query error");
+            else if (execResult == -2)
+                alert("Invalid username or password");
+            else if (execResult == -3)
+                alert("Please complete email verification first");
+            else
+                alert("ERROR: Invalid access");
         })
         .fail(function(request, status, error) {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         })
-    })
+    });
 </script>
 </html>
