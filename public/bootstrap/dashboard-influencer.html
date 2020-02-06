@@ -17,7 +17,39 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-    <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
+	<title>Concept - Bootstrap 4 Admin Dashboard Template</title>
+	<script type="text/javascript" src="smoothie.js"></script>
+
+	<script type="text/javascript">
+		var arr;
+		var data = Math.floor(Math.random() * 120) + 80;
+		var line = new TimeSeries();
+  
+		function createTimeline(msg) {
+		  var chart = new SmoothieChart({
+			millisPerPixel: 100,
+			grid: { fillStyle: "#000000" },
+			labels: { fillStyle: "#FFFFFF", precision: 0 },
+			timestampFormatter: SmoothieChart.timeFormatter
+		  });
+  
+		  // Add a random value to each line every second
+		  setInterval(function() {
+			var data = Math.floor(Math.random() * 120) + 80;
+			line.append(new Date().getTime(), data); //input data
+		  }, 1000);
+  
+		  // Add to SmoothieChart
+		  chart.addTimeSeries(line, {
+			strokeStyle: "rgb(255, 255, 255)",
+			lineWidth: 3,
+			fillStyle: "rgba(0,0,0,0.30)"
+		  }); //config line
+		  // var smoothie = new SmoothieChart();
+		  chart.streamTo(document.getElementById("chart"), 1000); //draw
+		  document.getElementById("i_data").innerHTML = data;
+		  //        console.log(data);
+		}    </script>
 </head>
 
 <body>
@@ -611,12 +643,11 @@
 	                    <!-- ============================================================== -->
 	                    <!-- end widgets   -->
 	                    <!-- ============================================================== -->
-	                    <div class="row">
-	                        <!-- ============================================================== -->
+	                    <div class="row" style="align-content: center;">                       <!-- ============================================================== -->
 	                        <!-- followers by gender   -->
 	                        <!-- ============================================================== -->
 	                        <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-	                            <div class="card">
+	                            <div class="card">	
 	                                <h5 class="card-header">Followers by Gender</h5>
 	                                <div class="card-body">
 	                                    <div id="gender_donut" style="height: 230px;"></div>
@@ -695,8 +726,7 @@
 	                                        <div class="d-inline-block">
 	                                            <h4 class="mb-0">50 - 55</h4>
 											</div> -->
-											<div id="myfirstchart" style="height: 25%; width: 80%"></div>
-	                                        <!-- <div class="progress mt-2 float-right progress-md">
+											<canvas id="chart" width="500" height="200"></canvas>	                                        <!-- <div class="progress mt-2 float-right progress-md">
 	                                             <div class="progress-bar bg-secondary" role="progressbar" style="width: 25%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div> 
 	                                        </div> -->
 	                                    <!-- </div> -->
@@ -713,7 +743,9 @@
 	                            <div class="card">
 	                                <h5 class="card-header">Top Folllowes by Locations </h5>
 	                                <div class="card-body">
-	                                    <canvas id="chartjs_bar_horizontal"></canvas>
+										<section id="section-map" class="clearfix">
+											<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22864.11283411948!2d-73.96468908098944!3d40.630720240038435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sbg!4v1540447494452" width="100%" height="330" frameborder="0" style="border:0" allowfullscreen></iframe>
+										  </section>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -1039,47 +1071,7 @@
 	                    <script src="assets/libs/js/dashboard-influencer.js"></script>
 </body>
 <script>
-    const morris = new Morris.Line({
-        // ID of the element in which to draw the chart.
-        element: 'myfirstchart',
-        // Chart data records -- each entry in this array corresponds to a point on
-        // the chart.
-        data: [],
-        // The name of the data record attribute that contains x-values.
-        xkey: 'time',
-        // A list of names of data record attributes that contain y-values.
-        ykeys: ['value'],
-        // Labels for the ykeys -- will be displayed when you hover over the
-        // chart.
-        labels: ['Value']
-    });
 
-    let sensorOne = 80;
 
-    setInterval(() => {
-		
-        morris.setData([{
-            time: "1",
-            value: sensorOne =  (Math.floor(Math.random() * 120) + 80)
-        }, {
-            time: "2",
-            value: sensorOne = (Math.floor(Math.random() * 120) + 80)
-        }, {
-            time: "3",
-            value: sensorOne = (Math.floor(Math.random() * 120) + 80)
-		},
-		{
-            time: "4",
-            value: sensorOne = (Math.floor(Math.random() * 120) + 80)
-		},
-		{
-            time: "5",
-            value: sensorOne = (Math.floor(Math.random() * 120) + 80)
-		},
-		{
-            time: "6",
-            value: sensorOne = (Math.floor(Math.random() * 120) + 80)
-        }]);
-    }, 1000)
 </script>
 </html>

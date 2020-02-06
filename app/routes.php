@@ -1,11 +1,11 @@
 <?php
 // Routes
 
-$app->get('/', 'App\Controller\HomeController:dispatch')
+//homePage===================================================================================
+$app->get('/', 'App\Controller\HomeController:homePage')
     ->setName('homepage');
 
-$app->get('/post/{id}', 'App\Controller\HomeController:viewPost')
-    ->setName('view_post');
+
 
 //sign up =================================================================================
 $app->get('/signup', 'App\Controller\SignUpController:signUp')
@@ -34,4 +34,8 @@ $app->post('/signinhandle', 'App\Controller\SignInController:signInHandle')
 $app->get('/forgotPassword', 'App\Controller\ForgotPasswordController:forgotPassword')
     ->setName('forgot_password');
 
-//dataReqest
+//index===================================================================================
+
+$app->get('/index', 'App\Controller\IndexController:index')
+    ->setName('index');
+//homePage===================================================================================
