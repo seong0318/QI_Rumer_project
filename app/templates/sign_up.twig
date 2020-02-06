@@ -38,7 +38,7 @@
     <!-- ============================================================== -->
     <!-- signup form  -->
     <!-- ============================================================== -->
-    <form class="splash-container" id = 'input_form' method="post" action="signuphandle">
+    <form class="splash-container" id='input_form' method="post" action="signuphandle">
         <div class="card">
             <div class="card-header">
                 <h3 class="mb-1" style="color : whitesmoke">Registrations Form</h3>
@@ -115,7 +115,7 @@
             else
                 alert("Duplicate username");
         })
-        .fail(function(jrequest,status,error) {
+        .fail(function(request, status, error) {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         })
     });
