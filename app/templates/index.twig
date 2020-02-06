@@ -92,24 +92,24 @@
                                 <li class="connection-list">
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/github.png" alt="" > <span>Github</span></a>
+                                            <a href="#" class="connection-item"><img src="bootstrap/assets/images/github.png" alt="" > <span>Github</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/dribbble.png" alt="" > <span>Dribbble</span></a>
+                                            <a href="#" class="connection-item"><img src="bootstrap/assets/images/dribbble.png" alt="" > <span>Dribbble</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/dropbox.png" alt="" > <span>Dropbox</span></a>
+                                            <a href="#" class="connection-item"><img src="bootstrap/assets/images/dropbox.png" alt="" > <span>Dropbox</span></a>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/bitbucket.png" alt=""> <span>Bitbucket</span></a>
+                                            <a href="#" class="connection-item"><img src="bootstrap/assets/images/bitbucket.png" alt=""> <span>Bitbucket</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/mail_chimp.png" alt="" ><span>Mail chimp</span></a>
+                                            <a href="#" class="connection-item"><img src="bootstrap/ssets/images/mail_chimp.png" alt="" ><span>Mail chimp</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="assets/images/slack.png" alt="" > <span>Slack</span></a>
+                                            <a href="#" class="connection-item"><img src="bootstrap/assets/images/slack.png" alt="" > <span>Slack</span></a>
                                         </div>
                                     </div>
                                 </li>
@@ -119,7 +119,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="bootstrap/assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
@@ -127,7 +127,7 @@
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                <a class="dropdown-item" href="javascript:void(0);" onclick="callSignOut()"><i class="fas fa-power-off mr-2"></i>Sign out</a>
                             </div>
                         </li>
                     </ul>
@@ -1008,6 +1008,37 @@
     <script src="bootstrap/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
     <script src="bootstrap/assets/vendor/charts/c3charts/C3chartjs.js"></script>
     <script src="bootstrap/assets/libs/js/dashboard-ecommerce.js"></script>
+
+    <!-- sign out -->
+    <script>
+
+    function callSignOut() {
+        $.ajax({
+            type: 'GET',
+            url: './signout',
+            datatype: 'JSON'
+        })
+        .done(function(json) {
+            var execResult = JSON.parse(json);
+            if (execResult == 0) {
+                alert("Success Sign out");
+                window.location.href = '/';
+            }
+            else if (execResult == -1) 
+                alert("ERROR: Query error");
+            else if (execResult == -2)
+                alert("This account is already signed out.");
+            else if (execResult == -3)
+                alert("ERROR: Update query error");
+            else if (execResult == -4) {
+                alert("Please login first");
+                window.location.href = '/signin';
+            }
+            else
+                alert("ERROR: Invalid access: "+execResult);
+        })
+    }
+    </script>
 </body>
  
 </html>

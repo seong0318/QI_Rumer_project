@@ -90,7 +90,7 @@
             var execResult = JSON.parse(json);
             if (execResult == 0) {
                 alert("Success Sign in");
-                
+                window.location.href = 'index';
             }
             else if (execResult == -1) 
                 alert("ERROR: Query error");

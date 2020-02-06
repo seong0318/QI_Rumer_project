@@ -27,6 +27,14 @@ $app->get('/signin', 'App\Controller\SignInController:signIn')
 $app->post('/signinhandle', 'App\Controller\SignInController:signInHandle')
     ->setName('sign_in_handle');
 
+//sign out =================================================================================
+$app->get('/signout', 'App\Controller\SignOutController:signOut')
+    ->setName('sign_out');
+
 //forgotPassword =================================================================================
 $app->get('/forgotPassword', 'App\Controller\ForgotPasswordController:forgotPassword')
     ->setName('forgot_password');
+
+//index =================================================================================
+$app->get('/index', 'App\Controller\IndexController:index')
+    ->setName('index');
