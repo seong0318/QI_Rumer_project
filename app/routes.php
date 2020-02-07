@@ -44,3 +44,10 @@ $app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
 //index =================================================================================
 $app->get('/index', 'App\Controller\IndexController:index')
     ->setName('index');
+
+//index =================================================================================
+$app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
+    ->setName('change_password');
+
+$app->post('/changepwdbtn', 'App\Controller\ChangePasswordController:changePwdBtn')
+    ->setName('change_pwd_btn');
