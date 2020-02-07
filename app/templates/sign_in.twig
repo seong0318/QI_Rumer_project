@@ -12,23 +12,23 @@
     <link rel="stylesheet" href="bootstrap/assets/libs/css/style.css">
     <link rel="stylesheet" href="bootstrap/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <style>
-    html,
-    body {
-        height: 100%;
-    }
+        html,
+        body {
+            height: 100%;
+        }
 
-    body {
-        
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color : rgba(0, 0, 0, 0.1);
-        background-size: cover;
-        background-image:url('https://www.francechimie.fr/media/e34580ffb57afb63ff48eeee4f85e8cb.jpg');
-    }
+        body {
+            
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color : rgba(0, 0, 0, 0.1);
+            background-size: cover;
+            background-image:url('https://www.francechimie.fr/media/e34580ffb57afb63ff48eeee4f85e8cb.jpg');
+        }
     </style>
 </head>
 
@@ -62,7 +62,7 @@
                     <a href="signup" class="footer-link">Create An Account</a></div>
 
                 <div class="card-footer-item card-footer-item-bordered">
-                    <a href="forgotPassword" class="footer-link">Forgot Password</a>
+                    <a href="forgotpassword" class="footer-link">Forgot Password</a>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@
             else if (execResult == -3)
                 alert("Please complete email verification first");
             else
-                alert("ERROR: Invalid access");
+                alert("ERROR: Invalid access: " . execResult);
         })
         .fail(function(request, status, error) {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

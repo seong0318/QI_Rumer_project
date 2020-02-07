@@ -32,8 +32,14 @@ $app->get('/signout', 'App\Controller\SignOutController:signOut')
     ->setName('sign_out');
 
 //forgotPassword =================================================================================
-$app->get('/forgotPassword', 'App\Controller\ForgotPasswordController:forgotPassword')
+$app->get('/forgotpassword', 'App\Controller\ForgotPasswordController:forgotPassword')
     ->setName('forgot_password');
+
+$app->get('/forgotpasswordhandle', 'App\Controller\ForgotPasswordController:forgotPasswordHandle')
+    ->setName('forgot_password_handle');
+
+$app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
+    ->setName('verify_nonce');
 
 //index =================================================================================
 $app->get('/index', 'App\Controller\IndexController:index')

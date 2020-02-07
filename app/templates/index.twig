@@ -127,7 +127,7 @@
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                                <a class="dropdown-item" href="javascript:void(0);" onclick="callSignOut()"><i class="fas fa-power-off mr-2"></i>Sign out</a>
+                                <a class="dropdown-item" href="javascript:void(0);" onclick="callSignOut();"><i class="fas fa-power-off mr-2"></i>Sign out</a>
                             </div>
                         </li>
                     </ul>
@@ -1036,6 +1036,9 @@
             }
             else
                 alert("ERROR: Invalid access: "+execResult);
+        })
+        .fail(function(request, status, error) {
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         })
     }
     </script>
