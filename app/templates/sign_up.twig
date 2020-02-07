@@ -2,7 +2,7 @@
 <html lang="en">
 
 <script src="bootstrap/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
- 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,20 +14,21 @@
     <link rel="stylesheet" href="bootstrap/assets/libs/css/style.css">
     <link rel="stylesheet" href="bootstrap/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <style>
-    html,
-    body {
-        height: 100%;
-    }
-    body {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-          background-size: cover;
-        background-image:url('https://www.francechimie.fr/media/e34580ffb57afb63ff48eeee4f85e8cb.jpg');
-    }
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-size: cover;
+            background-image: url('https://www.francechimie.fr/media/e34580ffb57afb63ff48eeee4f85e8cb.jpg');
+        }
     </style>
 </head>
 <!-- ============================================================== -->
@@ -50,13 +51,15 @@
                     <button class = "btn" id ='username_btn' style="background-color : #2e2f39">Check</button>
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="email" id = 'email' name="email" required="" placeholder="E-mail" autocomplete="off" style = "display : inleine; width :70%">
+                    <input class="form-control form-control-lg" type="email" id = 'email' name="email" required="" placeholder="E-mail" autocomplete="off" style = "display : inleine; width :100%">
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" id="pwd1" type="password" name="pwd" required="" placeholder="Password">
+                    <input class="form-control form-control-lg" id="pwd1" type="password" name="pwd" required=""
+                        placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" id="pwd2" type="password" name="pwd_confirm" required="" placeholder="Confirm">
+                    <input class="form-control form-control-lg" id="pwd2" type="password" name="pwd_confirm" required=""
+                        placeholder="Confirm">
                 </div>
                 <div class="form-group pt-2">
                     <button class="btn btn-block btn-primary" id ="register" type="submit" disabled=false>Register My Account</button>
@@ -84,14 +87,31 @@
 </body>
 
 <script>
-    $("#pwd2").keyup(function(){
+
+function checkSpace(str) {
+     if(str.search(/\s/) != -1) { 
+         return true; 
+         }
+      else {
+           return false; 
+           } 
+      }
+
+
+
+    $("#pwd2").keyup(function () {
         var pwd1 = $("#pwd1").val();
         var pwd2 = $("#pwd2").val();
-        
-        if (pwd1 == pwd2) 
+        if(checkSpace(pwd1)){
+             alert("you can't use \"blank\" as Password ");
+             $("#register").attr("disabled", "disabled");
+        }else if (pwd1.length <8 ||pwd1.length > 20 ){
+             alert("Please enter a password between 8 and 20 digits.");
+        }else{
+        if (pwd1 == pwd2)
             $("#register").removeAttr("disabled");
-        else 
-            $("#register").attr("disabled", "disabled");
+        else
+            $("#register").attr("disabled", "disabled");}
     });
 
     $("#username_btn").click(function() {        

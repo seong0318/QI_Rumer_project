@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      type="text/javascript"
+      src="C:\Users\eom\Desktop\QI_TEAMA_RMER\QI_Rumer_project\smoothie-master\smoothie.js"
+    ></script>
+    <script type="text/javascript">
+      var arr;
+      var data = Math.floor(Math.random() * 120) + 80;
+      var line = new TimeSeries();
+
+      function createTimeline(msg) {
+        var chart = new SmoothieChart({
+          millisPerPixel: 100,
+          grid: { fillStyle: "#000000" },
+          labels: { fillStyle: "#FFFFFF", precision: 0 },
+          timestampFormatter: SmoothieChart.timeFormatter
+        });
+
+        // Add a random value to each line every second
+        setInterval(function() {
+          var data = Math.floor(Math.random() * 120) + 80;
+          line.append(new Date().getTime(), data); //input data
+        }, 1000);
+
+        // Add to SmoothieChart
+        chart.addTimeSeries(line, {
+          strokeStyle: "rgb(255, 255, 255)",
+          lineWidth: 3,
+          fillStyle: "rgba(0,0,0,0.30)"
+        }); //config line
+        // var smoothie = new SmoothieChart();
+        chart.streamTo(document.getElementById("chart"), 1000); //draw
+        document.getElementById("i_data").innerHTML = data;
+        //        console.log(data);
+      }
+    </script>
+  </head>
+  <body onload="createTimeline()">
+    <canvas id="chart" width="500" height="200"></canvas>
+  </body>
+</html>
