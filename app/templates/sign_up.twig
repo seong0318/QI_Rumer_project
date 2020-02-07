@@ -54,9 +54,8 @@
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" type="email" id='email' name="email" required=""
-                        placeholder="E-mail" autocomplete="off" style="display : inleine; width :60%">
-                    <button class="btn" id='email_btn' style="background-color : #2e2f39;margin-left:17px;width: 31%">
-                        Verify</button>
+                        placeholder="E-mail" autocomplete="off" style="display : inleine; width :100%">
+                   
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" id="pwd1" type="password" name="pwd" required=""
@@ -93,14 +92,31 @@
 </body>
 
 <script>
+
+function checkSpace(str) {
+     if(str.search(/\s/) != -1) { 
+         return true; 
+         }
+      else {
+           return false; 
+           } 
+      }
+
+
+
     $("#pwd2").keyup(function () {
         var pwd1 = $("#pwd1").val();
         var pwd2 = $("#pwd2").val();
-
+        if(checkSpace(pwd1)){
+             alert("you can't use \"blank\" as Password ");
+             $("#register").attr("disabled", "disabled");
+        }else if (pwd1.length <8 ||pwd1.length > 20 ){
+             alert("Please enter a password between 8 and 20 digits.");
+        }else{
         if (pwd1 == pwd2)
             $("#register").removeAttr("disabled");
         else
-            $("#register").attr("disabled", "disabled");
+            $("#register").attr("disabled", "disabled");}
     });
 
     $("#username_btn").click(function () {

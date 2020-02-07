@@ -38,4 +38,7 @@ $app->get('/forgotPassword', 'App\Controller\ForgotPasswordController:forgotPass
 
 $app->get('/index', 'App\Controller\IndexController:index')
     ->setName('index');
-//homePage===================================================================================
+//VerifiedPage===================================================================================
+
+$app->get('/verifiedPage', 'App\Controller\VerifiedPage:VerifiedPage')
+    ->setName('VerifiedPage');
