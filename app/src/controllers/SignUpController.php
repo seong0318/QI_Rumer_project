@@ -170,6 +170,6 @@ final class SignUpController extends BaseController
         }
         
         $this->flash->addMessage('Test', 'this is message');
-        return $response->withRedirect('signin');  
+        return $response->withRedirect('verifiedpage');  
     }
 }
