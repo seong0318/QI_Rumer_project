@@ -120,8 +120,13 @@ final class SignUpController extends BaseController
         **  storeTempUser에서 오류 발생시 -2 반환
         **  sendMail에서 오류 발생시 -4 반환
         */
-
         $nonce = makeRandomString(); // make nonce link
+
+        $mailSubject = "Website Activation Email";
+        $mailBody = "<h1>THANK YOU</h1>Please click the link to activate your account.<br>
+        <a href='http://192.168.33.99/signupverify?nonce=$nonce'>Register My Account</a><br>";
+        $mailAltBody = "Thank you . Please click the link to activate your account.";
+
         if ($this->storeTempUser($_POST['user_name'], $nonce) != 0) 
             return json_encode(-2);
 
@@ -130,7 +135,7 @@ final class SignUpController extends BaseController
             return json_encode(-1);
         }
 
-        if (sendMail($_POST['email'], $nonce) != 0) {
+        if (sendMail($_POST['email'], $mailSubject, $mailBody, $mailAltBody) != 0) {
             $this->deleteTempUser($nonce);
             $this->deleteUserInfo($_POST['user_name']);
             return json_encode(-4);

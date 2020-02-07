@@ -27,15 +27,27 @@ $app->get('/signin', 'App\Controller\SignInController:signIn')
 $app->post('/signinhandle', 'App\Controller\SignInController:signInHandle')
     ->setName('sign_in_handle');
 
+//sign out =================================================================================
+$app->get('/signout', 'App\Controller\SignOutController:signOut')
+    ->setName('sign_out');
+
 //forgotPassword =================================================================================
-$app->get('/forgotPassword', 'App\Controller\ForgotPasswordController:forgotPassword')
+$app->get('/forgotpassword', 'App\Controller\ForgotPasswordController:forgotPassword')
     ->setName('forgot_password');
 
-//index===================================================================================
+$app->get('/forgotpasswordhandle', 'App\Controller\ForgotPasswordController:forgotPasswordHandle')
+    ->setName('forgot_password_handle');
 
+$app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
+    ->setName('verify_nonce');
+
+//index =================================================================================
 $app->get('/index', 'App\Controller\IndexController:index')
     ->setName('index');
-//VerifiedPage===================================================================================
 
-$app->get('/verifiedPage', 'App\Controller\VerifiedPage:VerifiedPage')
-    ->setName('VerifiedPage');
+//index =================================================================================
+$app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
+    ->setName('change_password');
+
+$app->post('/changepwdbtn', 'App\Controller\ChangePasswordController:changePwdBtn')
+    ->setName('change_pwd_btn');
