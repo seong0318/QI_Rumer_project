@@ -20,9 +20,6 @@ $app->get('/signupverify', 'App\Controller\SignUpController:signUpVerify')
 $app->get('/usernamecheck', 'App\Controller\SignUpController:usernameCheck')
     ->setName('username_check');
 
-$app->get('/emailverify', 'App\Controller\SignUpController:emailVerify')
-    ->setName('email_verify');
-
 //sign in =================================================================================
 $app->get('/signin', 'App\Controller\SignInController:signIn')
     ->setName('sign_in');

@@ -22,16 +22,25 @@ final class SignUpController extends BaseController
         $stmt = $this->em->getConnection()->prepare($sql);
         $params['username'] = $username;
         if (!$stmt->execute($params)) return -1;
-        $result = $stmt->fetch();
+        $userResult = $stmt->fetch();
+
+        if ($userResult['count(usn)'] == 0) {
+            $sql = 'select count(*) from temp_user where (temp_user_name = :username)';
+            $stmt = $this->em->getConnection()->prepare($sql);
+            $params['username'] = $username;
+            if (!$stmt->execute($params)) return -1;
+            $tempResult = $stmt->fetch();
+            return $tempResult['count(*)'];
+        }
+
         return $result['count(usn)'];
     }
 
-    public function storeUsernameAndNonce($username, $nonce)
-    {
+    public function storeTempUser($username, $nonce) {
         /*  temp_user 테이블에 값 저장
         **  
         */
-        $sql = "insert into temp_user values (:username, :nonce, '0')";
+        $sql = "insert into temp_user values (:username, :nonce, NOW())";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = [
             'username' => $username,
@@ -41,42 +50,93 @@ final class SignUpController extends BaseController
         else return -1;
     }
 
-    public function verifyNonceAndChangeIsVerify($username, $nonce)
-    {
-        /*  temp_user 테이블의 temp_user_name, nonce_link 열을 이용해
+
+    public function verifyNonceAndChangeVerifyState($nonce) {
+        /*  temp_user 테이블의 nonce_link 열을 이용해
         **  사용자의 sign up 인증을 진행한다
         */
-        $sql = "update temp_user set is_verify = '1' where (temp_user_name = :username and nonce_link = :nonce)";
+        $sql = "update user 
+                set verify_state = '1' 
+                where user_name = (select temp_user_name
+                                   from temp_user
+                                   where nonce_link = :nonce)";
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $params = ['nonce' => $nonce];
+        if ($stmt->execute($params)) return 0;
+        else return -1;
+    }
+
+    public function storeUserInfo($userInfo) {
+        /*  user 정보를 인증 전 상태로 저장
+        ** 
+        */
+        $hashedPwd = password_hash($userInfo['pwd'], PASSWORD_DEFAULT);
+
+        $sql = "insert into user(user_name, hashed_pwd, email, verify_state, register_date)
+        values(:username, :hashedPwd, :email, '0', NOW())";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = [
-            'username' => $username,
-            'nonce' => $nonce
+            'username' => $userInfo['user_name'],
+            'hashedPwd' => $hashedPwd,
+            'email' => $userInfo['email']
         ];
         if ($stmt->execute($params)) return 0;
         else return -1;
     }
 
-    public function storeUserInfo($userInfo)
-    {
-        /*  user information을 user 테이블에 저장
-        **
+    public function deleteUserInfo($username) {
+        $sql = "delete from user where user_name = :username";
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $params = ['username' => $username];
+        if ($stmt->execute($params))
+            return 0;
+        else return -1;
+    }
+
+    public function deleteTempUser($nonce) {
+        /*  nonce을 이용해 temp_user_table 내용을 삭제
+        ** 
         */
-        $sql = "";
+        $sql = "delete from temp_user where nonce_link = :nonce";
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $params = ['nonce' => $nonce];
+        
+        if ($stmt->execute($params))
+            return 0;
+        else return -1;
     }
 
     public function signUp(Request $request, Response $response, $args)
     {
         /*  sign up 페이지를 띄우는 기본 함수
-        **  사용자로부터 입력된 값을 POST 방식으로 전달
+        **  사용자로부터 입력된 값을 Ajax POST 방식으로 전달
         */
-        $this->view->render($response, 'sign_up.twig', ['user_name' => $user_name, 'email' => $email, 'pwd' => $pwd, 'pwd_confirm' => $pwd_confirm, 'agree' => $agree]);
-    }
+        $this->view->render($response, 'sign_up.twig');
+    }    
 
     public function signUpHandle(Request $request, Response $response, $args) {
         /*  sign up 페이지의 register 버튼
-        **  
+        **  storeUserInfo에서 오류 발생시 -1 반환
+        **  storeTempUser에서 오류 발생시 -2 반환
+        **  sendMail에서 오류 발생시 -4 반환
         */
-   
+
+        $nonce = makeRandomString(); // make nonce link
+        if ($this->storeTempUser($_POST['user_name'], $nonce) != 0) 
+            return json_encode(-2);
+
+        if ($this->storeUserInfo($_POST) != 0) {
+            $this->deleteTempUser($nonce);
+            return json_encode(-1);
+        }
+
+        if (sendMail($_POST['email'], $nonce) != 0) {
+            $this->deleteTempUser($nonce);
+            $this->deleteUserInfo($_POST['user_name']);
+            return json_encode(-4);
+        }
+
+        return json_encode(0);
     }
 
     public function usernameCheck(Request $request, Response $response, $args) {
@@ -87,32 +147,24 @@ final class SignUpController extends BaseController
         return json_encode($isDup);
     }
 
-    public function emailVerify(Request $request, Response $response, $args) {
-        /*  email을 이용하여 인증을 시작하는 버튼
-        **  성공시 0을 반환
-        */
-        $nonce = makeRandomString(); // make nonce link
-        if ($this->storeUsernameAndNonce($_GET['user_name'], $nonce) != 0)
-            return json_encode(-1);
-
-
-        if (sendMail($_GET['email'], $_GET['user_name'], $nonce) != 0)
-            return json_encode(-1);
-
-        return json_encode(0);
-    }
-
-    public function signUpVerify(Request $request, Response $response, $args)
-    {
+    public function signUpVerify(Request $request, Response $response, $args) {
         /*  사용자가 nonce link를 누른 후부터 진행되는 sign up의 인증 과정
         **
         */
-        if ($this->verifyNonceAndChangeIsVerify($_GET['user_name'], $_GET['nonce']) != 0) {
-            echo "<script> alert('verifyNonceAndChangeIsVerify Query error.')
-            window.location = '/signup'</script>";
-            exit;
+        if ($this->verifyNonceAndChangeVerifyState($_GET['nonce']) != 0){
+            echo "ERROR: Verify error";
+            if ($this->deleteTempUser($_GET['nonce']) != 0){
+                echo "ERROR: Clear temp_user error";
+                return json_encode(-3);
+            }
         }
-
-        echo "success email verify";        
+          
+        if ($this->deleteTempUser($_GET['nonce']) != 0){
+            echo "ERROR: Clear temp_user error";
+            return json_encode(-3); 
+        }
+        
+        $this->flash->addMessage('Test', 'this is message');
+        return $response->withRedirect('signin');  
     }
 }

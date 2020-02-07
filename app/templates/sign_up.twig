@@ -39,7 +39,7 @@
     <!-- ============================================================== -->
     <!-- signup form  -->
     <!-- ============================================================== -->
-    <form class="splash-container" method="post" action="signuphandle">
+    <form class="splash-container" id = 'input_form' method="post" action="signuphandle">
         <div class="card">
             <div class="card-header">
                 <h3 class="mb-1" style="color : whitesmoke">Registrations Form</h3>
@@ -47,15 +47,11 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" id='user_name' name="user_name" required=""
-                        placeholder="Username" autocomplete="off" style="display : inleine; width :60%">
-                    <button class="btn" id='username_btn' style="background-color : #2e2f39;margin-left : 19px;"> Check
-                        ID</button>
+                    <input class="form-control form-control-lg" type="text" id = 'user_name' name="user_name" required="" placeholder="Username" autocomplete="off" style = "display : inleine; width :70%">
+                    <button class = "btn" id ='username_btn' style="background-color : #2e2f39">Check</button>
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="email" id='email' name="email" required=""
-                        placeholder="E-mail" autocomplete="off" style="display : inleine; width :100%">
-                   
+                    <input class="form-control form-control-lg" type="email" id = 'email' name="email" required="" placeholder="E-mail" autocomplete="off" style = "display : inleine; width :100%">
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" id="pwd1" type="password" name="pwd" required=""
@@ -66,8 +62,7 @@
                         placeholder="Confirm">
                 </div>
                 <div class="form-group pt-2">
-                    <button class="btn btn-block btn-primary" id="register" type="submit" disabled>Register My
-                        Account</button>
+                    <button class="btn btn-block btn-primary" id ="register" type="submit" disabled=false>Register My Account</button>
                 </div>
                 <div class="form-group">
                     <label class="custom-control custom-checkbox">
@@ -119,57 +114,69 @@ function checkSpace(str) {
             $("#register").attr("disabled", "disabled");}
     });
 
-    $("#username_btn").click(function () {
+    $("#username_btn").click(function() {        
         var username = $("#user_name").val();
         $.ajax({
-                type: 'GET',
-                url: './usernamecheck',
-                data: {
-                    user_name: username
-                },
-                datatype: 'JSON'
-            })
-            .done(function (json) {
-                var num_user = JSON.parse(json)
-                if (num_user < 0)
-                    alert("query error");
-                else if (num_user == 0) {
-                    alert("usable username");
-                    $('#user_name').attr("disabled", "disabled");
-                    $('#username_btn').attr("disabled", "disabled");
-                } else
-                    alert("duplicate username");
-            })
-            .fail(function (json) {
-                alert("fail response");
-            })
+            type: 'GET',
+            url: './usernamecheck',
+            data: {user_name: username},
+            datatype: 'JSON',
+            async: false
+        })
+        .done(function(json) {
+            var num_user = JSON.parse(json);
+            if (num_user < 0) 
+                alert("query error");
+            else if (num_user == 0) {
+                alert("usable username");
+                $('#user_name').attr("readOnly", "readOnly");
+                $('#username_btn').attr("disabled", "disabled");
+            }
+            else
+                alert("Duplicate username");
+        })
+        .fail(function(jrequest,status,error) {
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        })
     });
 
-    $("#email_btn").click(function () {
-        var username = $("#user_name").val();
-        var email = $("#email").val();
-        $.ajax({
-                type: 'GET',
-                url: './emailverify',
-                data: {
-                    'user_name': username,
-                    'email': email
-                },
-                datatype: 'JSON'
-            })
-            .done(function (json) {
-                var result = JSON.parse(json);
-                if (result == 0) {
-                    alert("We will send you a confirmation email, so please check it.");
-                    $('#email').attr("disabled", "disabled");
-                    $('#email_btn').attr("disabled", "disabled");
-                } else
-                    alert("email sending error");
-            })
-            .fail(function (json) {
-                alert("fail response");
-            })
-    })
-</script>
+    $("#register").click(function() {
+        event.preventDefault();
+        usernameBtn = document.getElementById('username_btn');
 
+        if (!usernameBtn.disabled) {
+            alert("Please check id duplication first.");
+            return;
+        }
+        else{
+            var formData = $('#input_form').serialize();
+            $.ajax({
+                type: 'POST',
+                url: './signuphandle',
+                data: formData,
+                datatype: 'JSON',
+                async: false
+            })
+            .done(function(json) {
+                var execResult = JSON.parse(json);
+
+                if (execResult == 0) {
+                    alert("Please complete the account verification in the email provided.");
+                    window.location.href = 'signin';
+                }
+                else if (execResult == -1)
+                    alert("ERROR: Store user Query error");
+                else if (execResult == -2)
+                    alert("ERROR: Store temp_user Query error");
+                else if (execResult == -4)
+                    alert("ERROR: Send mail error");
+                else
+                    alert("ERROR: Invalid access");
+            })
+            .fail(function(request, status, error) {
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            })
+        }
+    });
+</script> 
 </html>
