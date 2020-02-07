@@ -5,6 +5,7 @@ namespace App\Controller;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
+
 final class SignInController extends BaseController {
     public function getUsnAndHashedPwd($username) {
         /*  사용자 이름으로 usn과 hashed_pwd를 받아옴

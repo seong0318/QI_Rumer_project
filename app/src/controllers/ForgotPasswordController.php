@@ -13,8 +13,4 @@ final class ForgotPasswordController extends BaseController
 
         return $response;
     }
-
-
-    // $this->view->render($response, 'index.twig');
-    // exit;
 }
