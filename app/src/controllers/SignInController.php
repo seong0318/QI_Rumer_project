@@ -5,6 +5,7 @@ namespace App\Controller;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
+include '../app/src/util.php';
 
 final class SignInController extends BaseController {
     public function getUsnAndHashedPwd($username) {
@@ -46,6 +47,9 @@ final class SignInController extends BaseController {
         if ($execResult['verify_state'] == 0) return json_encode(-3);
         
         if ($this->updateVerifyState($execResult['usn']) != 0) return json_encode(-1);
+
+        session_start();
+        $_SESSION['usn'] = $execResult['usn'];
 
         return json_encode(0);
     }
