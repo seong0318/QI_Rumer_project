@@ -9,12 +9,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMtP;
 use PHPMailer\PHPMailer\Exception;
 
-final class VerifiedPage extends BaseController
-{
-    public function VerifiedPage(Request $request, Response $response, $args)
-    {
-
-        $this->view->render($response, 'verifiedPage.twig');
+final class VerifiedPage extends BaseController {
+    public function VerifiedPage(Request $request, Response $response, $args) {
+        $this->view->render($response, 'verified_page.twig');
         return $response;
     }
 }

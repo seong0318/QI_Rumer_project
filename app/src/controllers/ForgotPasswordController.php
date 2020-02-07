@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 include '../app/src/util.php';
 
@@ -22,7 +23,7 @@ final class ForgotPasswordController extends BaseController {
 
     public function storeTempUser($username, $nonce) {
         /*  temp_user 테이블에 값 저장
-        **  
+        **  정상 0, 쿼리 에러 -1, primary key 중복 발생시 -2 반환
         */
         $sql = "insert into temp_user values (:username, :nonce, NOW())";
         $stmt = $this->em->getConnection()->prepare($sql);
@@ -30,8 +31,21 @@ final class ForgotPasswordController extends BaseController {
             'username' => $username,
             'nonce' => $nonce
         ];
-        if ($stmt->execute($params)) return 0;
-        else return -1;
+        try {
+            if ($stmt->execute($params)) return 0;
+            else return -1;
+        }
+        catch (UniqueConstraintViolationException $e){
+            return -2;
+        }
+        // try {
+        //     $execResult = $stmt->execute($params);
+        //     if ($execResult) return 0;
+        //     else return -1;
+        // }
+        // catch (UniqueConstraintViolationException $e){
+        //     return -2;
+        // }
     }
 
     public function forgotPassword(Request $request, Response $response, $args) {
@@ -57,7 +71,7 @@ final class ForgotPasswordController extends BaseController {
 
     public function updateTempPwd($usn, $hashedPwd) {
         /** usn으로 새 비밀번호를 갱신함
-         ** 정상일 경우 0, 쿼리 에러시 -1, 갱신이 안되었을 경우 -2, 그 외 -3을 반환
+         ** 정상일 경우 0, 쿼리 에러시 -1, 갱신이 안되었을 경우 -2, 그 외 -4을 반환
          */
         $sql = "update user set hashed_pwd = :hashedPwd where usn = :usn";
         $stmt = $this->em->getConnection()->prepare($sql);
@@ -89,7 +103,7 @@ final class ForgotPasswordController extends BaseController {
 
     public function forgotPasswordHandle(Request $request, Response $response, $args) {
         /*  비밀번호 찾기 과정 중 메일 보내기 전까지
-        **  정상적으로 진행할 경우 0, sql 에러는 -1, username이 없다면 -2 반환
+        **  정상적으로 진행할 경우 0, sql 에러는 -1, 이미 인증메일이 보내졌다면 -2, username이 없다면 -3 반환
         */
 
         $nonce = makeRandomString();
@@ -102,9 +116,10 @@ final class ForgotPasswordController extends BaseController {
 
         if ($execResult == -1) return json_encode(-1);
 
-        if (empty($execResult['usn'])) return json_encode(-2);
+        if (empty($execResult['usn'])) return json_encode(-3);
 
-        if ($this->storeTempUser($_GET['user_name'], $nonce) !=0) return json_encode(-1);
+        $execStoreTemp = $this->storeTempUser($_GET['user_name'], $nonce);
+        if ($execStoreTemp != 0) return json_encode($execStoreTemp);
 
         sendMail($execResult['email'], $mailSubject, $mailBody, $mailAltBody);
 

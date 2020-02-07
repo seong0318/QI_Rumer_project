@@ -40,7 +40,7 @@ final class ChangePasswordController extends BaseController {
     
     public function changePwdBtn(Request $request, Response $response, $args) {
         /*  change password 프로시저
-        **  updatePassword와 에러 공유 및 세션이 없을 경우 -3 반환
+        **  updatePassword와 에러 공유 및 세션이 없을 경우 -3, 비밀번호가 틀렸을 경우 -4 반환
         */
         if (empty($_SESSION['usn']))
             return json_encode(-3);
@@ -48,7 +48,7 @@ final class ChangePasswordController extends BaseController {
         $hashedPwd = $this->getHashedPwd($_SESSION['usn']);
         if ($hashedPwd == -1) return json_encode(-1);
 
-        if (password_verify($_POST['pwd1'], $hashedPwd) != 1) return json_encode(-2);
+        if (password_verify($_POST['pwd1'], $hashedPwd) != 1) return json_encode(-4);
 
         $newHashedPwd = password_hash($_POST['pwd2'], PASSWORD_DEFAULT);
         $exec_update = $this->updatePassword($_SESSION['usn'], $newHashedPwd);

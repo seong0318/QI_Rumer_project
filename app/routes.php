@@ -51,3 +51,7 @@ $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePass
 
 $app->post('/changepwdbtn', 'App\Controller\ChangePasswordController:changePwdBtn')
     ->setName('change_pwd_btn');
+
+//verified page
+$app->get('/verifiedpage', 'App\Controller\VerifiedPage:verifiedPage')
+    ->setName('verified_page');
