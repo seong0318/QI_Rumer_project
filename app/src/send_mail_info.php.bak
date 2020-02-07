@@ -1,0 +1,8 @@
+<?php
+
+namespace App\Controller;
+
+return array(
+    'mail_address' => 'mingyov0807@gmail.com',
+    'mail_password' => 'k42885010!'
+);
