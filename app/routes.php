@@ -45,7 +45,7 @@ $app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
 $app->get('/index', 'App\Controller\IndexController:index')
     ->setName('index');
 
-//index =================================================================================
+//changepassword =================================================================================
 $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
     ->setName('change_password');
 
