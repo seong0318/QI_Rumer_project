@@ -40,11 +40,11 @@ final class ForgotPasswordController extends BaseController {
 
     public function verifyAndGetUsn($nonce) {
         /*  nonce 및 verify_state로 사용자 인증하고 usn을 찾음
-        ** usn값으로 반환
+        **  usn값으로 반환
         */
         $sql = "select usn 
                 from user 
-                where (verify_state = 1 
+                where (verify_state <> 0 
                         and user_name = (select temp_user_name
                                         from temp_user
                                         where nonce_link = :nonce))";
@@ -56,14 +56,22 @@ final class ForgotPasswordController extends BaseController {
     }
 
     public function updateTempPwd($usn, $hashedPwd) {
+        /** usn으로 새 비밀번호를 갱신함
+         ** 정상일 경우 0, 쿼리 에러시 -1, 갱신이 안되었을 경우 -2, 그 외 -3을 반환
+         */
         $sql = "update user set hashed_pwd = :hashedPwd where usn = :usn";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = [
             'usn' => $usn,
             'hashedPwd' => $hashedPwd    
         ];
-        if ($stmt->execute($params)) return 0;
-        else return -1;
+        if (!$stmt->execute($params)) return -1;
+
+        $updatedRowNum = $stmt->rowCount();
+        
+        if ($updatedRowNum == 1) return 0;
+        else if($updatedRowNum == 0) return -2;
+        else return -3;
     }
 
     public function deleteTempUser($nonce) {
@@ -105,14 +113,27 @@ final class ForgotPasswordController extends BaseController {
 
     public function verifyNonce(Request $request, Response $response, $args) {
         $usn = $this->verifyAndGetUsn($_GET['nonce']);
-        if ($usn < 0) return -1;
+        if ($usn < 1) {
+            echo "Invalid Access";
+            return -1;
+        }
 
         $tempPwd = makeRandomString(6);
         $hashedPwd = password_hash($tempPwd, PASSWORD_DEFAULT);
-        if ($this->updateTempPwd($usn, $hashedPwd) != 0) return -1;
 
-        if($this->deleteTempUser($_GET['nonce']) != 0) return -1;
+        $execResult = $this->updateTempPwd($usn, $hashedPwd);
 
-        echo $tempPwd;
+        if($this->deleteTempUser($_GET['nonce']) != 0) return -1;   // 원래는 마지막에 초기화하나 좀 더 빨리 삭제함
+        
+        if ($execResult == 0) 
+            echo $tempPwd;
+        else if ($execResult == -1)
+            echo "ERROR: Query error";
+        else if ($execResult == -2)
+            echo "Invalid Email Link";
+        else
+            echo "ERROR: " . $execResult; 
+            
+        return $execResult;
     }
 }
