@@ -9,12 +9,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMtP;
 use PHPMailer\PHPMailer\Exception;
 
-final class VerifiedPage extends BaseController
+final class VerifiedPassword extends BaseController
 {
-    public function VerifiedPage(Request $request, Response $response, $args)
+    public function VerifiedPassword(Request $request, Response $response, $args)
     {
 
-        $this->view->render($response, 'verified_page.twig');
+        $this->view->render($response, 'verified_password.twig');
         return $response;
     }
 }
