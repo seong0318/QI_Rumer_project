@@ -88,16 +88,10 @@
 
 <script>
 
-function checkSpace(str) {
-     if(str.search(/\s/) != -1) { 
-         return true; 
-         }
-      else {
-           return false; 
-           } 
-      }
-
-
+    function checkSpace(str) {
+        if(str.search(/\s/) != -1) return true; 
+        else return false; 
+    }
 
     $("#pwd2").keyup(function () {
         var pwd1 = $("#pwd1").val();
@@ -105,13 +99,16 @@ function checkSpace(str) {
         if(checkSpace(pwd1)){
              alert("you can't use \"blank\" as Password ");
              $("#register").attr("disabled", "disabled");
-        }else if (pwd1.length <8 ||pwd1.length > 20 ){
+        }
+        else if (pwd1.length <8 ||pwd1.length > 20 ){
              alert("Please enter a password between 8 and 20 digits.");
-        }else{
-        if (pwd1 == pwd2)
-            $("#register").removeAttr("disabled");
-        else
-            $("#register").attr("disabled", "disabled");}
+        }
+        else{
+            if (pwd1 == pwd2)
+                $("#register").removeAttr("disabled");
+            else
+                $("#register").attr("disabled", "disabled");
+        }
     });
 
     $("#username_btn").click(function() {        
@@ -134,6 +131,8 @@ function checkSpace(str) {
             }
             else
                 alert("Duplicate username");
+                
+            return;
         })
         .fail(function(jrequest,status,error) {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -160,18 +159,26 @@ function checkSpace(str) {
             .done(function(json) {
                 var execResult = JSON.parse(json);
 
-                if (execResult == 0) {
-                    alert("Please complete the account verification in the email provided.");
-                    window.location.href = 'signin';
+                switch (execResult) {
+                    case 0:
+                        alert("Please complete the account verification in the email provided.");
+                        window.location.href = 'signin';
+                        break;
+                    case -1:
+                        alert("ERROR: Store user Query error");
+                        break;
+                    case -2:
+                        alert("ERROR: Store temp_user Query error");
+                        break;
+                    case -4:
+                        alert("ERROR: Send mail error");
+                        break;
+                    default:
+                        alert("ERROR: Invalid access "+execResult);
+                        break;
+                    
+                    return;
                 }
-                else if (execResult == -1)
-                    alert("ERROR: Store user Query error");
-                else if (execResult == -2)
-                    alert("ERROR: Store temp_user Query error");
-                else if (execResult == -4)
-                    alert("ERROR: Send mail error");
-                else
-                    alert("ERROR: Invalid access");
             })
             .fail(function(request, status, error) {
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

@@ -38,14 +38,6 @@ final class ForgotPasswordController extends BaseController {
         catch (UniqueConstraintViolationException $e){
             return -2;
         }
-        // try {
-        //     $execResult = $stmt->execute($params);
-        //     if ($execResult) return 0;
-        //     else return -1;
-        // }
-        // catch (UniqueConstraintViolationException $e){
-        //     return -2;
-        // }
     }
 
     public function forgotPassword(Request $request, Response $response, $args) {

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -46,8 +47,13 @@ final class SignUpController extends BaseController
             'username' => $username,
             'nonce' => $nonce
         ];
-        if ($stmt->execute($params)) return 0;
-        else return -1;
+        try {
+            if ($stmt->execute($params)) return 0;
+            else return -1;
+        }
+        catch (UniqueConstraintViolationException $e){
+            return -2;
+        }
     }
 
 
