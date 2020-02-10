@@ -96,6 +96,7 @@
     $("#pwd2").keyup(function () {
         var pwd1 = $("#pwd1").val();
         var pwd2 = $("#pwd2").val();
+
         if(checkSpace(pwd1)){
              alert("you can't use \"blank\" as Password ");
              $("#register").attr("disabled", "disabled");
@@ -103,7 +104,7 @@
         else if (pwd1.length <8 ||pwd1.length > 20 ){
              alert("Please enter a password between 8 and 20 digits.");
         }
-        else{
+        else {
             if (pwd1 == pwd2)
                 $("#register").removeAttr("disabled");
             else
@@ -175,10 +176,9 @@
                         break;
                     default:
                         alert("ERROR: Invalid access "+execResult);
-                        break;
-                    
-                    return;
+                        break;                    
                 }
+                return;
             })
             .fail(function(request, status, error) {
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

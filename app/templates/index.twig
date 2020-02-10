@@ -160,7 +160,8 @@
 	                                <span class="status"></span><span class="ml-2">Available</span>
 	                            </div>
 	                            <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-	                            <a class="dropdown-item" href="/changepassword"><i class="fas fa-cog mr-2"></i>Password Change</a>
+	                            <a class="dropdown-item" href="javascript:void(0);" onclick="callChangePassword();"><i class="fas fa-cog mr-2"></i>Password Change</a>
+								<a class="dropdown-item" href="javascript:void(0);" onclick="callIdCancellation();"><i class="fas fa-cog mr-2"></i>ID Cancellation</a>
 	                            <a class="dropdown-item" href="javascript:void(0);" onclick="callSignOut();"><i class="fas fa-cog mr-2"></i>Sign out</a>
 	                        </div>
 	                    </li>
@@ -1070,7 +1071,27 @@
 	                    <!-- dashboard js -->
 	                    <script src="bootstrap/assets/libs/js/dashboard-influencer.js"></script>
 </body>
-<script>
+<script type="text/javascript">
+	function callChangePassword() {
+		$.ajax({
+            type: 'GET',
+            url: './changepassword',
+            datatype: 'JSON'
+        })
+        .done(function(json) {
+            var execResult = JSON.parse(json);
+
+			if (execResult == -1) {
+				alert("Please login first");
+				window.location.href = '/signin';
+			}
+        })
+        .fail(function(request, status, error) {
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        })
+		window.location.href = '/changepassword';
+	}
+
     function callSignOut() {
         $.ajax({
             type: 'GET',
@@ -1079,27 +1100,59 @@
         })
         .done(function(json) {
             var execResult = JSON.parse(json);
-            if (execResult == 0) {
-                alert("Success Sign out");
-                window.location.href = '/';
-            }
-            else if (execResult == -1) 
-                alert("ERROR: Query error");
-            else if (execResult == -2)
-                alert("This account is already signed out.");
-            else if (execResult == -3)
-                alert("ERROR: Update query error");
-            else if (execResult == -4) {
-                alert("Please login first");
-                window.location.href = '/signin';
-            }
-            else
-                alert("ERROR: Invalid access: "+execResult);
+
+			switch (execResult) {
+				case 0:
+					alert("Success Sign out");
+                	window.location.href = '/';
+					break;
+				case -1:
+					alert("ERROR: Query error");
+					break;
+				case -2:
+					alert("This account is already signed out.");
+					break;
+				case -3:
+					alert("ERROR: Update query error");
+					break;
+				case -4:
+					alert("Please login first");
+                	window.location.href = '/signin';
+					break;
+				default:
+					alert("ERROR: Invalid access: "+execResult);
+					break;				
+			}
+			return;
         })
         .fail(function(request, status, error) {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         })
     }
+
+	function callIdCancellation() {
+		$.ajax({
+            type: 'GET',
+            url: './idcancellation',
+            datatype: 'JSON',
+        })
+        .done(function(json) {
+            var execResult = JSON.parse(json);
+
+			if (execResult == -1) {
+				alert("Please login first");
+				window.location.href = '/signin';
+			}
+        })
+        .fail(function(request, status, error) {
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        })
+		
+		/* 이부분을 한번 다시 볼 것
+		var option = "width = 500, height = 500, top = 100, left = 200, location = no";
+		window.open("idcancellation", "idcancellation", option);*/
+		window.location.href = '/idcancellation';
+	}
 
 </script>
 </body>
