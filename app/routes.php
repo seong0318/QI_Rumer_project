@@ -17,7 +17,7 @@ $app->post('/signuphandle', 'App\Controller\SignUpController:signUpHandle')
 $app->get('/signupverify', 'App\Controller\SignUpController:signUpVerify')
     ->setName('sign_up_verify');
 
-$app->get('/usernamecheck', 'App\Controller\SignUpController:usernameCheck')
+$app->get('/usernamecheck/{flag}', 'App\Controller\SignUpController:usernameCheck')
     ->setName('username_check');
 
 //sign in =================================================================================

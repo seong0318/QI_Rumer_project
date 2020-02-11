@@ -113,16 +113,16 @@
     });
 
     $("#username_btn").click(function() {        
-        var username = $("#user_name").val();
+        let username = $("#user_name").val();
         $.ajax({
             type: 'GET',
-            url: './usernamecheck',
+            url: './usernamecheck/0',
             data: {user_name: username},
             datatype: 'JSON',
             async: false
         })
         .done(function(json) {
-            var num_user = JSON.parse(json);
+            let num_user = JSON.parse(json);
             if (num_user < 0) 
                 alert("query error");
             else if (num_user == 0) {
@@ -131,7 +131,7 @@
                 $('#username_btn').attr("disabled", "disabled");
             }
             else
-                alert("Duplicate username");
+                alert("Duplicate username: ");
                 
             return;
         })

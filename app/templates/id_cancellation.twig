@@ -69,6 +69,7 @@
     $("#pwd_btn").click(function() {
         event.preventDefault();
         var formData = $('#input_form').serialize();
+        
         $.ajax({
             type: 'POST',
             url: './idcancelhandle',

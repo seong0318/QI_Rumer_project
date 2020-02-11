@@ -19,22 +19,21 @@ final class SignUpController extends BaseController
         /*  사용자의 이름으로 중복된 ID가 존재하는지 확인
         **  반환값은 찾은 ID 수로 반환
         */
-        $sql = "select count(usn) from user where (user_name = :username)";
+        $sql = "select count(*) from user where (user_name = :username)";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params['username'] = $username;
         if (!$stmt->execute($params)) return -1;
         $userResult = $stmt->fetch();
 
-        if ($userResult['count(usn)'] == 0) {
+        if ($userResult['count(*)'] == 0) {
             $sql = 'select count(*) from temp_user where (temp_user_name = :username)';
             $stmt = $this->em->getConnection()->prepare($sql);
             $params['username'] = $username;
             if (!$stmt->execute($params)) return -1;
-            $tempResult = $stmt->fetch();
-            return $tempResult['count(*)'];
+            $userResult = $stmt->fetch();
         }
 
-        return $result['count(usn)'];
+        return $userResult['count(*)'];
     }
 
     public function storeTempUser($username, $nonce) {
@@ -155,7 +154,12 @@ final class SignUpController extends BaseController
         **  아이디 사용자 수를 json 형식으로 반환함
         */
         $isDup = $this->duplicateUser($_GET['user_name']);
-        return json_encode($isDup);
+        if ($args['flag'] == 0)
+            return json_encode($isDup);
+        else if ($args['flag'] == 1)
+            echo json_encode($isDup);
+        else
+            echo json_encode("error flag");
     }
 
     public function signUpVerify(Request $request, Response $response, $args) {
