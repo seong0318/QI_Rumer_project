@@ -125,6 +125,7 @@ final class SignUpController extends BaseController
         **  storeTempUser에서 오류 발생시 -2 반환
         **  sendMail에서 오류 발생시 -4 반환
         */
+        $flag = $args['flag'];
         $nonce = makeRandomString(); // make nonce link
 
         $mailSubject = "Website Activation Email";
@@ -132,21 +133,52 @@ final class SignUpController extends BaseController
         <a href='http://192.168.33.99/signupverify?nonce=$nonce'>Register My Account</a><br>";
         $mailAltBody = "Thank you . Please click the link to activate your account.";
 
-        if ($this->storeTempUser($_POST['user_name'], $nonce) != 0) 
-            return json_encode(-2);
+        if ($this->storeTempUser($_POST['user_name'], $nonce) != 0) {
+            if ($flag == 0)
+                return json_encode(-2);
+            else if ($flag == 1) 
+                echo json_encode(array('result' => -2));
+            else
+                echo json_encode("ERROR: error flag");
+            return;
+        }
+
+        //echo json_encode(3);
 
         if ($this->storeUserInfo($_POST) != 0) {
             $this->deleteTempUser($nonce);
-            return json_encode(-1);
+            
+            if ($flag == 0)
+                return json_encode(-1);
+            else if ($flag == 1)
+                echo json_encode(array('result' => -1));
+            else
+                echo json_encode("ERROR: error flag");
+            return;
         }
+
+        //echo json_encode(4);
 
         if (sendMail($_POST['email'], $mailSubject, $mailBody, $mailAltBody) != 0) {
             $this->deleteTempUser($nonce);
             $this->deleteUserInfo($_POST['user_name']);
-            return json_encode(-4);
-        }
 
-        return json_encode(0);
+            if ($flag == 0)
+                return json_encode(-4);
+            else if ($flag == 1)
+                echo json_encode(array('result' => -4));
+            else
+                echo json_encode("ERROR: error flag");
+            return;
+        }
+        
+        if ($flag == 0)
+            return json_encode(0);
+        else if ($flag == 1)
+            echo json_encode(array('result' => 0));
+        else
+            echo json_encode("ERROR: error flag");
+        return;
     }
 
     public function usernameCheck(Request $request, Response $response, $args) {
@@ -157,9 +189,9 @@ final class SignUpController extends BaseController
         if ($args['flag'] == 0)
             return json_encode($isDup);
         else if ($args['flag'] == 1)
-            echo json_encode($isDup);
+            echo json_encode(array('result' => $isDup));
         else
-            echo json_encode("error flag");
+            echo json_encode("ERROR: error flag");
     }
 
     public function signUpVerify(Request $request, Response $response, $args) {

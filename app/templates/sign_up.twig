@@ -131,7 +131,7 @@
                 $('#username_btn').attr("disabled", "disabled");
             }
             else
-                alert("Duplicate username: ");
+                alert("Duplicate username");
                 
             return;
         })
@@ -152,7 +152,7 @@
             var formData = $('#input_form').serialize();
             $.ajax({
                 type: 'POST',
-                url: './signuphandle',
+                url: './signuphandle/0',
                 data: formData,
                 datatype: 'JSON',
                 async: false

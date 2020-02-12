@@ -11,7 +11,7 @@ $app->get('/', 'App\Controller\HomeController:homePage')
 $app->get('/signup', 'App\Controller\SignUpController:signUp')
     ->setName('sign_up');
 
-$app->post('/signuphandle', 'App\Controller\SignUpController:signUpHandle')
+$app->post('/signuphandle/{flag}', 'App\Controller\SignUpController:signUpHandle')
     ->setName('sign_up_handle');
 
 $app->get('/signupverify', 'App\Controller\SignUpController:signUpVerify')
@@ -59,5 +59,6 @@ $app->get('/verifiedpage', 'App\Controller\VerifiedPageController:verifiedPage')
 //ID Cancellation =========================================================================
 $app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancellation')
     ->setName('id_cancellation');
+
 $app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
     ->setName('id_cancel_handle');
