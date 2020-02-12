@@ -112,17 +112,20 @@
         }
     });
 
-    $("#username_btn").click(function() {        
+    $("#username_btn").click(function() {    
         let username = $("#user_name").val();
+
         $.ajax({
             type: 'GET',
-            url: './usernamecheck/0',
+            url: './usernamecheck',
             data: {user_name: username},
             datatype: 'JSON',
             async: false
         })
         .done(function(json) {
-            let num_user = JSON.parse(json);
+            let jsonData = JSON.parse(json);
+            let num_user = jsonData['result'];
+
             if (num_user < 0) 
                 alert("query error");
             else if (num_user == 0) {
@@ -152,13 +155,14 @@
             var formData = $('#input_form').serialize();
             $.ajax({
                 type: 'POST',
-                url: './signuphandle/0',
+                url: './signuphandle',
                 data: formData,
                 datatype: 'JSON',
                 async: false
             })
             .done(function(json) {
-                var execResult = JSON.parse(json);
+                let jsonData = JSON.parse(json);
+                let execResult = jsonData['result'];
 
                 switch (execResult) {
                     case 0:

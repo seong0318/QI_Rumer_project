@@ -87,19 +87,27 @@
             datatype: 'JSON'
         })
         .done(function(json) {
-            var execResult = JSON.parse(json);
-            if (execResult == 0) {
-                alert("Success Sign in");
-                window.location.href = 'index';
+            let jsonData = JSON.parse(json);
+            let execResult = jsonData['result'];
+
+            switch (execResult) {
+                case 0:
+                    alert("Success Sign in");
+                    window.location.href = 'index';
+                    break;
+                case -1:
+                    alert("ERROR: Query error");
+                    break;
+                case -2:
+                    alert("Invalid username or password");
+                    break;
+                case -3:
+                    alert("Please complete email verification first");
+                    break;
+                default:
+                    alert("ERROR: Invalid access: " . execResult);
+                    break;
             }
-            else if (execResult == -1) 
-                alert("ERROR: Query error");
-            else if (execResult == -2)
-                alert("Invalid username or password");
-            else if (execResult == -3)
-                alert("Please complete email verification first");
-            else
-                alert("ERROR: Invalid access: " . execResult);
         })
         .fail(function(request, status, error) {
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

@@ -40,17 +40,31 @@ final class SignInController extends BaseController {
          ** 정상적으로 완료될 경우 0, sql 에러일 시 -1, 비밀번호가 틀렸을 경우 -2, 인증이 안된 사용자일 경우 -3를 반환
          */
         $execResult = $this->getUsnAndHashedPwd($_POST['user_name']);
-        if ($execResult == -1) return json_encode(-1);
+        
+        if ($execResult == -1) {
+            echo json_encode(array('result' => -1));
+            return;
+        }
 
-        if (password_verify($_POST['pwd'], $execResult['hashed_pwd']) != 1) return json_encode(-2);
+        if (password_verify($_POST['pwd'], $execResult['hashed_pwd']) != 1) {
+            echo json_encode(array('result' => -2));
+            return;
+        }
         
-        if ($execResult['verify_state'] == 0) return json_encode(-3);
+        if ($execResult['verify_state'] == 0) {
+            echo json_encode(array('result' => -3));
+            return;
+        }
         
-        if ($this->updateVerifyState($execResult['usn']) != 0) return json_encode(-1);
+        if ($this->updateVerifyState($execResult['usn']) != 0) {
+            echo json_encode(array('result' => -1));
+            return;
+        }
 
         session_start();
         $_SESSION['usn'] = $execResult['usn'];
 
-        return json_encode(0);
+        echo json_encode(array('result' => 0));
+        return;
     }
 }

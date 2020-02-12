@@ -11,13 +11,13 @@ $app->get('/', 'App\Controller\HomeController:homePage')
 $app->get('/signup', 'App\Controller\SignUpController:signUp')
     ->setName('sign_up');
 
-$app->post('/signuphandle/{flag}', 'App\Controller\SignUpController:signUpHandle')
+$app->post('/signuphandle', 'App\Controller\SignUpController:signUpHandle')
     ->setName('sign_up_handle');
 
 $app->get('/signupverify', 'App\Controller\SignUpController:signUpVerify')
     ->setName('sign_up_verify');
 
-$app->get('/usernamecheck/{flag}', 'App\Controller\SignUpController:usernameCheck')
+$app->get('/usernamecheck', 'App\Controller\SignUpController:usernameCheck')
     ->setName('username_check');
 
 //sign in =================================================================================

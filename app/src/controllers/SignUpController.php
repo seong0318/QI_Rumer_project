@@ -125,7 +125,6 @@ final class SignUpController extends BaseController
         **  storeTempUser에서 오류 발생시 -2 반환
         **  sendMail에서 오류 발생시 -4 반환
         */
-        $flag = $args['flag'];
         $nonce = makeRandomString(); // make nonce link
 
         $mailSubject = "Website Activation Email";
@@ -134,12 +133,7 @@ final class SignUpController extends BaseController
         $mailAltBody = "Thank you . Please click the link to activate your account.";
 
         if ($this->storeTempUser($_POST['user_name'], $nonce) != 0) {
-            if ($flag == 0)
-                return json_encode(-2);
-            else if ($flag == 1) 
-                echo json_encode(array('result' => -2));
-            else
-                echo json_encode("ERROR: error flag");
+            echo json_encode(array('result' => -2));
             return;
         }
 
@@ -148,12 +142,7 @@ final class SignUpController extends BaseController
         if ($this->storeUserInfo($_POST) != 0) {
             $this->deleteTempUser($nonce);
             
-            if ($flag == 0)
-                return json_encode(-1);
-            else if ($flag == 1)
-                echo json_encode(array('result' => -1));
-            else
-                echo json_encode("ERROR: error flag");
+            echo json_encode(array('result' => -1));
             return;
         }
 
@@ -163,21 +152,11 @@ final class SignUpController extends BaseController
             $this->deleteTempUser($nonce);
             $this->deleteUserInfo($_POST['user_name']);
 
-            if ($flag == 0)
-                return json_encode(-4);
-            else if ($flag == 1)
-                echo json_encode(array('result' => -4));
-            else
-                echo json_encode("ERROR: error flag");
+            echo json_encode(array('result' => -4));
             return;
         }
         
-        if ($flag == 0)
-            return json_encode(0);
-        else if ($flag == 1)
-            echo json_encode(array('result' => 0));
-        else
-            echo json_encode("ERROR: error flag");
+        echo json_encode(array('result' => 0));
         return;
     }
 
@@ -186,12 +165,9 @@ final class SignUpController extends BaseController
         **  아이디 사용자 수를 json 형식으로 반환함
         */
         $isDup = $this->duplicateUser($_GET['user_name']);
-        if ($args['flag'] == 0)
-            return json_encode($isDup);
-        else if ($args['flag'] == 1)
-            echo json_encode(array('result' => $isDup));
-        else
-            echo json_encode("ERROR: error flag");
+
+        echo json_encode(array('result' => $isDup));
+        return;
     }
 
     public function signUpVerify(Request $request, Response $response, $args) {
