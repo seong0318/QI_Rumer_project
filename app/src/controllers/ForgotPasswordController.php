@@ -95,7 +95,8 @@ final class ForgotPasswordController extends BaseController {
 
     public function forgotPasswordHandle(Request $request, Response $response, $args) {
         /*  비밀번호 찾기 과정 중 메일 보내기 전까지
-        **  정상적으로 진행할 경우 0, sql 에러는 -1, 이미 인증메일이 보내졌다면 -2, username이 없다면 -3 반환
+        **  정상적으로 진행할 경우 0, sql 에러는 -1, 이미 인증메일이 보내졌다면 -2, 
+        **  username이 없다면 -3, 이메일 전송 실패시 반환
         */
 
         $nonce = makeRandomString();
@@ -106,16 +107,31 @@ final class ForgotPasswordController extends BaseController {
         <a href='http://192.168.33.99/verifynonce?nonce=$nonce'>Reset My Password</a><br>";
         $mailAltBody = "Thank you . Please click the link to reset your password.";
 
-        if ($execResult == -1) return json_encode(-1);
+        if ($execResult == -1) {
+            echo json_encode(array('result' => -1));
+            return;
+        }
 
-        if (empty($execResult['usn'])) return json_encode(-3);
+        if (empty($execResult['usn'])) {
+            echo json_encode(array('result' => -3));
+            return;
+        }
 
         $execStoreTemp = $this->storeTempUser($_GET['user_name'], $nonce);
-        if ($execStoreTemp != 0) return json_encode($execStoreTemp);
+        if ($execStoreTemp != 0) {
+            echo json_encode(array('result' => $execStoreTemp));
+            return;
+        }
 
-        sendMail($execResult['email'], $mailSubject, $mailBody, $mailAltBody);
+        if (sendMail($execResult['email'], $mailSubject, $mailBody, $mailAltBody) != 0) {
+            $this->deleteTempUser($nonce);
+            
+            echo json_encode(array('result' => -4));
+            return;
+        }
 
-        return json_encode(0);
+        echo json_encode(array('result' => 0));
+        return;
     }
 
     public function verifyNonce(Request $request, Response $response, $args) {
