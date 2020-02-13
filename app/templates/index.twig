@@ -167,7 +167,7 @@
 	                            </div>
 	                            <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
 	                            <a class="dropdown-item" href="/changepassword"><i class="fas fa-cog mr-2"></i>Password Change</a>
-	                            <a class="dropdown-item" href="javascript:void(0);" onclick="callSignOut();"><i class="fas fa-cog mr-2"></i>Sign out</a>
+	                            <a class="dropdown-item" href="javascript:void(0);" onclick="callSignOut();"><i class="fas fa-power-off mr-2"></i>Sign out</a>
 	                        </div>
 	                    </li>
 	                </ul>
@@ -548,13 +548,13 @@
 	                                    </div>
 	                                </div>
 	                                <div class="border-top user-social-box">
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 twitter-color"> O3 </span><span>13,291</span></div>
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  pinterest-color"> PM 2.5</span><span>84,019</span></div>
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 instagram-color"> PM 10</span><span>12,300</span></div>
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  facebook-color"> CO </span><span>92,920</span></div>
-	                                    <div class="user-social-media d-xl-inline-block "><span class="mr-2 medium-color"> SO2 </span><span>291</span></div>
-										<div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"> NO2 </span><span>1291</span></div>
-										<div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"> AQI </span><span>100</span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 twitter-color"><input class="btn" type="button" value="O3" onclick="func1()" style="color:rgb(0,228,0)">  </span><span>13,291</span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  pinterest-color"><input class="btn" type="button" value="PM2.5" onclick="func1()" style="color:rgb(0,228,0)"> </span><span>84,019</span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 instagram-color"><input class="btn" type="button" value="PM10" onclick="func1()" style="color:rgb(0,228,0)"></span><span>12,300</span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  facebook-color"><input class="btn" type="button" value="CO" onclick="func1()" style="color:rgb(0,228,0)"> </span><span>92,920</span></div>
+	                                    <div class="user-social-media d-xl-inline-block "><span class="mr-2 medium-color"><input class="btn" type="button" value="SO2" onclick="func1()" style="color:rgb(0,228,0)"></span><span>291</span></div>
+										<div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"><input class="btn" type="button" value="NO2" onclick="func1()" style="color:rgb(0,228,0)"></span><span>1291</span></div>
+										{# <div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"><input class="btn" type="button" value="AQI" onclick="func1()" style="color:rgb(0,228,0)"></span><span>100</span></div> #}
 	                                </div>
 	                            </div>
 	                        </div>
@@ -672,7 +672,7 @@
 	                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
 	                            <div class="card">
 	                                <h5 class="card-header" style="color:#e43863">HEART RATE</h5>
-	                                <div class="card-body" style="height: 260px;alin-content:center;align-content: center;justify-content: center;display: flex;">
+	                                <div class="card-body" style="height: 270px;alin-content:center;align-content: center;justify-content: center;display: flex;">
 	                                    <!-- <div class="mb-3">
 	                                        <div class="d-inline-block">
 	                                            <h4 class="mb-0">15 - 20</h4>
@@ -951,7 +951,7 @@
 	                    <!-- recommended campaigns   -->
 	                    <!-- ============================================================== -->
 	                    <div class="row">
-	                        <div class="col-lg-12">
+	                        {# <div class="col-lg-12">
 	                            <div class="section-block">
 	                                <h3 class="section-title">Recommended Campaigns</h3>
 	                            </div>
@@ -1012,7 +1012,7 @@
 	                                                    </div>
 	                                                </div>
 	                                            </div>
-	                                        </div>
+	                                        </div> #}
 	                                    </div>
 	                                    <!-- ============================================================== -->
 	                                    <!-- end recommended campaigns   -->
@@ -1107,6 +1107,10 @@
             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         })
     }
+
+	function func1(){
+		alert("hello! world!");
+	}
 
 </script>
 </body>
