@@ -55,7 +55,6 @@ final class SignUpController extends BaseController
         }
     }
 
-
     public function verifyNonceAndChangeVerifyState($nonce) {
         /*  temp_user 테이블의 nonce_link 열을 이용해
         **  사용자의 sign up 인증을 진행한다
@@ -137,16 +136,12 @@ final class SignUpController extends BaseController
             return;
         }
 
-        //echo json_encode(3);
-
         if ($this->storeUserInfo($_POST) != 0) {
             $this->deleteTempUser($nonce);
             
             echo json_encode(array('result' => -1));
             return;
         }
-
-        //echo json_encode(4);
 
         if (sendMail($_POST['email'], $mailSubject, $mailBody, $mailAltBody) != 0) {
             $this->deleteTempUser($nonce);

@@ -1099,7 +1099,8 @@
             datatype: 'JSON'
         })
         .done(function(json) {
-            var execResult = JSON.parse(json);
+            let jsonData = JSON.parse(json);
+			let execResult = jsonData['result'];
 
 			switch (execResult) {
 				case 0:
@@ -1116,7 +1117,7 @@
 					alert("ERROR: Update query error");
 					break;
 				case -4:
-					alert("Please login first");
+					alert("Please sign in first");
                 	window.location.href = '/signin';
 					break;
 				default:
