@@ -52,9 +52,16 @@ $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePass
 $app->post('/changepwdbtn', 'App\Controller\ChangePasswordController:changePwdBtn')
     ->setName('change_pwd_btn');
 
-//verified_page
-$app->get('/verifiedpage', 'App\Controller\VerifiedPage:verifiedPage')
+//verified page =========================================================================
+$app->get('/verifiedpage', 'App\Controller\VerifiedPageController:verifiedPage')
     ->setName('verified_page');
 
 $app->get('/verifiedpassword', 'App\Controller\VerifiedPassword:verifiedPassword')
     ->setName('verified_password');
+
+//ID Cancellation =========================================================================
+$app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancellation')
+    ->setName('id_cancellation');
+
+$app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
+    ->setName('id_cancel_handle');

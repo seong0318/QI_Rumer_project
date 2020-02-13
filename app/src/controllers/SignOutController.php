@@ -29,14 +29,18 @@ final class SignOutController extends BaseController {
         */
         $execResult = $this->updateVerifyState($_SESSION['usn']);
 
-        if (empty($_SESSION['usn']))
-            return json_encode(-4);
+        if (empty($_SESSION['usn'])) {
+            echo json_encode(array('result' => -4));
+            return;
+        }
 
         if ($execResult == 0) {
             $_SESSION = [];
             setcookie(session_name(), '', time() - 42000);
             session_destroy(); 
         }
-        return json_encode($execResult);
+
+        echo json_encode(array('result' => $execResult));
+        return;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -18,22 +19,21 @@ final class SignUpController extends BaseController
         /*  사용자의 이름으로 중복된 ID가 존재하는지 확인
         **  반환값은 찾은 ID 수로 반환
         */
-        $sql = "select count(usn) from user where (user_name = :username)";
+        $sql = "select count(*) from user where (user_name = :username)";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params['username'] = $username;
         if (!$stmt->execute($params)) return -1;
         $userResult = $stmt->fetch();
 
-        if ($userResult['count(usn)'] == 0) {
+        if ($userResult['count(*)'] == 0) {
             $sql = 'select count(*) from temp_user where (temp_user_name = :username)';
             $stmt = $this->em->getConnection()->prepare($sql);
             $params['username'] = $username;
             if (!$stmt->execute($params)) return -1;
-            $tempResult = $stmt->fetch();
-            return $tempResult['count(*)'];
+            $userResult = $stmt->fetch();
         }
 
-        return $result['count(usn)'];
+        return $userResult['count(*)'];
     }
 
     public function storeTempUser($username, $nonce) {
@@ -46,10 +46,14 @@ final class SignUpController extends BaseController
             'username' => $username,
             'nonce' => $nonce
         ];
-        if ($stmt->execute($params)) return 0;
-        else return -1;
+        try {
+            if ($stmt->execute($params)) return 0;
+            else return -1;
+        }
+        catch (UniqueConstraintViolationException $e){
+            return -2;
+        }
     }
-
 
     public function verifyNonceAndChangeVerifyState($nonce) {
         /*  temp_user 테이블의 nonce_link 열을 이용해
@@ -127,21 +131,28 @@ final class SignUpController extends BaseController
         <a href='http://192.168.33.99/signupverify?nonce=$nonce'>Register My Account</a><br>";
         $mailAltBody = "Thank you . Please click the link to activate your account.";
 
-        if ($this->storeTempUser($_POST['user_name'], $nonce) != 0) 
-            return json_encode(-2);
+        if ($this->storeTempUser($_POST['user_name'], $nonce) != 0) {
+            echo json_encode(array('result' => -2));
+            return;
+        }
 
         if ($this->storeUserInfo($_POST) != 0) {
             $this->deleteTempUser($nonce);
-            return json_encode(-1);
+            
+            echo json_encode(array('result' => -1));
+            return;
         }
 
         if (sendMail($_POST['email'], $mailSubject, $mailBody, $mailAltBody) != 0) {
             $this->deleteTempUser($nonce);
             $this->deleteUserInfo($_POST['user_name']);
-            return json_encode(-4);
-        }
 
-        return json_encode(0);
+            echo json_encode(array('result' => -4));
+            return;
+        }
+        
+        echo json_encode(array('result' => 0));
+        return;
     }
 
     public function usernameCheck(Request $request, Response $response, $args) {
@@ -149,7 +160,9 @@ final class SignUpController extends BaseController
         **  아이디 사용자 수를 json 형식으로 반환함
         */
         $isDup = $this->duplicateUser($_GET['user_name']);
-        return json_encode($isDup);
+
+        echo json_encode(array('result' => $isDup));
+        return;
     }
 
     public function signUpVerify(Request $request, Response $response, $args) {

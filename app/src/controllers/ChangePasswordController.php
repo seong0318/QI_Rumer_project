@@ -16,6 +16,7 @@ final class ChangePasswordController extends BaseController {
     }
 
     public function changePassword(Request $request, Response $response, $args) {
+        if (empty($_SESSION['usn'])) return json_encode(-1);
         $this->view->render($response, 'change_password.twig');
     }
 
