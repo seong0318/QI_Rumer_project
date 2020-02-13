@@ -45,7 +45,7 @@ $app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
 $app->get('/index', 'App\Controller\IndexController:index')
     ->setName('index');
 
-//index =================================================================================
+//changepassword =================================================================================
 $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
     ->setName('change_password');
 
@@ -55,6 +55,9 @@ $app->post('/changepwdbtn', 'App\Controller\ChangePasswordController:changePwdBt
 //verified page =========================================================================
 $app->get('/verifiedpage', 'App\Controller\VerifiedPageController:verifiedPage')
     ->setName('verified_page');
+
+$app->get('/verifiedpassword', 'App\Controller\VerifiedPassword:verifiedPassword')
+    ->setName('verified_password');
 
 //ID Cancellation =========================================================================
 $app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancellation')
