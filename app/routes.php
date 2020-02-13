@@ -24,7 +24,7 @@ $app->get('/usernamecheck', 'App\Controller\SignUpController:usernameCheck')
 $app->get('/signin', 'App\Controller\SignInController:signIn')
     ->setName('sign_in');
 
-$app->post('/signinhandle', 'App\Controller\SignInController:signInHandle')
+$app->post('/signinhandle/{device}', 'App\Controller\SignInController:signInHandle')
     ->setName('sign_in_handle');
 
 //sign out =================================================================================
