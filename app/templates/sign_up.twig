@@ -149,7 +149,7 @@ function checkSpace(str) {
             return;
         }
         else{
-            var formData = $('#input_form').serialize();
+            let formData = $('#input_form').serialize();
             $.ajax({
                 type: 'POST',
                 url: './signuphandle',
@@ -158,7 +158,7 @@ function checkSpace(str) {
                 async: false
             })
             .done(function(json) {
-                var execResult = JSON.parse(json);
+                let execResult = JSON.parse(json);
 
                 if (execResult == 0) {
                     alert("Please complete the account verification in the email provided.");
