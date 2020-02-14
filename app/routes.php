@@ -24,11 +24,11 @@ $app->get('/usernamecheck', 'App\Controller\SignUpController:usernameCheck')
 $app->get('/signin', 'App\Controller\SignInController:signIn')
     ->setName('sign_in');
 
-$app->post('/signinhandle', 'App\Controller\SignInController:signInHandle')
+$app->post('/signinhandle/{isDevice}', 'App\Controller\SignInController:signInHandle')
     ->setName('sign_in_handle');
 
 //sign out =================================================================================
-$app->get('/signout', 'App\Controller\SignOutController:signOut')
+$app->get('/signout/{isDevice}', 'App\Controller\SignOutController:signOut')
     ->setName('sign_out');
 
 //forgotPassword =================================================================================
@@ -55,8 +55,8 @@ $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePass
 $app->post('/changepwdbtn', 'App\Controller\ChangePasswordController:changePwdBtn')
     ->setName('change_pwd_btn');
 
-//verified_page
-$app->get('/verifiedpage', 'App\Controller\VerifiedPage:verifiedPage')
+//verified page =========================================================================
+$app->get('/verifiedpage', 'App\Controller\VerifiedPageController:verifiedPage')
     ->setName('verified_page');
 
 $app->get('/verifiedpassword', 'App\Controller\VerifiedPassword:verifiedPassword')
@@ -67,4 +67,6 @@ $app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancella
     ->setName('id_cancellation');
 
 $app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
+
     ->setName('id_cancel_handle');
+
