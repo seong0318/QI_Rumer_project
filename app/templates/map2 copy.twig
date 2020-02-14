@@ -33,7 +33,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-               <a class="navbar-brand" href="/index" style="color :black">RUMER</a>
+               <a class="navbar-brand" href="index.html" style="color :black">RUMER</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -569,24 +569,22 @@
             </div>
             <div class="border-top user-social-box">
                 <div class=" user-social-media d-xl-inline-block"><span class="mr-2 twitter-color"><input class="btn"
-                            type="button" value="O3" onclick="setCircle('O3')" style="color:rgb(0,228,0)">
+                            type="button" value="O3" onclick="func1()" style="color:rgb(0,228,0)">
                     </span><span></span></div>
                 <div class="user-social-media d-xl-inline-block"><span class="mr-2  pinterest-color"><input class="btn"
-                            type="button" value="PM2.5" onclick="setCircle('pm2.5')" style="color:rgb(0,228,0)">
+                            type="button" value="PM2.5" onclick="func1()" style="color:rgb(0,228,0)">
                     </span><span></span></div>
                 <div class="user-social-media d-xl-inline-block"><span class="mr-2 instagram-color"><input class="btn"
-                            type="button" value="PM10" onclick="setCircle('pm10')" style="color:rgb(0,228,0)"></span><span></span>
+                            type="button" value="PM10" onclick="func1()" style="color:rgb(0,228,0)"></span><span></span>
                 </div>
                 <div class="user-social-media d-xl-inline-block"><span class="mr-2  facebook-color"><input class="btn"
-                            type="button" value="CO" onclick="setCircle('CO')" style="color:rgb(0,228,0)">
+                            type="button" value="CO" onclick="func1()" style="color:rgb(0,228,0)">
                     </span><span></span></div>
                 <div class="user-social-media d-xl-inline-block "><span class="mr-2 medium-color"><input class="btn"
-                            type="button" value="SO2" onclick="setCircle('SO2')" style="color:rgb(0,228,0)"></span><span></span>
+                            type="button" value="SO2" onclick="func1()" style="color:rgb(0,228,0)"></span><span></span>
                 </div>
-                <div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color">
-                    <button class="btn"
-                            type="button" value="NO2" onclick="setCircle('NO2')" style="color:rgb(0,228,0)">NO2</button>
-                            </span>
+                <div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"><input class="btn"
+                            type="button" value="NO2" onclick="func1()" style="color:rgb(0,228,0)"></span <span></span>
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -694,23 +692,10 @@
         var markers = locations.map(function(location, i) {
           return new google.maps.Marker({
             position: location,
-            visible : true,
-            zIndex:10,
             label: labels[i % labels.length]
             });
         });
-        for(var i of locations) {
-        var circ = new google.maps.Circle({
-                    center: i,
-                    clickable:false,
-                    fillColor: "#fcc056",
-                    fillOpacity:0.3, 
-                    map:map,
-                    radius:1000,
-                    strokeColor: "#fcc056",
-                    strokeOpacity:0.3
-          });// end circle
-          }
+
         // Add a marker clusterer to manage the markers.
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
@@ -720,26 +705,70 @@
         var hotel2 = { lat: 32.870090, lng: -117.237298 };
         var map_center = { lat: 32.877108, lng: -117.235582 };
 
-
       var locations = [
        qi,
        hotel,
        hotel2,
        map_center,
       ]
-google.maps.event.addListener(map, 'zoom_changed', function() {
-    var zoom = map.getZoom();
-    // iterate over markers and call setVisible
-    for (i = 0; i < locations.length; i++) {
-        markers[i].setVisible(zoom <= 15);
-    }
-});
 
-function setCircle(aqi_type){
-        console.log("hello");
+
+      
+    </script>
+    <!-- Replace following script src -->
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&callback=initMap">
+    </script>
+<script type="text/javascript">
+var posting;
+var map;
+LNG = 0;
+LAT = 0;
+markers = [];
+temp = {"LAT" : 32.8857168 , "LNG" : -117.2420081 };
+
+function deleteMarkers(markers) {
+    clearMarkers(markers);
+    markers = [];
+}
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers(markers) {
+    setMapOnAll(markers);
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(markers) {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+}
+
+function showMarkers(map) {
+    setMapOnAll(map);
+}
+
+function initialize() {
+    var mapOptions = {
+        center: new google.maps.LatLng(temp.LAT, temp.LNG),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map"),
+        mapOptions);
+
+
+    google.maps.event.addListener(map, 'idle', function () {
+        console.log('location is changed');
+        getJSON($('#selectedvalue').val());
+    });
+}
+    
+ function setCircle(aqi_type){
         if(aqi_type == 'All'){
           var circ = new google.maps.Circle({
-                    center: map_center,
+                    center: new google.maps.LatLng(LAT, LNG),
                     clickable:false,
                     fillColor: "#fcc056",
                     fillOpacity:0.3, 
@@ -751,7 +780,7 @@ function setCircle(aqi_type){
           {# gcircle.push(circ); #}
         }else if(aqi_type == 'CO'){
           var circ = new google.maps.Circle({
-                    center: map_center,
+                    center: new google.maps.LatLng(LAT, LNG),
                     clickable:false,
                     fillColor: "#d4d17f",
                     fillOpacity:0.3, 
@@ -763,7 +792,7 @@ function setCircle(aqi_type){
           {# gcircle.push(circ); #}
         }else if(aqi_type == 'SO2'){
           var circ = new google.maps.Circle({
-                    center: map_center,
+                    center: new google.maps.LatLng(LAT, LNG),
                     clickable:false,
                     fillColor: "#d49d7f",
                     fillOpacity:0.3, 
@@ -775,7 +804,7 @@ function setCircle(aqi_type){
           {# gcircle.push(circ); #}
         }else if(aqi_type == 'NO2'){
           var circ = new google.maps.Circle({
-                    center: map_center,
+                    center: new google.maps.LatLng(LAT, LNG),
                     clickable:false,
                     fillColor: "#d47f96",
                     fillOpacity:0.3, 
@@ -787,7 +816,7 @@ function setCircle(aqi_type){
           {# gcircle.push(circ); #}
         }else if(aqi_type == 'O3'){
           var circ = new google.maps.Circle({
-                    center: map_center,
+                    center: new google.maps.LatLng(LAT, LNG),
                     clickable:false,
                     fillColor: "#7fc7d4",
                     fillOpacity:0.3, 
@@ -799,7 +828,7 @@ function setCircle(aqi_type){
           {# gcircle.push(circ); #}
         }else{
           var circ = new google.maps.Circle({
-                    center: map_center,
+                    center: new google.maps.LatLng(LAT, LNG),
                     clickable:false,
                     fillColor: "#7fa0d4",
                     fillOpacity:0.3, 
@@ -811,14 +840,149 @@ function setCircle(aqi_type){
           {# gcircle.push(circ); #}
         }
  }
+  function myMap() {
+    var amsterdam = new google.maps.LatLng(32.8857168, -117.2420081);
 
-      
-    </script>
-    <!-- Replace following script src -->
-    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js">
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&callback=initMap">
-    </script>
+    var mapCanvas = document.getElementById("map");
+    var mapOptions = {center: amsterdam, zoom: 18};
+    var map = new google.maps.Map(mapCanvas,mapOptions);
+
+    var myCity = new google.maps.Circle({
+      center: amsterdam,
+      radius: 100,
+      strokeColor: "#0000FF",
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: "#0000FF",
+      fillOpacity: 0.4
+    });
+    myCity.setMap(map);
+  }
+
+function getJSON(selected) {
+
+    if (posting) {
+        posting.abort();
+    }
+    var aNorth  =   map.getBounds().getNorthEast().lat();   
+    var aEast   =   map.getBounds().getNorthEast().lng();
+    var aSouth  =   map.getBounds().getSouthWest().lat();   
+    var aWest   =   map.getBounds().getSouthWest().lng();
+    var icon = {
+                    url: "/assets/img/Heart_dog_Marker.png", // url
+                    scaledSize: new google.maps.Size(45, 45), // scaled size
+                };
+                 
+
+   
+
+
+    posting = $.post('/heartdog/airquality/get', {
+        value: selected,
+        north: aNorth,
+        east : aEast,
+        south : aSouth,
+        west : aWest 
+    }, function (returnedData) {
+        console.log(returnedData);
+    });
+
+    // Callback handler that will be called on success
+    posting.done(function (response, textStatus, jqXHR) { // Log a message to the console
+        if(response.result_code==1){
+            $("#showmessage").html('<mark>'+response.error_message+'</mark>');
+ 
+        }
+        else if (response.length == 0) {
+            $("#message").html(response.error_message);
+            $('#myModal').modal("show");
+
+        } else {
+            $("#showmessage").html('Please click the marker!');
+            deleteMarkers(markers);
+            var infowindow = new google.maps.InfoWindow();
+            var contentString = null;
+
+            for (res of response) {
+
+                temp = JSON.parse(JSON.stringify(res));
+                LAT = temp['LAT'];
+                LNG = temp['LNG'];
+                setCircle(clicked_aqi_btn_val);
+
+                if(selected==="All") {
+ 
+                    contentString = temp['TIMESTAMP']+"<br /><br />"+
+                    "Device Name : " + temp['DEVICE'] + "<br/><br />"+
+                    "CO : " + temp['CO'] + " ppb<br />NO2 : "+temp['NO2']+" ppb<br/>"+
+                    "O3 : " + temp['O3'] + " ppb<br />SO2 : "+temp['SO2']+" ppb<br/>"+
+                    "PM2.5 : " + temp['PM25'] + " μg /m3<br />CO_AQI : "+temp['AQI_CO']+"<br/>"+
+                    "NO2_AQI : " + temp['AQI_NO2'] + "<br />O3_AQI : "+temp['AQI_O3']+"<br/>"+
+                    "SO2_AQI : " + temp['AQI_SO2'] + "<br />PM2.5_AQI : "+temp['AQI_PM25']+"<br /><br/>"+
+                    "Temperature : " + temp['TEMPERATURE'] +" ℃<br />"+
+                    "Location : " + temp['LAT'] + " ," + temp['LNG'] ;
+                    
+                }else{
+                     contentString ="<span> Device Name : " + temp['DEVICE'] + "</a></span><br/> " 
+                      + selected +" : "+ temp[selected] + "<br />" + 
+                      "Temperature : " + temp['TEMPERATURE'] + "<br/>"+
+                      "Location : "+ temp['LAT'] + " ," + temp['LNG'] + "<br /><br />" + temp['TIMESTAMP'];
+                }
+   
+
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: new google.maps.LatLng(temp.LAT,temp.LNG),
+                    icon: icon
+                   
+                })
+
+                markers.push(marker);
+                google.maps.event.addListener(marker, 'click', function (content) {
+                    return function () {
+                        infowindow.setContent(content); //set the content
+                        infowindow.open(map, this);
+                    }
+                }(contentString));
+            } // end of for statement
+  
+            setMapOnAll(map);
+   
+
+        } // end of done
+    });
+    // Callback handler that will be called on failure
+    posting.fail(function (jqXHR, textStatus, errorThrown) { // Log the error to the console
+
+        $("#message").html("The following error occurred :  " + textStatus,
+            errorThrown);
+            $('#myModal').modal("show");
+
+    });
+    posting = "";
+    
+}
+
+
+$(window).load(function () {
+    getJSON( $('#selectedvalue').val());
+     
+  $(".clicked_aqi").click(function(){
+  clicked_aqi_btn_val = $(this).val();
+  setCircle(clicked_aqi_btn_val);
+  });
+});
+
+$(document).ready(function(){
+  clicked_aqi_btn_val = "";
+  setInterval(function(){
+     initialize(); 
+
+  }, 10000);
+
+});
+
+
+</script>
 
 </html>
