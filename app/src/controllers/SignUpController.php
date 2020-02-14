@@ -10,6 +10,10 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 include '../app/src/util.php';
 
 final class SignUpController extends BaseController
@@ -165,7 +169,8 @@ final class SignUpController extends BaseController
         return;
     }
 
-    public function signUpVerify(Request $request, Response $response, $args) {
+    public function signUpVerify(Request $request, Response $response, $args)
+    {
         /*  사용자가 nonce link를 누른 후부터 진행되는 sign up의 인증 과정
         **
         */
