@@ -1101,7 +1101,7 @@
     function callSignOut() {
         $.ajax({
             type: 'GET',
-            url: './signout',
+            url: './signout/0',
             datatype: 'JSON'
         })
         .done(function(json) {
@@ -1125,6 +1125,9 @@
 				case -4:
 					alert("Please sign in first");
                 	window.location.href = '/signin';
+					break;
+				case -5:
+					alert("ERROR: Flag error");
 					break;
 				default:
 					alert("ERROR: Invalid access: "+execResult);

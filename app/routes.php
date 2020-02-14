@@ -24,11 +24,11 @@ $app->get('/usernamecheck', 'App\Controller\SignUpController:usernameCheck')
 $app->get('/signin', 'App\Controller\SignInController:signIn')
     ->setName('sign_in');
 
-$app->post('/signinhandle/{device}', 'App\Controller\SignInController:signInHandle')
+$app->post('/signinhandle/{isDevice}', 'App\Controller\SignInController:signInHandle')
     ->setName('sign_in_handle');
 
 //sign out =================================================================================
-$app->get('/signout', 'App\Controller\SignOutController:signOut')
+$app->get('/signout/{isDevice}', 'App\Controller\SignOutController:signOut')
     ->setName('sign_out');
 
 //forgotPassword =================================================================================
