@@ -25,18 +25,33 @@ final class SignOutController extends BaseController {
 
     public function signOut(Request $request, Response $response, $args) {
         /*  sign out 프로시저
-        ** updateVerifyState와 에러 공유 및 세선 삭제 후 시도할 경우 -4 반환
+        ** updateVerifyState와 에러 공유 및 세선 삭제 후 시도할 경우 -4, isDevice 오류시 -5 반환
         */
-        $execResult = $this->updateVerifyState($_SESSION['usn']);
+        $isDevice = $args['isDevice'];
+        
+        if ($isDevice == 0)
+            $usn = $_SESSION['usn'];
+        else if ($isDevice == 1)
+            $usn = $_GET['usn'];
+        else {
+            echo json_encode(array('result' => -5));
+            return;
+        }
 
-        if (empty($_SESSION['usn']))
-            return json_encode(-4);
+        $execResult = $this->updateVerifyState($usn);
 
-        if ($execResult == 0) {
+        if (empty($usn)) {
+            echo json_encode(array('result' => -4));
+            return;
+        }
+
+        if ($isDevice == 0 && $execResult == 0) {
             $_SESSION = [];
             setcookie(session_name(), '', time() - 42000);
             session_destroy(); 
         }
-        return json_encode($execResult);
+
+        echo json_encode(array('result' => $execResult));
+        return;
     }
 }
