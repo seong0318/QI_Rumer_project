@@ -137,7 +137,7 @@ final class ForgotPasswordController extends BaseController {
     public function verifyNonce(Request $request, Response $response, $args) {
         $usn = $this->verifyAndGetUsn($_GET['nonce']);
         if ($usn < 1) {
-            echo "Invalid Access";
+            $this->view->render($response, 'verified_password.twig', ['result' => "Invalid Email Link. \nPlease try agin."]);
             return -1;
         }
 
@@ -148,14 +148,20 @@ final class ForgotPasswordController extends BaseController {
 
         if($this->deleteTempUser($_GET['nonce']) != 0) return -1;   // 원래는 마지막에 초기화하나 좀 더 빨리 삭제함
         
-        if ($execResult == 0) 
-            echo $tempPwd;
-        else if ($execResult == -1)
-            echo "ERROR: Query error";
-        else if ($execResult == -2)
-            echo "Invalid Email Link";
-        else
-            echo "ERROR: " . $execResult; 
+        switch ($execResult) {
+            case 0:
+                $this->view->render($response, 'verified_password.twig', ['result' => $tempPwd]);
+                break;
+            case -1:
+                $this->view->render($response, 'verified_password.twig', ['result' => "ERROR: Query error"]);
+                break;
+            case -2:
+                $this->view->render($response, 'verified_password.twig', ['result' => "Invalid Email Link"]);
+                break;
+            default:
+                $this->view->render($response, 'verified_password.twig', ['result' => "ERROR: " . $execResult]);
+                break;
+        }
             
         return $execResult;
     }
