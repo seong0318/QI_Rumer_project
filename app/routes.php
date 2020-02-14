@@ -44,6 +44,9 @@ $app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
 //index =================================================================================
 $app->get('/index', 'App\Controller\IndexController:index')
     ->setName('index');
+//map ==========================================================================================
+$app->get('/map', 'App\Controller\IndexController:map')
+    ->setName('map');
 
 //changepassword =================================================================================
 $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
@@ -64,4 +67,6 @@ $app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancella
     ->setName('id_cancellation');
 
 $app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
+
     ->setName('id_cancel_handle');
+
