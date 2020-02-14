@@ -27,9 +27,9 @@ return [
                 'driver'   => 'pdo_mysql',
                 'host'     => '127.0.0.1',
                 'port'     => 3306,
-                'dbname'   => 'mydb',
-                'user'     => 'root',
-                'password' => '12345678',
+                'dbname'   => 'teama-2020winter',
+                'user'     => 'teama-iot',
+                'password' => 'a3faser88basdf',
             ]
         ],
 
@@ -41,9 +41,9 @@ return [
 
         'db' => [
             'host' => '127.0.0.1',
-            'user' => 'root',
-            'pass' => '12345678',
-            'dbname' => 'mydb'
+            'user' => 'teama-iot',
+            'pass' => 'a3faser88basdf',
+            'dbname' => 'teama-2020winter'
         ]
     ],
 ];
