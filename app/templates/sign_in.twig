@@ -12,23 +12,23 @@
     <link rel="stylesheet" href="bootstrap/assets/libs/css/style.css">
     <link rel="stylesheet" href="bootstrap/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <style>
-    html,
-    body {
-        height: 100%;
-    }
+        html,
+        body {
+            height: 100%;
+        }
 
-    body {
-        
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color : rgba(0, 0, 0, 0.1);
-        background-size: cover;
-        background-image:url('https://www.francechimie.fr/media/e34580ffb57afb63ff48eeee4f85e8cb.jpg');
-    }
+        body {
+            
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color : rgba(0, 0, 0, 0.1);
+            background-size: cover;
+            background-image:url('https://www.francechimie.fr/media/e34580ffb57afb63ff48eeee4f85e8cb.jpg');
+        }
     </style>
 </head>
 
@@ -38,15 +38,15 @@
     <!-- ============================================================== -->
     <div class="splash-container">
         <div class="card ">
-            <div class="card-header text-center"><a href="index.html"><img class="logo-img" src="bootstrap/assets/images/lo-go2.png" alt="logo"></a>
+            <div class="card-header text-center"><a href="/"><img class="logo-img" src="bootstrap/assets/images/lo-go.png" alt="logo"></a>
             <span class="splash-description" style="color : whitesmoke">Please enter your user information.</span></div>
             <div class="card-body">
-                <form>
+                <form id='input_form' method='post' action='signinhandle'>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" id="username" type="text" placeholder="Username" autocomplete="off">
+                        <input class="form-control form-control-lg" id="user_name" name='user_name' type="text" placeholder="Username" required ='' autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" id="password" type="password" placeholder="Password">
+                        <input class="form-control form-control-lg" id="pwd" name='pwd' type="password" required ='' placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label class="custom-control custom-checkbox">
@@ -54,7 +54,7 @@
                             {# <span class="custom-control-label">Remember Me</span> #}
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    <button type="submit" id='signin_btn' class="btn btn-primary btn-lg btn-block">Sign in</button>
                 </form>
             </div>
             <div class="card-footer bg-white p-0  ">
@@ -62,7 +62,7 @@
                     <a href="signup" class="footer-link">Create An Account</a></div>
 
                 <div class="card-footer-item card-footer-item-bordered">
-                    <a href="forgotPassword" class="footer-link">Forgot Password</a>
+                    <a href="forgotpassword" class="footer-link">Forgot Password</a>
                 </div>
             </div>
         </div>
@@ -75,5 +75,43 @@
     <script src="bootstrap/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
- 
+
+<script>
+    $("#signin_btn").click(function() {
+        event.preventDefault();
+        var formData = $('#input_form').serialize();
+        $.ajax({
+            type: 'POST',
+            url: './signinhandle',
+            data: formData,
+            datatype: 'JSON'
+        })
+        .done(function(json) {
+            let jsonData = JSON.parse(json);
+            let execResult = jsonData['result'];
+
+            switch (execResult) {
+                case 0:
+                    alert("Success Sign in");
+                    window.location.href = 'index';
+                    break;
+                case -1:
+                    alert("ERROR: Query error");
+                    break;
+                case -2:
+                    alert("Invalid username or password");
+                    break;
+                case -3:
+                    alert("Please complete email verification first");
+                    break;
+                default:
+                    alert("ERROR: Invalid access: " . execResult);
+                    break;
+            }
+        })
+        .fail(function(request, status, error) {
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        })
+    });
+</script>
 </html>

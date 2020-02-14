@@ -1,11 +1,11 @@
 <?php
 // Routes
 
-$app->get('/', 'App\Controller\HomeController:dispatch')
+//homePage===================================================================================
+$app->get('/', 'App\Controller\HomeController:homePage')
     ->setName('homepage');
 
-$app->get('/post/{id}', 'App\Controller\HomeController:viewPost')
-    ->setName('view_post');
+
 
 //sign up =================================================================================
 $app->get('/signup', 'App\Controller\SignUpController:signUp')
@@ -20,9 +20,6 @@ $app->get('/signupverify', 'App\Controller\SignUpController:signUpVerify')
 $app->get('/usernamecheck', 'App\Controller\SignUpController:usernameCheck')
     ->setName('username_check');
 
-$app->get('/emailverify', 'App\Controller\SignUpController:emailVerify')
-    ->setName('email_verify');
-
 //sign in =================================================================================
 $app->get('/signin', 'App\Controller\SignInController:signIn')
     ->setName('sign_in');
@@ -30,6 +27,41 @@ $app->get('/signin', 'App\Controller\SignInController:signIn')
 $app->post('/signinhandle', 'App\Controller\SignInController:signInHandle')
     ->setName('sign_in_handle');
 
+//sign out =================================================================================
+$app->get('/signout', 'App\Controller\SignOutController:signOut')
+    ->setName('sign_out');
+
 //forgotPassword =================================================================================
-$app->get('/forgotPassword', 'App\Controller\ForgotPasswordController:forgotPassword')
+$app->get('/forgotpassword', 'App\Controller\ForgotPasswordController:forgotPassword')
     ->setName('forgot_password');
+
+$app->get('/forgotpasswordhandle', 'App\Controller\ForgotPasswordController:forgotPasswordHandle')
+    ->setName('forgot_password_handle');
+
+$app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
+    ->setName('verify_nonce');
+
+//index =================================================================================
+$app->get('/index', 'App\Controller\IndexController:index')
+    ->setName('index');
+
+//changepassword =================================================================================
+$app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
+    ->setName('change_password');
+
+$app->post('/changepwdbtn', 'App\Controller\ChangePasswordController:changePwdBtn')
+    ->setName('change_pwd_btn');
+
+//verified page =========================================================================
+$app->get('/verifiedpage', 'App\Controller\VerifiedPageController:verifiedPage')
+    ->setName('verified_page');
+
+$app->get('/verifiedpassword', 'App\Controller\VerifiedPassword:verifiedPassword')
+    ->setName('verified_password');
+
+//ID Cancellation =========================================================================
+$app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancellation')
+    ->setName('id_cancellation');
+
+$app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
+    ->setName('id_cancel_handle');
