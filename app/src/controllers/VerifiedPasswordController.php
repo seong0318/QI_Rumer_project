@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMtP;
 use PHPMailer\PHPMailer\Exception;
 
-final class VerifiedPassword extends BaseController
+final class VerifiedPasswordController extends BaseController
 {
     public function VerifiedPassword(Request $request, Response $response, $args)
     {

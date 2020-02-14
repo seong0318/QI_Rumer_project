@@ -56,7 +56,7 @@ $app->post('/changepwdbtn', 'App\Controller\ChangePasswordController:changePwdBt
 $app->get('/verifiedpage', 'App\Controller\VerifiedPageController:verifiedPage')
     ->setName('verified_page');
 
-$app->get('/verifiedpassword', 'App\Controller\VerifiedPassword:verifiedPassword')
+$app->post('/verifiedpassword', 'App\Controller\VerifiedPasswordController:verifiedPassword')
     ->setName('verified_password');
 
 //ID Cancellation =========================================================================

@@ -149,7 +149,7 @@ final class ForgotPasswordController extends BaseController {
         if($this->deleteTempUser($_GET['nonce']) != 0) return -1;   // 원래는 마지막에 초기화하나 좀 더 빨리 삭제함
         
         if ($execResult == 0) 
-            echo $tempPwd;
+        $this->view->render($response, 'verified_password.twig', ['pwd' => $tempPwd]);
         else if ($execResult == -1)
             echo "ERROR: Query error";
         else if ($execResult == -2)
