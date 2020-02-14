@@ -37,8 +37,10 @@ final class SignInController extends BaseController {
 
     public function signInHandle(Request $request, Response $response, $args) {
         /** Sign in 버튼 클릭시 username, pwd 확인함
-         ** 정상적으로 완료될 경우 0, sql 에러일 시 -1, 비밀번호가 틀렸을 경우 -2, 인증이 안된 사용자일 경우 -3를 반환
+         ** 정상적으로 완료될 경우 0, sql 에러일 시 -1, 비밀번호가 틀렸을 경우 -2, 
+         ** 인증이 안된 사용자일 경우 -3, isDevice 에러시 -4를 반환
          */
+        $isDevice = $args['isDevice'];
         $execResult = $this->getUsnAndHashedPwd($_POST['user_name']);
         
         if ($execResult == -1) {
@@ -60,11 +62,17 @@ final class SignInController extends BaseController {
             echo json_encode(array('result' => -1));
             return;
         }
-
-        session_start();
-        $_SESSION['usn'] = $execResult['usn'];
-
-        echo json_encode(array('result' => 0));
-        return;
+        
+        if ($isDevice == 0) {
+            session_start();
+            $_SESSION['usn'] = $execResult['usn'];
+            echo json_encode(array('result' => 0));
+        }
+        else if ($isDevice == 1) 
+            echo json_encode(array('result' => 0, 'usn' => $execResult['usn']));
+        else 
+            echo json_encode(array('result' => -4));
+        
+        return;        
     }
 }
