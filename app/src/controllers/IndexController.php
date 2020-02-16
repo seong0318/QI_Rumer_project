@@ -18,4 +18,18 @@ final class IndexController extends BaseController
         $this->view->render($response, 'map.twig');
         return $response;
     }
+
+    public function sensor_list(Request $request, Response $response, $args)
+    {
+
+        $this->view->render($response, 'sensor_list.twig');
+        return $response;
+    }
+
+    public function charts(Request $request, Response $response, $args)
+    {
+
+        $this->view->render($response, 'charts.twig');
+        return $response;
+    }
 }

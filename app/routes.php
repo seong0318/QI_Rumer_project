@@ -67,6 +67,13 @@ $app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancella
     ->setName('id_cancellation');
 
 $app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
-
     ->setName('id_cancel_handle');
+//charts============================================================================
 
+$app->get('/charts', 'App\Controller\IndexController:charts')
+    ->setName('charts');
+
+//sensorlist==========================================================================
+
+$app->get('/sensorlist', 'App\Controller\IndexController:sensor_list')
+    ->setName('sensorlist');
