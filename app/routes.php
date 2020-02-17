@@ -44,6 +44,9 @@ $app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
 //index =================================================================================
 $app->get('/index', 'App\Controller\IndexController:index')
     ->setName('index');
+//map ==========================================================================================
+$app->get('/map', 'App\Controller\IndexController:map')
+    ->setName('map');
 
 //changepassword =================================================================================
 $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
@@ -69,3 +72,11 @@ $app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelH
 //Scheduler test =========================================================================
 $app->get('/schedule', 'App\Controller\ScheduleController:Schedule')
 ->setName('schedule');
+
+//charts============================================================================
+$app->get('/charts', 'App\Controller\IndexController:charts')
+    ->setName('charts');
+
+//sensorlist==========================================================================
+$app->get('/sensorlist', 'App\Controller\IndexController:sensor_list')
+    ->setName('sensorlist');
