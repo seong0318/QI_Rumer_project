@@ -65,3 +65,7 @@ $app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancella
 
 $app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
     ->setName('id_cancel_handle');
+
+//Scheduler test =========================================================================
+$app->get('/schedule', 'App\Controller\ScheduleController:Schedule')
+->setName('schedule');
