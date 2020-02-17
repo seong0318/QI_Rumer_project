@@ -68,12 +68,15 @@ $app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancella
 
 $app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
     ->setName('id_cancel_handle');
-//charts============================================================================
 
+//Scheduler test =========================================================================
+$app->get('/schedule', 'App\Controller\ScheduleController:Schedule')
+->setName('schedule');
+
+//charts============================================================================
 $app->get('/charts', 'App\Controller\IndexController:charts')
     ->setName('charts');
 
 //sensorlist==========================================================================
-
 $app->get('/sensorlist', 'App\Controller\IndexController:sensor_list')
     ->setName('sensorlist');
