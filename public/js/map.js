@@ -1,15 +1,17 @@
 function getAirDataList() {
 	let airDataList;
 
-	$.ajax({
-		type: 'POST',
-		url: './maphandle/0',
-		datatype: 'JSON',
-		async: false,
-	})
-		.done(function(json) {
-			let jsonData = JSON.parse(json);
-			let execResult = jsonData['result'];
+
+  $.ajax({
+    type: "POST",
+    url: "./maphandle/0",
+    datatype: "JSON",
+    async: false
+  })
+    .done(function(json) {
+      let jsonData = JSON.parse(json);
+      let execResult = jsonData["result"];
+
 
 			switch (execResult) {
 				case 0:
@@ -51,21 +53,27 @@ function initMap() {
 	let locations = [];
 	let markers = [];
 
-	airDataList = getAirDataList();
-	for (var airData of airDataList) {
-		let pos = new google.maps.LatLng(
-			airData['latitude'],
-			airData['longitude']
-		);
-		let marker = new google.maps.Marker({
-			position: pos,
-			map: map,
-			title: airData['sensor_name'],
-		});
 
-		marker.addListener('click', function() {
-			alert(JSON.stringify(airData, null, 2));
-		});
+
+  airDataList = getAirDataList();
+  console.log(airDataList);
+
+  for (var airData of airDataList) {
+    let pos = new google.maps.LatLng(airData["latitude"], airData["longitude"]);
+    let marker = new google.maps.Marker({
+      position: pos,
+      map: map,
+      title: airData["sensor_name"],
+      content: JSON.stringify(airData, null, 2)
+    });
+    let infoWindow = new google.maps.InfoWindow({
+      content: JSON.stringify(airData, null, 2)
+    });
+
+    marker.addListener("click", function() {
+      infoWindow.open(map, this);
+    });
+
 
 		markers.push(marker);
 
