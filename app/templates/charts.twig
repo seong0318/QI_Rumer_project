@@ -513,17 +513,28 @@
 
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <!-- body============================================================== -->
-                        <div id="map"></div>
+                          <div id="linechart_material_sensor1" style="width: 900px; height: 500px"></div>
                         <!-- body end============================================================== -->
                     </div>
                     
                 </div>
             </div>
             <div class="border-top user-social-box">
+<<<<<<< Updated upstream
                 <div class=" user-social-media d-xl-inline-block">
                     <span class="mr-2 twitter-color">
                         <input class="btn" type="button" value="O3" onclick="setCircle(0)" style="color:rgb(0,228,0)">
                     </span><span></span>
+=======
+                <div class=" user-social-media d-xl-inline-block"><span class="mr-2 twitter-color"><input class="btn"
+                            type="button" value="O3" onclick="selectAQI('${value}')" style="color:rgb(0,228,0)">
+                    </span><span></span></div>
+                <div class="user-social-media d-xl-inline-block"><span class="mr-2  pinterest-color"><input class="btn"
+                            type="button" value="PM2.5" onclick="setCircle('pm2.5')" style="color:rgb(0,228,0)">
+                    </span><span></span></div>
+                <div class="user-social-media d-xl-inline-block"><span class="mr-2 instagram-color"><input class="btn"
+                            type="button" value="PM10" onclick="setCircle('pm10')" style="color:rgb(0,228,0)"></span><span></span>
+>>>>>>> Stashed changes
                 </div>
                 <div class="user-social-media d-xl-inline-block">
                     <span class="mr-2  pinterest-color">
@@ -550,6 +561,13 @@
                     <button class="btn" type="button" value="NO2" onclick="setCircle(5)" style="color:rgb(0,228,0)">NO2</button>
                     </span>
                 </div>
+
+                <select class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color">
+                        <option value="sensor1" id="sensor 1">Sensor 1</option>
+                        <option value="sensor2">Sensor 2</option>
+                        <option value="sensor3">Sensor 3</option>
+                        <option value="sensor4">Sensor 4</option>
+                </select>
             </div>
             <!-- ============================================================== -->
             <!-- footer -->
@@ -762,5 +780,58 @@
 </script>
     <!-- Replace following script src -->
     
+
+    {# Chart scripts =============================================#}
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    var d = new Date();
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+          function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Day');
+      data.addColumn('number', 'Guardians of the Galaxy');
+      data.addColumn('number', 'csom');
+      data.addColumn('number', 'The Avengers');
+      data.addColumn('number', 'Transformers: Age of Extinction');
+      data.addRows([
+        [1,  37.8, 80.8, 41.8,123],
+        [2,  30.9, 69.5, 32.4,37.8],
+        [3,  25.4,   57, 25.7,37.8],
+        [4,  11.7, 18.8, 10.5,37.8],
+        [5,  11.9, 17.6, 10.4,37.8],
+        [6,   8.8, 13.6,  7.7,37.8],
+        [7,   7.6, 12.3,  9.6,37.8],
+        [8,  12.3, 29.2, 10.6,37.8],
+        [9,  16.9, 42.9, 14.8,37.8],
+        [10, 12.8, 30.9, 11.6,37.8],
+        [11,  5.3,  7.9,  4.7,37.8],
+        [12,  6.6,  8.4,  5.2,37.8],
+        [13,  4.8,  6.3,  3.6,37.8],
+        [14,  4.2,  6.2,  3.4,37.8]
+      ]);
+
+      var options = {
+        chart: {
+          title: 'Air Quality Index ',
+          subtitle: 'overall'
+        },
+        width: 900,
+        height: 500
+      };
+
+      var chart = new google.charts.Line(document.getElementById('linechart_material_sensor1'));
+      var chart2 = new google.charts.Line(document.getElementById('linechart_material_sensor1'));
+      
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+          };
+
+          function selectAQI(value){
+              
+          }
+    </script>
 
 </html>
