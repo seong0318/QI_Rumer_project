@@ -57,11 +57,15 @@ function initMap() {
     let marker = new google.maps.Marker({
       position: pos,
       map: map,
-      title: airData["sensor_name"]
+      title: airData["sensor_name"],
+      content: JSON.stringify(airData, null, 2)
+    });
+    let infoWindow = new google.maps.InfoWindow({
+      content: JSON.stringify(airData, null, 2)
     });
 
     marker.addListener("click", function() {
-      alert(JSON.stringify(airData, null, 2));
+      infoWindow.open(map, this);
     });
 
     markers.push(marker);

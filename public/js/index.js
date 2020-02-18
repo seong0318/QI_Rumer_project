@@ -27,11 +27,6 @@ function callChangePassword() {
   window.location.href = "/changepassword";
 }
 
-setInterval(() => {
-  let sensorOne = Math.floor(Math.random() * 120) + 80;
-  document.getElementById("heart_id").innerHTML = sensorOne;
-}, 1000);
-
 function callSignOut() {
   $.ajax({
     type: "GET",
@@ -114,8 +109,4 @@ function callIdCancellation() {
   var option = "width = 500, height = 500, top = 100, left = 200, location = no";
   window.open("idcancellation", "idcancellation", option);*/
   window.location.href = "/idcancellation";
-}
-
-function func1() {
-  alert("hello! world!");
 }
