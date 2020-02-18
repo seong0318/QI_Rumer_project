@@ -3,7 +3,7 @@ function getAirDataList() {
 
   $.ajax({
     type: "POST",
-    url: "./chartshandle/0",
+    url: "./maphandle/0",
     datatype: "JSON",
     async: false
   })
@@ -52,6 +52,8 @@ function initMap() {
   let markers = [];
 
   airDataList = getAirDataList();
+  console.log(airDataList);
+
   for (var airData of airDataList) {
     let pos = new google.maps.LatLng(airData["latitude"], airData["longitude"]);
     let marker = new google.maps.Marker({
