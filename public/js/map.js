@@ -3,7 +3,7 @@ function getAirDataList() {
 
   $.ajax({
     type: "POST",
-    url: "./chartshandle/0",
+    url: "./maphandle/0",
     datatype: "JSON",
     async: false
   })
@@ -52,16 +52,22 @@ function initMap() {
   let markers = [];
 
   airDataList = getAirDataList();
+  console.log(airDataList);
+
   for (var airData of airDataList) {
     let pos = new google.maps.LatLng(airData["latitude"], airData["longitude"]);
     let marker = new google.maps.Marker({
       position: pos,
       map: map,
-      title: airData["sensor_name"]
+      title: airData["sensor_name"],
+      content: JSON.stringify(airData, null, 2)
+    });
+    let infoWindow = new google.maps.InfoWindow({
+      content: JSON.stringify(airData, null, 2)
     });
 
     marker.addListener("click", function() {
-      alert(JSON.stringify(airData, null, 2));
+      infoWindow.open(map, this);
     });
 
     markers.push(marker);

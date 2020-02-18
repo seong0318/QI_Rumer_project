@@ -7,10 +7,21 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 final class MapController extends BaseController {
     public function getAirDataList($usn) {
-        /** usn으로 air data의 모든 column 내용을 가져옴
-         ** 
+        /** usn으로 air data의 sensor id 별 가장 최신의 
+         ** 모든 column 내용을 가져옴
          */
-        $sql = "select * from sensor natural join air_data where usn = :usn";
+        $sql = "select *
+        from air_data
+        join (
+            select any_value(b.air_data_id) as result_id
+            from (select *
+                  from sensor natural join air_data as a
+                  order by a.measured_time desc
+            ) as b
+            where usn = :usn
+            group by b.sensor_id
+        ) as c
+        on air_data_id = c.result_id";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = ['usn' => $usn];
         if (!$stmt->execute($params)) return -1;
