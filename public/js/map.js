@@ -1,6 +1,5 @@
-function getAirDataList() {
-	let airDataList;
-
+function getRecentlyAirDataList() {
+  let airDataList;
 
   $.ajax({
     type: "POST",
@@ -55,8 +54,7 @@ function initMap() {
 
 
 
-  airDataList = getAirDataList();
-  console.log(airDataList);
+  airDataList = getRecentlyAirDataList();
 
   for (var airData of airDataList) {
     let pos = new google.maps.LatLng(airData["latitude"], airData["longitude"]);
@@ -66,8 +64,61 @@ function initMap() {
       title: airData["sensor_name"],
       content: JSON.stringify(airData, null, 2)
     });
+    let constentStr =
+      "<table class='table'>\
+          <thead>\
+            <tr>\
+              <th scope='col'>Sensor Name</th>\
+              <th scope='col'>Measure Time</th>\
+              <th scope='col'>Lat</th>\
+              <th scope='col'>Lng</th>\
+              <th scope='col'>CO</th>\
+              <th scope='col'>SO2</th>\
+              <th scope='col'>O3</th>\
+              <th scope='col'>NO2</th>\
+              <th scope='col'>PM2.5</th>\
+              <th scope='col'>PM10</th>\
+            </tr>\
+          </thead>\
+          <tbody>\
+            <tr>\
+              <td>" +
+      airData["result_sensor_name"] +
+      "</td>\
+              <td>" +
+      airData["measured_time"] +
+      "</td>\
+              <td>" +
+      airData["latitude"] +
+      "</td>\
+              <td>" +
+      airData["longitude"] +
+      "</td>\
+              <td>" +
+      airData["co"] +
+      "</td>\
+              <td>" +
+      airData["so2"] +
+      "</td>\
+              <td>" +
+      airData["o3"] +
+      "</td>\
+              <td>" +
+      airData["no2"] +
+      "</td>\
+              <td>" +
+      airData["pm2.5"] +
+      "</td>\
+              <td>" +
+      airData["pm10"] +
+      "</td>\
+            </tr>\
+          </tbody>\
+        </table>\
+        <button onclick=\"window.open('/charts')\">Show Charts</button>\
+        ";
     let infoWindow = new google.maps.InfoWindow({
-      content: JSON.stringify(airData, null, 2)
+      content: constentStr
     });
 
     marker.addListener("click", function() {
