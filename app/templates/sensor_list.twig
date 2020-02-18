@@ -599,55 +599,13 @@
     <script src="bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="bootstrap/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="bootstrap/assets/libs/js/main-js.js"></script>
+
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&callback=initMap">
+    </script>
+    <!-- 우리가 만든 javascript 코드 추가하는 곳 -->
+    <script src="js/sensor_list.js"></script>
 </body>
-<script>
-    function showSensorList(inputType){
-        $.ajax({
-            type: 'GET',
-            url: './sensorlisthandle/0',
-            data: {type: inputType},
-            datatype: 'JSON'
-        })
-        .done(function(json) {
-            let jsonData = JSON.parse(json);
-            let execResult = jsonData['result'];
-
-            switch (execResult) {
-                case 0:
-                    $('#sensor_table > tbody').empty();
-                    $.each(jsonData['data'], function(index, item) {
-                        let typeStr;
-                        if (item.type == 0)
-                            typeStr = "Udoo Sensor";
-                        else if (item.type == 1)
-                            typeStr = "Polar Sensor";
-                        else
-                            typeStr = "Unkown";
-                        let eachRow = "<tr><th>" + index + "</th><td>" + item.sensor_name + "</td><td>" + typeStr + "</td><td>" + item.mac_address + "</td></tr>"
-                        $('#sensor_table').append(eachRow);
-                    })
-                    break;
-                case -1:
-                    alert("ERROR: sql query error");
-                    break;
-                case -5:
-                    alert("Please sign in first");
-                    break;            
-                default:
-                    alert("ERROR: Invalid access");
-                    break;
-            }
-        })
-        .fail(function(request, status, error) {
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        })
-    }
-</script>
-<!-- Replace following script src -->
-<script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js">
-</script>
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&callback=initMap">
-</script>
-
 </html>
