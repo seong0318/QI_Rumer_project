@@ -154,8 +154,9 @@ final class ForgotPasswordController extends BaseController
 
         $execResult = $this->updateTempPwd($usn, $hashedPwd);
 
-        if ($this->deleteTempUser($_GET['nonce']) != 0) return -1;   // 원래는 마지막에 초기화하나 좀 더 빨리 삭제함
 
+
+        if($this->deleteTempUser($_GET['nonce']) != 0) return -1;   // 원래는 마지막에 초기화하나 좀 더 빨리 삭제함
         switch ($execResult) {
             case 0:
                 $this->view->render($response, 'verified_password.twig', ['result' => $tempPwd]);
