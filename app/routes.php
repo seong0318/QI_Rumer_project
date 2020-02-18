@@ -44,9 +44,27 @@ $app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
 //index =================================================================================
 $app->get('/index', 'App\Controller\IndexController:index')
     ->setName('index');
-//map ==========================================================================================
-$app->get('/map', 'App\Controller\IndexController:map')
+
+//index/map ==========================================================================================
+$app->get('/map', 'App\Controller\MapController:map')
     ->setName('map');
+
+$app->get('/maphandle/{isDevice}', 'App\Controller\MapController:mapHandle')
+->setName('map_handle');
+
+//index/charts============================================================================
+$app->get('/charts', 'App\Controller\ChartsController:charts')
+    ->setName('charts');
+
+$app->post('/chartshandle/{isDevice}', 'App\Controller\ChartsController:chartsHandle')
+->setName('chart_handle');
+
+//index/sensorlist==========================================================================
+$app->get('/sensorlist', 'App\Controller\SensorListController:sensorList')
+    ->setName('sensorlist');
+
+$app->get('/sensorlisthandle/{isDevice}', 'App\Controller\SensorListController:sensorListHandle')
+    ->setName('sensorlist_handle');
 
 //changepassword =================================================================================
 $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
@@ -72,11 +90,3 @@ $app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelH
 //Scheduler test =========================================================================
 $app->get('/schedule', 'App\Controller\ScheduleController:Schedule')
 ->setName('schedule');
-
-//charts============================================================================
-$app->get('/charts', 'App\Controller\IndexController:charts')
-    ->setName('charts');
-
-//sensorlist==========================================================================
-$app->get('/sensorlist', 'App\Controller\IndexController:sensor_list')
-    ->setName('sensorlist');

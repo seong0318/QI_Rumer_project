@@ -12,10 +12,8 @@ use PHPMailer\PHPMailer\Exception;
 
 include '../app/src/util.php';
 
-final class SignUpController extends BaseController
-{
-    public function duplicateUser($username)
-    {
+final class SignUpController extends BaseController {
+    public function duplicateUser($username) {
         /*  사용자의 이름으로 중복된 ID가 존재하는지 확인
         **  반환값은 찾은 ID 수로 반환
         */
@@ -110,8 +108,7 @@ final class SignUpController extends BaseController
         else return -1;
     }
 
-    public function signUp(Request $request, Response $response, $args)
-    {
+    public function signUp(Request $request, Response $response, $args) {
         /*  sign up 페이지를 띄우는 기본 함수
         **  사용자로부터 입력된 값을 Ajax POST 방식으로 전달
         */
