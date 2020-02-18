@@ -5,12 +5,12 @@ namespace App\Controller;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-final class IndexController extends BaseController {
-    public function index(Request $request, Response $response, $args) {
+final class IndexController extends BaseController
+{
+    public function index(Request $request, Response $response, $args)
+    {
         $this->view->render($response, 'index.twig');
     }
-<<<<<<< Updated upstream
-=======
 
     public function map(Request $request, Response $response, $args)
     {
@@ -41,5 +41,4 @@ final class IndexController extends BaseController {
         $execResult = $stmt->fetch();
         return $execResult['hashed_pwd'];
     }
->>>>>>> Stashed changes
 }
