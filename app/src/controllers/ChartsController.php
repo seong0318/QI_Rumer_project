@@ -39,6 +39,11 @@ final class ChartsController extends BaseController {
         }
         
         $resultExec = $this->getAirDataList($usn);
+        if ($resultExec == -1) {
+            echo json_encode(array('result' => -1));
+            return;
+        }
+
         echo json_encode(array(
             'result' => 0, 
             'data' => $resultExec));

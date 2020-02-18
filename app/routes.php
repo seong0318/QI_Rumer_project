@@ -56,7 +56,7 @@ $app->get('/maphandle/{isDevice}', 'App\Controller\MapController:mapHandle')
 $app->get('/charts', 'App\Controller\ChartsController:charts')
     ->setName('charts');
 
-$app->get('/chartshandle/{isDevice}', 'App\Controller\ChartsController:chartsHandle')
+$app->post('/chartshandle/{isDevice}', 'App\Controller\ChartsController:chartsHandle')
 ->setName('chart_handle');
 
 //index/sensorlist==========================================================================
