@@ -49,7 +49,7 @@ $app->get('/index', 'App\Controller\IndexController:index')
 $app->get('/map', 'App\Controller\MapController:map')
     ->setName('map');
 
-$app->get('/maphandle/{isDevice}', 'App\Controller\MapController:mapHandle')
+$app->post('/maphandle/{isDevice}', 'App\Controller\MapController:mapHandle')
 ->setName('map_handle');
 
 //index/charts============================================================================
