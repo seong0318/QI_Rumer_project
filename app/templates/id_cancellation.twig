@@ -38,7 +38,7 @@
     <!-- ============================================================== -->
     <div class="splash-container">
         <div class="card ">
-            <div class="card-header text-center"><a href="index.html"><img class="logo-img" src="bootstrap/assets/images/lo-go2.png" alt="logo"></a>
+            <div class="card-header text-center"><a href="index.html"><img class="logo-img" src="/bootstrap/assets/images/lo-go.png" alt="logo"></a>
             <span class="splash-description" style="color : whitesmoke">Please enter your user password.</span></div>
             <div class="card-body">
                 <form id='input_form' method='post' action='idcancellation'>
@@ -63,46 +63,8 @@
     <!-- Optional JavaScript -->
     <script src="bootstrap/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+    <!-- 우리가 만든 javascript 코드 추가하는 곳 -->
+    <script src="js/id_cancellation.js"></script>
 </body>
-
-<script>
-    $("#pwd_btn").click(function() {
-        event.preventDefault();
-        var formData = $('#input_form').serialize();
-        
-        $.ajax({
-            type: 'POST',
-            url: './idcancelhandle',
-            data: formData,
-            datatype: 'JSON'
-        })
-        .done(function(json) {
-            var execResult = JSON.parse(json);
-
-            switch(execResult) {
-                case 0:
-                    alert("Successful ID Cancellation");
-                    window.location.href = '/';
-                    break;
-                case -1:
-                    alert("ERROR: query error");
-                    break;
-                case -2:
-                    alert("Invalid password");
-                    break;
-                case -3:
-                    alert("Please login first");
-                	window.location.href = '/signin';
-					break;
-                default:
-                    alert("Invalid Access: "+execResult);
-                    break;
-            }
-            return;
-        })
-        .fail(function(request, status, error) {
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        })
-    });
-</script>
 </html>

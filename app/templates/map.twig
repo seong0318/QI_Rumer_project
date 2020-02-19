@@ -58,7 +58,7 @@
                                             <a href="#" class="list-group-item list-group-item-action active">
                                                 <div class="notification-info">
                                                     <div class="notification-list-user-img"><img
-                                                            src="../assets/images/avatar-2.jpg" alt=""
+                                                            src="bootstrap/assets/images/avatar-2.jpg" alt=""
                                                             class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
                                                             class="notification-list-user-name">Jeremy
@@ -70,7 +70,7 @@
                                             <a href="#" class="list-group-item list-group-item-action">
                                                 <div class="notification-info">
                                                     <div class="notification-list-user-img"><img
-                                                            src="../assets/images/avatar-3.jpg" alt=""
+                                                            src="bootstrap/assets/images/avatar-3.jpg" alt=""
                                                             class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
                                                             class="notification-list-user-name">
@@ -82,7 +82,7 @@
                                             <a href="#" class="list-group-item list-group-item-action">
                                                 <div class="notification-info">
                                                     <div class="notification-list-user-img"><img
-                                                            src="../assets/images/avatar-4.jpg" alt=""
+                                                            src="bootstrap/assets/images/avatar-4.jpg" alt=""
                                                             class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
                                                             class="notification-list-user-name">Monaan Pechi</span> is
@@ -94,7 +94,7 @@
                                             <a href="#" class="list-group-item list-group-item-action">
                                                 <div class="notification-info">
                                                     <div class="notification-list-user-img"><img
-                                                            src="../assets/images/avatar-5.jpg" alt=""
+                                                            src="bootstrap/assets/images/avatar-5.jpg" alt=""
                                                             class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
                                                             class="notification-list-user-name">Jessica
@@ -118,31 +118,31 @@
                                 <li class="connection-list">
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="../assets/images/github.png"
+                                            <a href="#" class="connection-item"><img src="bootstrap/assets/images/github.png"
                                                     alt=""> <span>Github</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="../assets/images/dribbble.png"
+                                            <a href="#" class="connection-item"><img src="bootstrap/assets/images/dribbble.png"
                                                     alt=""> <span>Dribbble</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="../assets/images/dropbox.png"
+                                            <a href="#" class="connection-item"><img src="bootstrap/assets/images/dropbox.png"
                                                     alt=""> <span>Dropbox</span></a>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                             <a href="#" class="connection-item"><img
-                                                    src="../assets/images/bitbucket.png" alt="">
+                                                    src="bootstrap/assets/images/bitbucket.png" alt="">
                                                 <span>Bitbucket</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                             <a href="#" class="connection-item"><img
-                                                    src="../assets/images/mail_chimp.png" alt=""><span>Mail
+                                                    src="bootstrap/assets/images/mail_chimp.png" alt=""><span>Mail
                                                     chimp</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" class="connection-item"><img src="../assets/images/slack.png"
+                                            <a href="#" class="connection-item"><img src="bootstrap/assets/images/slack.png"
                                                     alt=""> <span>Slack</span></a>
                                         </div>
                                     </div>
@@ -155,7 +155,7 @@
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                    src="../assets/images/avatar-1.jpg" alt=""
+                                    src="bootstrap/assets/images/avatar-1.jpg" alt=""
                                     class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
                                 aria-labelledby="navbarDropdownMenuLink2">
@@ -165,8 +165,9 @@
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                <a class="dropdown-item" href="javascript:void(0);" onclick="callChangePassword();"><i class="fas fa-cog mr-2"></i>Password Change</a>
+								<a class="dropdown-item" href="javascript:void(0);" onclick="callIdCancellation();"><i class="fas fa-cog mr-2"></i>ID Cancellation</a>
+	                            <a class="dropdown-item" href="javascript:void(0);" onclick="callSignOut();"><i class="fas fa-power-off mr-2"></i>Sign out</a>
                             </div>
                         </li>
                     </ul>
@@ -516,77 +517,39 @@
                         <div id="map"></div>
                         <!-- body end============================================================== -->
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-
-                        <div class="card">
-                            <h5 class="card-header" style="color: aliceblue;">Basic Table</h5>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <h5 class="card-header" style="color: aliceblue;">Bar Charts</h5>
-                            <div class="card-body">
-
-                            </div>
-                        </div>
-                    </div>
-
-
+                    
                 </div>
             </div>
             <div class="border-top user-social-box">
-                <div class=" user-social-media d-xl-inline-block"><span class="mr-2 twitter-color"><input class="btn"
-                            type="button" value="O3" onclick="setCircle('O3')" style="color:rgb(0,228,0)">
-                    </span><span></span></div>
-                <div class="user-social-media d-xl-inline-block"><span class="mr-2  pinterest-color"><input class="btn"
-                            type="button" value="PM2.5" onclick="setCircle('pm2.5')" style="color:rgb(0,228,0)">
-                    </span><span></span></div>
-                <div class="user-social-media d-xl-inline-block"><span class="mr-2 instagram-color"><input class="btn"
-                            type="button" value="PM10" onclick="setCircle('pm10')" style="color:rgb(0,228,0)"></span><span></span>
+                <div class=" user-social-media d-xl-inline-block">
+                    <span class="mr-2 twitter-color">
+                        <input class="btn" type="button" value="O3" onclick="setCircle(0)" style="color:rgb(0,228,0)">
+                    </span><span></span>
                 </div>
-                <div class="user-social-media d-xl-inline-block"><span class="mr-2  facebook-color"><input class="btn"
-                            type="button" value="CO" onclick="setCircle('CO')" style="color:rgb(0,228,0)">
-                    </span><span></span></div>
-                <div class="user-social-media d-xl-inline-block "><span class="mr-2 medium-color"><input class="btn"
-                            type="button" value="SO2" onclick="setCircle('SO2')" style="color:rgb(0,228,0)"></span><span></span>
+                <div class="user-social-media d-xl-inline-block">
+                    <span class="mr-2  pinterest-color">
+                        <input class="btn" type="button" value="PM2.5" onclick="setCircle(1)" style="color:rgb(0,228,0)">
+                    </span><span></span>
                 </div>
-                <div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color">
-                    <button class="btn"
-                            type="button" value="NO2" onclick="setCircle('NO2')" style="color:rgb(0,228,0)">NO2</button>
-                            </span>
+                <div class="user-social-media d-xl-inline-block">
+                    <span class="mr-2 instagram-color">
+                        <input class="btn" type="button" value="PM10" onclick="setCircle(2)" style="color:rgb(0,228,0)">
+                    </span><span></span>
+                </div>
+                <div class="user-social-media d-xl-inline-block">
+                    <span class="mr-2  facebook-color">
+                        <input class="btn" type="button" value="CO" onclick="setCircle(3)" style="color:rgb(0,228,0)">
+                    </span><span></span>
+                </div>
+                <div class="user-social-media d-xl-inline-block ">
+                    <span class="mr-2 medium-color">
+                        <input class="btn" type="button" value="SO2" onclick="setCircle(4)" style="color:rgb(0,228,0)">
+                        </span><span></span>
+                </div>
+                <div class="user-social-media d-xl-inline-block">
+                    <span class="mr-2 youtube-color"> 
+                    <button class="btn" type="button" value="NO2" onclick="setCircle(5)" style="color:rgb(0,228,0)">NO2</button>
+                    </span>
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -619,206 +582,17 @@
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
 
-    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
-    <script src="../assets/libs/js/main-js.js"></script>
-</body>
-<script>
-/*    const morris = new Morris.Line({
-        // ID of the element in which to draw the chart.
-        element: 'myfirstchart',
-        // Chart data records -- each entry in this array corresponds to a point on
-        // the chart.
-        data: [{
-            year: '2008',
-            value: 20
-        },
-        {
-            year: '2009',
-            value: 10
-        },
-        {
-            year: '2010',
-            value: 5
-        },
-        {
-            year: '2011',
-            value: 5
-        },
-        {
-            year: '2012',
-            value: 20
-        }
-        ],
-        // The name of the data record attribute that contains x-values.
-        xkey: 'year',
-        // A list of names of data record attributes that contain y-values.
-        ykeys: ['value'],
-        // Labels for the ykeys -- will be displayed when you hover over the
-        // chart.
-        labels: ['Value']
-    });
+    <script src="bootstrap/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="bootstrap/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <script src="bootstrap/assets/libs/js/main-js.js"></script>
 
-    let sensorOne = 80;
-
-    setInterval(() => {
-        morris.setData([{
-            year: "2006",
-            value: sensorOne += 10
-        }, {
-            year: "2007",
-            value: sensorOne += 30
-        }, {
-            year: "2008",
-            value: sensorOne += 100
-        }]);
-    }, 1000)*/
-</script>
-  <script>
-
-      function initMap() {
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 3,
-          center: map_center
-        });
-
-        // Create an array of alphabetical characters used to label the markers.
-        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        // Add some markers to the map.
-        // Note: The code uses the JavaScript Array.prototype.map() method to
-        // create an array of markers based on a given "locations" array.
-        // The map() method here has nothing to do with the Google Maps API.
-        var markers = locations.map(function(location, i) {
-          return new google.maps.Marker({
-            position: location,
-            visible : true,
-            zIndex:10,
-            label: labels[i % labels.length]
-            });
-        });
-        for(var i of locations) {
-        var circ = new google.maps.Circle({
-                    center: i,
-                    clickable:false,
-                    fillColor: "#fcc056",
-                    fillOpacity:0.3, 
-                    map:map,
-                    radius:1000,
-                    strokeColor: "#fcc056",
-                    strokeOpacity:0.3
-          });// end circle
-          }
-        // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-      }
-       var qi = { lat: 32.882686, lng: -117.234661 };
-        var hotel = { lat: 32.870644, lng: -117.225740 };
-        var hotel2 = { lat: 32.870090, lng: -117.237298 };
-        var map_center = { lat: 32.877108, lng: -117.235582 };
-
-
- var locations = [
-       qi,
-       hotel,
-       hotel2,
-       map_center,
-      ]
-google.maps.event.addListener(map, 'zoom_changed', function() {
-    var zoom = map.getZoom();
-    // iterate over markers and call setVisible
-    for (i = 0; i < locations.length; i++) {
-        markers[i].setVisible(zoom <= 15);
-    }
-});
-
-function setCircle(aqi_type){
-        console.log("hello");
-        if(aqi_type == 'All'){
-          var circ = new google.maps.Circle({
-                    center: map_center,
-                    clickable:false,
-                    fillColor: "#fcc056",
-                    fillOpacity:0.3, 
-                    map:map,
-                    radius:1000,
-                    strokeColor: "#fcc056",
-                    strokeOpacity:0.3
-          });// end circle
-          {# gcircle.push(circ); #}
-        }else if(aqi_type == 'CO'){
-          var circ = new google.maps.Circle({
-                    center: map_center,
-                    clickable:false,
-                    fillColor: "#d4d17f",
-                    fillOpacity:0.3, 
-                    map:map,
-                    radius:1000,
-                    strokeColor: "#d4d17f",
-                    strokeOpacity:0.3
-          });// end circle
-          {# gcircle.push(circ); #}
-        }else if(aqi_type == 'SO2'){
-          var circ = new google.maps.Circle({
-                    center: map_center,
-                    clickable:false,
-                    fillColor: "#d49d7f",
-                    fillOpacity:0.3, 
-                    map:map,
-                    radius:1000,
-                    strokeColor: "#d49d7f",
-                    strokeOpacity:0.3
-          });// end circle
-          {# gcircle.push(circ); #}
-        }else if(aqi_type == 'NO2'){
-          var circ = new google.maps.Circle({
-                    center: map_center,
-                    clickable:false,
-                    fillColor: "#d47f96",
-                    fillOpacity:0.3, 
-                    map:map,
-                    radius:1000,
-                    strokeColor: "#d47f96",
-                    strokeOpacity:0.3
-          });// end circle
-          {# gcircle.push(circ); #}
-        }else if(aqi_type == 'O3'){
-          var circ = new google.maps.Circle({
-                    center: map_center,
-                    clickable:false,
-                    fillColor: "#7fc7d4",
-                    fillOpacity:0.3, 
-                    map:map,
-                    radius:1000,
-                    strokeColor: "#7fc7d4",
-                    strokeOpacity:0.3
-          });// end circle
-          {# gcircle.push(circ); #}
-        }else{
-          var circ = new google.maps.Circle({
-                    center: map_center,
-                    clickable:false,
-                    fillColor: "#7fa0d4",
-                    fillOpacity:0.3, 
-                    map:map,
-                    radius:1000,
-                    strokeColor: "#7fa0d4",
-                    strokeOpacity:0.3
-          });// end circle
-          {# gcircle.push(circ); #}
-        }
- }
-
-      
-    </script>
-    <!-- Replace following script src -->
-    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js">
-    </script>
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&callback=initMap">
     </script>
-
+    <!-- 우리가 만든 javascript 코드 추가하는 곳 -->
+    <script src="js/index.js"></script>
+    <script src="js/map.js"></script>    
+</body>
 </html>

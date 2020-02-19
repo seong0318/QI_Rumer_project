@@ -44,9 +44,34 @@ $app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
 //index =================================================================================
 $app->get('/index', 'App\Controller\IndexController:index')
     ->setName('index');
-//map ==========================================================================================
-$app->get('/map', 'App\Controller\IndexController:map')
+
+$app->get('/profile', 'App\Controller\IndexController:profile')
+    ->setName('profile');
+
+//index/map ==========================================================================================
+$app->get('/map', 'App\Controller\MapController:map')
     ->setName('map');
+
+$app->post('/maphandle/{isDevice}', 'App\Controller\MapController:mapHandle')
+    ->setName('map_handle');
+
+//index/charts============================================================================
+$app->get('/charts', 'App\Controller\ChartsController:charts')
+    ->setName('charts');
+
+$app->post('/chartshandle/{isDevice}', 'App\Controller\ChartsController:chartsHandle')
+    ->setName('chart_handle');
+
+//index/sensorlist==========================================================================
+$app->get('/sensorlist', 'App\Controller\SensorListController:sensorList')
+    ->setName('sensorlist');
+
+$app->get('/sensorlisthandle/{isDevice}', 'App\Controller\SensorListController:sensorListHandle')
+    ->setName('sensorlist_handle');
+
+//sensor deregist===================================================================================
+$app->post('/sensorderegist/{isDevice}', 'App\Controller\SensorDeregistController:sensorDeregist')
+    ->setName('sensor_deregist');
 
 //changepassword =================================================================================
 $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
@@ -67,6 +92,8 @@ $app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancella
     ->setName('id_cancellation');
 
 $app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
-
     ->setName('id_cancel_handle');
 
+//Scheduler test =========================================================================
+$app->get('/schedule', 'App\Controller\ScheduleController:Schedule')
+    ->setName('schedule');
