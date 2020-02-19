@@ -1,22 +1,42 @@
-function getAirDataList() {
+var isAddOption = false;
+
+function addOptionSensor(airDataList) {
+  let sensorNameList = [];
+
+  //  sensorNameList key: sensor_name, val: sensor_id
+  for (airData of airDataList)
+    sensorNameList[airData.sensor_name] = airData.sensor_id;
+
+  for (sensorName in sensorNameList) {
+    let option = new Option(sensorName, sensorNameList[sensorName]);
+    $(option).html(sensorName);
+    $("#options").append(option);
+  }
+}
+
+function getAirDataList(sensorId) {
   let airDataList;
 
   $.ajax({
     type: "POST",
     url: "./chartshandle/0",
+    data: { sensor_id: sensorId },
     datatype: "JSON",
     async: false
   })
     .done(function(json) {
       let jsonData = JSON.parse(json);
-      let execResult = jsonData["result"];
+      let execResult = jsonData.result;
 
       switch (execResult) {
         case 0:
-          airDataList = jsonData["data"];
+          airDataList = jsonData.data;
           break;
         case -1:
           alert("ERROR: sql query error");
+          break;
+        case -2:
+          alert("ERROR: Invalid sensor id");
           break;
         case -5:
           alert("Please sign in first");
@@ -43,7 +63,9 @@ function getAirDataList() {
 }
 
 function getChartsData() {
-  let airDataList = getAirDataList();
+  let sensorId = document.getElementById("options");
+  console.log(sensorId.value);
+  let airDataList = getAirDataList(parseInt(sensorId.value));
   let data = {
     cols: [
       { id: "time", label: "Time", type: "date" },
@@ -57,6 +79,11 @@ function getChartsData() {
     ],
     rows: []
   };
+
+  if (!isAddOption) {
+    addOptionSensor(airDataList);
+    isAddOption = true;
+  }
 
   for (airData of airDataList) {
     let date = new Date(airData.measured_time);
