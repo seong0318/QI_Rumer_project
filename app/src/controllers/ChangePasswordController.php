@@ -41,19 +41,40 @@ final class ChangePasswordController extends BaseController {
     
     public function changePwdBtn(Request $request, Response $response, $args) {
         /*  change password 프로시저
-        **  updatePassword와 에러 공유 및 세션이 없을 경우 -3, 비밀번호가 틀렸을 경우 -4 반환
+        **  updatePassword와 에러 공유 및 세션이 없을 경우 -3, 비밀번호가 틀렸을 경우 -4,
+        **  잘못된 isDevice일 경우 -5 반환
         */
-        if (empty($_SESSION['usn']))
-            return json_encode(-3);
+        $isDevice = $args['isDevice'];
+        
+        if ($isDevice == 0)
+            $usn = $_SESSION['usn'];
+        else if ($isDevice == 1)
+            $usn = $_POST['usn'];
+        else {
+            echo json_encode(array('result' => -5));
+            return;
+        }
+
+        if (empty($_SESSION['usn'])) {
+            echo json_encode(array('result' => -3));
+            return;
+        }
 
         $hashedPwd = $this->getHashedPwd($_SESSION['usn']);
-        if ($hashedPwd == -1) return json_encode(-1);
+        if ($hashedPwd == -1) {
+            echo json_encode(array('result' => -1));
+            return;
+        }
 
-        if (password_verify($_POST['pwd1'], $hashedPwd) != 1) return json_encode(-4);
+        if (password_verify($_POST['pwd1'], $hashedPwd) != 1) {
+            echo json_encode(array('result' => -4));
+            return;
+        }
 
         $newHashedPwd = password_hash($_POST['pwd2'], PASSWORD_DEFAULT);
         $exec_update = $this->updatePassword($_SESSION['usn'], $newHashedPwd);
         
-        return json_encode($exec_update);
+        echo \json_encode(array('result' => $exec_update));
+        return;
     }
 }
