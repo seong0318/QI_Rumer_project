@@ -60,7 +60,7 @@ final class IdCancellationController extends BaseController {
             return;  
         }
         
-        $execResult = $this->removeUserInfo($usn['usn']);
+        $execResult = $this->removeUserInfo($usn);
         if ($execResult != 0) {
             echo json_encode(array('result' => -1));
             return;
