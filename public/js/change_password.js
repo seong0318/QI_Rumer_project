@@ -11,22 +11,39 @@ $("#change_pwd_btn").click(function() {
   var formData = $("#input_form").serialize();
   $.ajax({
     type: "POST",
-    url: "./changepwdbtn",
+    url: "./changepwdbtn/0",
     data: formData,
     datatype: "JSON"
   })
     .done(function(json) {
-      var execResult = JSON.parse(json);
-      if (execResult == 0) {
-        alert("Successful password change");
-        window.location.href = "index";
-      } else if (execResult == -1) alert("ERROR: query error");
-      else if (execResult == -2) alert("No update occurs");
-      else if (execResult == -3) {
-        alert("This account is already signed out.");
-        window.location.href = "signin";
-      } else if (execResult == -4) alert("Invalid password");
-      else alert("Invalid Access: " + execResult);
+      let jsonData = JSON.parse(json);
+      let execResult = jsonData["result"];
+
+      switch (execResult) {
+        case 0:
+          alert("Successful password change");
+          window.location.href = "index";
+          break;
+        case -1:
+          alert("ERROR: query error");
+          break;
+        case -2:
+          alert("No update occurs");
+          break;
+        case -3:
+          alert("This account is already signed out.");
+          window.location.href = "signin";
+          break;
+        case -4:
+          alert("Invalid password");
+          break;
+        case -5:
+          alert("ERROR: Invalid isDevice");
+          break;
+        default:
+          alert("Invalid Access: " + execResult);
+          break;
+      }
     })
     .fail(function(request, status, error) {
       alert(
