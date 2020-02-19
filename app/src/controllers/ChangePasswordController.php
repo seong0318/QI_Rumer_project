@@ -72,7 +72,7 @@ final class ChangePasswordController extends BaseController {
         }
 
         $newHashedPwd = password_hash($_POST['pwd2'], PASSWORD_DEFAULT);
-        $exec_update = $this->updatePassword($_SESSION['usn'], $newHashedPwd);
+        $exec_update = $this->updatePassword($usn, $newHashedPwd);
         
         echo json_encode(array('result' => $exec_update));
         return;
