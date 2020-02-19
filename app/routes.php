@@ -89,7 +89,7 @@ $app->post('/verifiedpassword', 'App\Controller\VerifiedPasswordController:verif
 $app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancellation')
     ->setName('id_cancellation');
 
-$app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
+$app->post('/idcancelhandle/{isDevice}', 'App\Controller\IdCancellationController:idCancelHandle')
     ->setName('id_cancel_handle');
 
 //Scheduler test =========================================================================

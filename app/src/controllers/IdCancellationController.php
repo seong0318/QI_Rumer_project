@@ -31,22 +31,48 @@ final class IdCancellationController extends BaseController {
     public function idCancelHandle(Request $request, Response $response, $args) {
         /*  회원탈퇴할 경우, user에 관한 정보만 삭제하고 air_data와 heart_data는 남김 
         **  air_data와 heart_data의 경우 usn 값이 null로 설정됨
-        **  정상일 경우 0, 쿼리 에러일 경우 -1, 비밀번호가 틀릴 경우 -2, 세션이 없는 경우 -3 반환
+        **  정상일 경우 0, 쿼리 에러일 경우 -1, 비밀번호가 틀릴 경우 -2, 세션이 없는 경우 -3, isDevice 에러는 -5 반환
         */        
-        if (empty($_SESSION['usn']))
-            return json_encode(-3);
-
-        $hashedPwd = $this->getHashedPwd($_SESSION['usn']);
-        if ($hashedPwd == -1) return json_encode(-1);
+        $isDevice = $args['isDevice'];
         
-        if (password_verify($_POST['pwd'], $hashedPwd) != 1) return json_encode(-2);  
+        if ($isDevice == 0)
+            $usn = $_SESSION['usn'];
+        else if ($isDevice == 1)
+            $usn = $_POST['usn'];
+        else {
+            echo json_encode(array('result' => -5));
+            return;
+        }
 
-        if ($this->removeUserInfo($_SESSION['usn']) != 0) return json_encode(-1);
+        if (empty($usn)) {
+            echo json_encode(array('result' => -3));
+            return;
+        }
+
+        $hashedPwd = $this->getHashedPwd($usn);
+        if ($hashedPwd == -1) {
+            echo json_encode(array('result' => -1));
+            return;
+        }
         
-        $_SESSION = [];
-        setcookie(session_name(), '', time() - 42000);
-        session_destroy(); 
+        if (password_verify($_POST['pwd'], $hashedPwd) != 1) {
+            echo json_encode(array('result' => -2));
+            return;  
+        }
+        
+        $execResult = $this->removeUserInfo($usn['usn']);
+        if ($execResult != 0) {
+            echo json_encode(array('result' => -1));
+            return;
+        }
+        
+        if ($isDevice == 0 && $execResult == 0) {
+            $_SESSION = [];
+            setcookie(session_name(), '', time() - 42000);
+            session_destroy(); 
+        }
 
-        return json_encode(0); 
+        echo json_encode(array('result' => 0));
+        return; 
     }
 }
