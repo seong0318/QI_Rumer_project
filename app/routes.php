@@ -5,8 +5,6 @@
 $app->get('/', 'App\Controller\HomeController:homePage')
     ->setName('homepage');
 
-
-
 //sign up =================================================================================
 $app->get('/signup', 'App\Controller\SignUpController:signUp')
     ->setName('sign_up');
@@ -74,7 +72,7 @@ $app->post('/sensorderegist/{isDevice}', 'App\Controller\SensorDeregistControlle
 $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
     ->setName('change_password');
 
-$app->post('/changepwdbtn', 'App\Controller\ChangePasswordController:changePwdBtn')
+$app->post('/changepwdbtn/{isDevice}', 'App\Controller\ChangePasswordController:changePwdBtn')
     ->setName('change_pwd_btn');
 
 //verified page =========================================================================
