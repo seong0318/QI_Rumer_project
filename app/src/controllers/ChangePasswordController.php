@@ -60,7 +60,7 @@ final class ChangePasswordController extends BaseController {
             return;
         }
 
-        $hashedPwd = $this->getHashedPwd($_SESSION['usn']);
+        $hashedPwd = $this->getHashedPwd($usn);
         if ($hashedPwd == -1) {
             echo json_encode(array('result' => -1));
             return;
