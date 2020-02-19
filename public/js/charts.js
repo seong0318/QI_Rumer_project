@@ -1,0 +1,147 @@
+function getAirDataList() {
+  let airDataList;
+
+  $.ajax({
+    type: "POST",
+    url: "./chartshandle/0",
+    datatype: "JSON",
+    async: false
+  })
+    .done(function(json) {
+      let jsonData = JSON.parse(json);
+      let execResult = jsonData["result"];
+
+      switch (execResult) {
+        case 0:
+          airDataList = jsonData["data"];
+          break;
+        case -1:
+          alert("ERROR: sql query error");
+          break;
+        case -5:
+          alert("Please sign in first");
+          break;
+        default:
+          alert("ERROR: Invalid access");
+          break;
+      }
+    })
+    .fail(function(request, status, error) {
+      alert(
+        "code:" +
+          request.status +
+          "\n" +
+          "message:" +
+          request.responseText +
+          "\n" +
+          "error:" +
+          error
+      );
+    });
+
+  return airDataList;
+}
+
+google.charts.load("current", { packages: ["line", "corechart"] });
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var button = document.getElementById("change-chart");
+  var chartDiv = document.getElementById("chart_div");
+
+  var data = new google.visualization.DataTable();
+  data.addColumn("date", "Month");
+  data.addColumn("number", "Average Temperature");
+  data.addColumn("number", "Average Hours of Daylight");
+
+  data.addRows([
+    [new Date(2014, 0), -0.5, 5.7],
+    [new Date(2014, 1), 0.4, 8.7],
+    [new Date(2014, 2), 0.5, 12],
+    [new Date(2014, 3), 2.9, 15.3],
+    [new Date(2014, 4), 6.3, 18.6],
+    [new Date(2014, 5), 9, 20.9],
+    [new Date(2014, 6), 10.6, 19.8],
+    [new Date(2014, 7), 10.3, 16.6],
+    [new Date(2014, 8), 7.4, 13.3],
+    [new Date(2014, 9), 4.4, 9.9],
+    [new Date(2014, 10), 1.1, 6.6],
+    [new Date(2014, 11), -0.2, 4.5]
+  ]);
+
+  var materialOptions = {
+    chart: {
+      title: "Average Temperatures and Daylight in Iceland Throughout the Year"
+    },
+    width: 900,
+    height: 500,
+    series: {
+      // Gives each series an axis name that matches the Y-axis below.
+      0: { axis: "Temps" },
+      0: { axis: "CO2" },
+
+      1: { axis: "Daylight" }
+    },
+    axes: {
+      // Adds labels to each axis; they don't have to match the axis names.
+      y: {
+        Temps: { label: "Temps (Celsius)" },
+        Daylight: { label: "Daylight" }
+      }
+    }
+  };
+
+  var classicOptions = {
+    title: "Average Temperatures and Daylight in Iceland Throughout the Year",
+    width: 900,
+    height: 500,
+    // Gives each series an axis that matches the vAxes number below.
+    series: {
+      0: { targetAxisIndex: 0 },
+      0: { targetAxisIndex: 0 },
+      1: { targetAxisIndex: 1 }
+    },
+    vAxes: {
+      // Adds titles to each axis.
+      0: { title: "Temps (Celsius)" },
+      1: { title: "Daylight" }
+    },
+    hAxis: {
+      ticks: [
+        new Date(2014, 0),
+        new Date(2014, 1),
+        new Date(2014, 2),
+        new Date(2014, 3),
+        new Date(2014, 4),
+        new Date(2014, 5),
+        new Date(2014, 6),
+        new Date(2014, 7),
+        new Date(2014, 8),
+        new Date(2014, 9),
+        new Date(2014, 10),
+        new Date(2014, 11)
+      ]
+    },
+    vAxis: {
+      viewWindow: {
+        max: 30
+      }
+    }
+  };
+
+  function drawMaterialChart() {
+    var materialChart = new google.charts.Line(chartDiv);
+    materialChart.draw(data, materialOptions);
+    button.innerText = "Change to Classic";
+    button.onclick = drawClassicChart;
+  }
+
+  function drawClassicChart() {
+    var classicChart = new google.visualization.LineChart(chartDiv);
+    classicChart.draw(data, classicOptions);
+    button.innerText = "Change to Material";
+    button.onclick = drawMaterialChart;
+  }
+
+  function test() {}
+}
