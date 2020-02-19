@@ -10,7 +10,7 @@ final class ChartsController extends BaseController {
         /** usn으로 air data의 모든 column 내용을 가져옴
          ** 
          */
-        $sql = "select * from sensor natural join air_data where usn = :usn";
+        $sql = "select * from sensor natural join aqi_data where usn = :usn";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = ['usn' => $usn];
         if (!$stmt->execute($params)) return -1;
