@@ -45,19 +45,22 @@ $app->get('/verifynonce', 'App\Controller\ForgotPasswordController:verifyNonce')
 $app->get('/index', 'App\Controller\IndexController:index')
     ->setName('index');
 
+$app->get('/profile', 'App\Controller\IndexController:profile')
+    ->setName('profile');
+
 //index/map ==========================================================================================
 $app->get('/map', 'App\Controller\MapController:map')
     ->setName('map');
 
 $app->post('/maphandle/{isDevice}', 'App\Controller\MapController:mapHandle')
-->setName('map_handle');
+    ->setName('map_handle');
 
 //index/charts============================================================================
 $app->get('/charts', 'App\Controller\ChartsController:charts')
     ->setName('charts');
 
 $app->post('/chartshandle/{isDevice}', 'App\Controller\ChartsController:chartsHandle')
-->setName('chart_handle');
+    ->setName('chart_handle');
 
 //index/sensorlist==========================================================================
 $app->get('/sensorlist', 'App\Controller\SensorListController:sensorList')
@@ -93,4 +96,4 @@ $app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelH
 
 //Scheduler test =========================================================================
 $app->get('/schedule', 'App\Controller\ScheduleController:Schedule')
-->setName('schedule');
+    ->setName('schedule');
