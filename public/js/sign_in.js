@@ -29,7 +29,7 @@ $("#signin_btn").click(function() {
           alert("ERROR: isDevice error");
           break;
         default:
-          alert("ERROR: Invalid access: ".execResult);
+          alert("ERROR: Invalid access: " + execResult);
           break;
       }
     })
