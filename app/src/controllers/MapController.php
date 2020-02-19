@@ -6,22 +6,17 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 final class MapController extends BaseController {
-    public function getAirDataList($usn) {
+    public function getRecentlyAirDataList($usn) {
         /** usn으로 air data의 sensor id 별 가장 최신의 
          ** 모든 column 내용을 가져옴
          */
         $sql = "select *
-        from air_data
-        join (
-            select any_value(b.air_data_id) as result_id
-            from (select *
-                  from sensor natural join air_data as a
-                  order by a.measured_time desc
-            ) as b
-            where usn = :usn
-            group by b.sensor_id
-        ) as c
-        on air_data_id = c.result_id";
+                from aqi_data as a
+                join (select max(measured_time) as d, usn, sensor_name as result_sensor_name
+                      from aqi_data natural join sensor as c
+                      group by c.sensor_id) as b
+                where b.usn = :usn
+                and a.measured_time = b.d;";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = ['usn' => $usn];
         if (!$stmt->execute($params)) return -1;
@@ -49,7 +44,7 @@ final class MapController extends BaseController {
             return;
         }
         
-        $resultExec = $this->getAirDataList($usn);
+        $resultExec = $this->getRecentlyAirDataList($usn);
         echo json_encode(array(
             'result' => 0, 
             'data' => $resultExec));

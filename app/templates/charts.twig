@@ -509,56 +509,48 @@
         <!-- ============================================================== -->
         <div class="dashboard-wrapper"><br>
             <div class="container-fluid dashboard-content">
-                <div class="row">
-<br>
+
+
+                <div class="row"><br>
+
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <!-- body============================================================== -->
                              <button id="change-chart">Change to Classic</button>
                                 <br><br>
                             <div id="chart_div"></div>
                         <!-- body end============================================================== -->
-                    </div>
-                    
+                    </div>                    
                 </div>
             </div>
             <br>
             <div class="border-top user-social-box">
 
-                <div class=" user-social-media d-xl-inline-block">
+                <div id="checkboxes">
                     <span class="mr-2 twitter-color">
-                        <input class="btn" type="button" value="O3" onclick="setCircle(0)" style="color:rgb(0,228,0)">
-                    </span><span></span>
-
-                <div class="user-social-media d-xl-inline-block"><span class="mr-2 instagram-color"><input class="btn"
-                            type="button" value="PM10" onclick="setCircle(2)" style="color:rgb(0,228,0)"></span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block">
+                        <input class="btn" name="checked_elem" type="checkbox" value="1" checked style="color:rgb(0,228,0)">CO
+                    </span>
+                    <span class="mr-2 instagram-color">
+                        <input class="btn" name="checked_elem" type="checkbox" value="2" checked style="color:rgb(0,228,0)">SO2
+                    </span>
                     <span class="mr-2  pinterest-color">
-                        <input class="btn" type="button" value="PM2.5" onclick="setCircle(1)" style="color:rgb(0,228,0)">
-                    </span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block">
-                   
-                </div>
-                <div class="user-social-media d-xl-inline-block">
+                        <input class="btn" name="checked_elem" type="checkbox" value="3" checked style="color:rgb(0,228,0)">O3
+                    </span>
+
                     <span class="mr-2  facebook-color">
-                        <input class="btn" type="button" value="CO" onclick="setCircle(3)" style="color:rgb(0,228,0)">
-                    </span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block ">
+                        <input class="btn" name="checked_elem" type="checkbox" value="4" checked style="color:rgb(0,228,0)">NO2
+                    </span>
                     <span class="mr-2 medium-color">
-                        <input class="btn" type="button" value="SO2" onclick="setCircle(4)" style="color:rgb(0,228,0)">
-                        </span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block">
+                        <input class="btn" name="checked_elem" type="checkbox" value="5" checked style="color:rgb(0,228,0)">PM2.5
+                    </span>
                     <span class="mr-2 youtube-color"> 
-                    <button class="btn" type="button" value="NO2" onclick="setCircle(5)" style="color:rgb(0,228,0)">NO2</button>
+                        <input class="btn" name="checked_elem" type="checkbox" value="6" checked style="color:rgb(0,228,0)">PM10
                     </span>
                 </div>
 
-                <select class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color">
-                        <option value="sensor1" id="sensor1"></option>
-                        <option value="sensor2">Sensor 2</option>
+                <select class="user-social-media d-xl-inline-block" id="options">
+                    <span class="mr-2 youtube-color">
+                        <option value="0" selected>All</option>
+                    </span>
 
                 </select>
             </div>
@@ -596,18 +588,16 @@
     <script src="bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="bootstrap/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="bootstrap/assets/libs/js/main-js.js"></script>
+
+    
+    <!-- 우리가 만든 javascript 코드 추가하는 곳 -->
     <script src="js/index.js"></script>
     <script src="js/charts.js"></script>   
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load("visualization", "1", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(updateCharts);
+    </script>
 </body>
-<script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&callback=initMap">
-</script>
-    <!-- Replace following script src -->
-       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script>
-google.charts.load('visualization',"1", { 'packages': ['corechart'] });
-google.charts.setOnLoadCallback(drawChart);
 
-</script>
 </html>

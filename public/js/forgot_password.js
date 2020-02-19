@@ -31,7 +31,7 @@ $("#forgot_btn").click(function() {
           alert("ERROR: sending email error");
           break;
         default:
-          alert("ERROR: Invalid access: ".execResult);
+          alert("ERROR: Invalid access: " + execResult);
           break;
       }
       return;

@@ -69,6 +69,10 @@ $app->get('/sensorlist', 'App\Controller\SensorListController:sensorList')
 $app->get('/sensorlisthandle/{isDevice}', 'App\Controller\SensorListController:sensorListHandle')
     ->setName('sensorlist_handle');
 
+//sensor deregist===================================================================================
+$app->post('/sensorderegist/{isDevice}', 'App\Controller\SensorDeregistController:sensorDeregist')
+    ->setName('sensor_deregist');
+
 //changepassword =================================================================================
 $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
     ->setName('change_password');
