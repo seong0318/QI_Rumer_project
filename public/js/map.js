@@ -1,3 +1,6 @@
+var markers = [];
+var circles = [];
+
 function getRecentlyAirDataList() {
   let airDataList;
 
@@ -49,10 +52,8 @@ function initMap() {
   });
   let airDataList, markerCluster;
   let locations = [];
-  let markers = [];
 
   airDataList = getRecentlyAirDataList();
-  console.log(airDataList);
 
   for (var airData of airDataList) {
     let pos = new google.maps.LatLng(airData["latitude"], airData["longitude"]);
@@ -60,7 +61,7 @@ function initMap() {
       position: pos,
       map: map,
       title: airData["sensor_name"],
-      content: JSON.stringify(airData, null, 2)
+      content: airData
     });
     let constentStr =
       "<table class='table'>\
@@ -122,7 +123,6 @@ function initMap() {
     marker.addListener("click", function() {
       infoWindow.open(map, this);
     });
-
     markers.push(marker);
 
     var circ = new google.maps.Circle({
@@ -135,6 +135,8 @@ function initMap() {
       strokeColor: "#fcc056",
       strokeOpacity: 0.3
     });
+    // circles.push(circ);
+    circles[pos] = circ;
   }
 
   markerCluster = new MarkerClusterer(map, markers, {
@@ -151,85 +153,69 @@ function initMap() {
   });
 }
 
+function setColorInCircle(aqi, circ) {
+  if (0 <= aqi && aqi < 50) {
+    circ.setOptions({
+      fillColor: "#37FF00"
+    });
+  } else if (50 <= aqi && aqi < 100) {
+    circ.setOptions({
+      fillColor: "#ECFF00"
+    });
+  } else if (100 <= aqi && aqi < 150) {
+    circ.setOptions({
+      fillColor: "#FF7F00"
+    });
+  } else if (150 <= aqi && aqi < 200) {
+    circ.setOptions({
+      fillColor: "#FF0000"
+    });
+  } else if (200 <= aqi && aqi < 300) {
+    circ.setOptions({
+      fillColor: "#DD00FF"
+    });
+  } else if (301 <= aqi) {
+    circ.setOptions({
+      fillColor: "#730000"
+    });
+  } else {
+    circ.setOptions({
+      fillColor: "#877C7C"
+    });
+  }
+}
+
+function iterMarker(type) {
+  let aqi, circ;
+  for (var marker of markers) {
+    aqi = marker.content[type];
+    circ = circles[marker.position];
+    setColorInCircle(marker.content[type], circ);
+  }
+}
+
 function setCircle(aqi_type) {
   switch (aqi_type) {
     case 0:
-      var circ = new google.maps.Circle({
-        center: map_center,
-        clickable: false,
-        fillColor: "#7fc7d4",
-        fillOpacity: 0.3,
-        map: map,
-        radius: 1000,
-        strokeColor: "#7fc7d4",
-        strokeOpacity: 0.3
-      }); // end circle
-      gcircle.push(circ);
+      iterMarker("o3");
       break;
     case 1:
-      var circ = new google.maps.Circle({
-        center: map_center,
-        clickable: false,
-        fillColor: "#7fa0d4",
-        fillOpacity: 0.3,
-        map: map,
-        radius: 1000,
-        strokeColor: "#7fa0d4",
-        strokeOpacity: 0.3
-      }); // end circle
-      gcircle.push(circ);
+      iterMarker("pm2.5");
       break;
     case 2:
-      var circ = new google.maps.Circle({
-        center: map_center,
-        clickable: false,
-        fillColor: "#7fa0d4",
-        fillOpacity: 0.3,
-        map: map,
-        radius: 1000,
-        strokeColor: "#7fa0d4",
-        strokeOpacity: 0.3
-      }); // end circle
-      //gcircle.push(circ);
+      iterMarker("pm10");
       break;
     case 3:
-      var circ = new google.maps.Circle({
-        center: map_center,
-        clickable: false,
-        fillColor: "#d4d17f",
-        fillOpacity: 0.3,
-        map: map,
-        radius: 1000,
-        strokeColor: "#d4d17f",
-        strokeOpacity: 0.3
-      }); // end circle
-    //gcircle.push(circ);
+      iterMarker("co");
+      break;
     case 4:
-      var circ = new google.maps.Circle({
-        center: map_center,
-        clickable: false,
-        fillColor: "#d49d7f",
-        fillOpacity: 0.3,
-        map: map,
-        radius: 1000,
-        strokeColor: "#d49d7f",
-        strokeOpacity: 0.3
-      }); // end circle
+      iterMarker("so2");
       break;
     case 5:
-      var circ = new google.maps.Circle({
-        center: map_center,
-        clickable: false,
-        fillColor: "#d47f96",
-        fillOpacity: 0.3,
-        map: map,
-        radius: 1000,
-        strokeColor: "#d47f96",
-        strokeOpacity: 0.3
-      }); // end circle
+      iterMarker("no2");
       break;
     default:
-      alert("Invalid Input");
+      alert("ERROR: Invalid input type");
       break;
   }
 }
