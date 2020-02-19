@@ -55,7 +55,7 @@ final class ChangePasswordController extends BaseController {
             return;
         }
 
-        if (empty($_SESSION['usn'])) {
+        if (empty($usn)) {
             echo json_encode(array('result' => -3));
             return;
         }
