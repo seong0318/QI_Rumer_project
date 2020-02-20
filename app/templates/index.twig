@@ -338,12 +338,12 @@
 	                                    </div>
 	                                </div>
 	                                <div class="border-top user-social-box">
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 twitter-color"><input class="btn" type="button" value="O3" onclick="func1()" style="color:rgb(0,228,0)">  </span><span>13,291</span></div>
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  pinterest-color"><input class="btn" type="button" value="PM2.5" onclick="func1()" style="color:rgb(0,228,0)"> </span><span>84,019</span></div>
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 instagram-color"><input class="btn" type="button" value="PM10" onclick="func1()" style="color:rgb(0,228,0)"></span><span>12,300</span></div>
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  facebook-color"><input class="btn" type="button" value="CO" onclick="func1()" style="color:rgb(0,228,0)"> </span><span>92,920</span></div>
-	                                    <div class="user-social-media d-xl-inline-block "><span class="mr-2 medium-color"><input class="btn" type="button" value="SO2" onclick="func1()" style="color:rgb(0,228,0)"></span><span>291</span></div>
-										<div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"><input class="btn" type="button" value="NO2" onclick="func1()" style="color:rgb(0,228,0)"></span><span>1291</span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 twitter-color"><input class="btn" type="button" value="O3" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)">  </span><span>13,291</span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  pinterest-color"><input class="btn" type="button" value="PM2.5" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"> </span><span>84,019</span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 instagram-color"><input class="btn" type="button" value="PM10" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"></span><span>12,300</span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  facebook-color"><input class="btn" type="button" value="CO" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"> </span><span>92,920</span></div>
+	                                    <div class="user-social-media d-xl-inline-block "><span class="mr-2 medium-color"><input class="btn" type="button" value="SO2" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"></span><span>291</span></div>
+										<div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"><input class="btn" type="button" value="NO2" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"></span><span>1291</span></div>
 										{# <div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"><input class="btn" type="button" value="AQI" onclick="func1()" style="color:rgb(0,228,0)"></span><span>100</span></div> #}
 	                                </div>
 	                            </div>
@@ -444,12 +444,40 @@
 	                        <!-- ============================================================== -->
 	                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
 	                            <div class="card">	
-	                                <h5 class="card-header">CHART</h5>
-	                                <div class="card-body">
-	                                    <div id="gender_donut" style="height: 230px;"></div>
+	                                <h5 class="card-header" style="color:white">Sensorlist</h5>
+	                                <div class="card-body"style="background-color:white">
+										<table class="table" id="sensor_table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Index</th>
+                                            <th scope="col">Sensor Name</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Mac Address</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
 	                                </div>
 	                                <div class="card-footer p-0 bg-white d-flex">
-	                                  
+	                                   <div class="border-top user-social-box">
+                <div class=" user-social-media d-xl-inline-block">
+                    <span class="mr-2 twitter-color">
+                        <input class="btn" type="button" value="Udoo Sensor" onclick="showSensorList(0)" style="color:rgb(0,228,0)">
+                    </span><span></span>
+                </div>
+                <div class="user-social-media d-xl-inline-block">
+                    <span class="mr-2  pinterest-color">
+                        <input class="btn" type="button" value="Polar Sensor" onclick="showSensorList(1);" style="color:rgb(0,228,0)">
+                    </span><span></span>
+                </div>
+                <div class="user-social-media d-xl-inline-block">
+                    <span class="mr-2 instagram-color">
+                        <input class="btn" type="button" value="All" onclick="showSensorList(2)" style="color:rgb(0,228,0)">
+                    </span><span></span>
+                </div>
+            </div>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -524,6 +552,7 @@
 	                                </div>
 	                            </div>
 	                        </div>
+							
 	                        <!-- ============================================================== -->
 	                        <!-- end followers by age   -->
 	                        <!-- ============================================================== -->
@@ -534,9 +563,9 @@
 	                            <div class="card">
 	                                <a class="card-header" style="color:white" href="map">MAP</a>
 	                                <div class="card-body" >
-										<section id="section-map" class="clearfix">
-											<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&q=UCSD,USA+SAN_DIEGO" width="100%" height="330" frameborder="0" style="border:0" allowfullscreen></iframe>
-										  </section>
+										
+											<div id="map"></div>
+
 	                                </div>
 	                            </div>
 	                        </div>
@@ -860,9 +889,15 @@
 	<script src="bootstrap/assets/vendor/charts/charts-bundle/chartjs.js"></script>
 	<!-- dashboard js -->
 	<script src="bootstrap/assets/libs/js/dashboard-influencer.js"></script>
+	 <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&callback=initMap">
+    </script>
 
 	<!-- 우리가 만든 javascript 코드 추가하는 곳 -->
 	<script src="js/index.js"></script>
+	    <script src="js/index_sensor_list.js"></script>
+		<script src="js/map.js"></script>    
 
 	<script>
 	setInterval(() => {
@@ -871,9 +906,7 @@
 	}, 1000);
 
 	
-	function func1() {
-	alert("hello! world!");
-	}
+
 	</script>
 </body>
 
