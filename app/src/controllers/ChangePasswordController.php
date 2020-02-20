@@ -55,12 +55,12 @@ final class ChangePasswordController extends BaseController {
             return;
         }
 
-        if (empty($_SESSION['usn'])) {
+        if (empty($usn)) {
             echo json_encode(array('result' => -3));
             return;
         }
 
-        $hashedPwd = $this->getHashedPwd($_SESSION['usn']);
+        $hashedPwd = $this->getHashedPwd($usn);
         if ($hashedPwd == -1) {
             echo json_encode(array('result' => -1));
             return;
@@ -72,9 +72,9 @@ final class ChangePasswordController extends BaseController {
         }
 
         $newHashedPwd = password_hash($_POST['pwd2'], PASSWORD_DEFAULT);
-        $exec_update = $this->updatePassword($_SESSION['usn'], $newHashedPwd);
+        $exec_update = $this->updatePassword($usn, $newHashedPwd);
         
-        echo \json_encode(array('result' => $exec_update));
+        echo json_encode(array('result' => $exec_update));
         return;
     }
 }

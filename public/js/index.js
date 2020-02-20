@@ -47,6 +47,7 @@ function callSignOut() {
           break;
         case -2:
           alert("This account is already signed out.");
+          window.location.href = "/signin";
           break;
         case -3:
           alert("ERROR: Update query error");

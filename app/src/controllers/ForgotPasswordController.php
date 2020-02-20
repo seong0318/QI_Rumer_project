@@ -111,7 +111,7 @@ final class ForgotPasswordController extends BaseController
         $execResult = $this->getUsnAndEmail($_GET['user_name']);
         $mailSubject = "Password Reset Email";
         $mailBody = "<h1>THANK YOU</h1>Please click the link to reset your password.<br>
-        <a href='http://192.168.33.99/verifynonce?nonce=$nonce'>Reset My Password</a><br>";
+        <a href='http://teama-iot.calit2.net/verifynonce?nonce=$nonce'>Reset My Password</a><br>";
         $mailAltBody = "Thank you . Please click the link to reset your password.";
 
         if ($execResult == -1) {

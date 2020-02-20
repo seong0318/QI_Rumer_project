@@ -32,6 +32,14 @@ final class IndexController extends BaseController
         $this->view->render($response, 'charts.twig');
         return $response;
     }
+
+
+    public function profile(Request $request, Response $response, $args)
+    {
+
+        $this->view->render($response, 'profile.twig');
+        return $response;
+    }
     public function getAqiData($usn)
     {
         $sql = "select hashed_pwd from user where usn = :inputUsn";
