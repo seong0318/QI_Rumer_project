@@ -5,8 +5,10 @@ namespace App\Controller;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-final class ChartsController extends BaseController {
-    public function getAllAirDataList($usn) {
+final class ChartsController extends BaseController
+{
+    public function getAllAirDataList($usn)
+    {
         /** usn으로 air data의 모든 column 내용을 가져옴
          ** 
          */
@@ -18,7 +20,8 @@ final class ChartsController extends BaseController {
         return $execResult;
     }
 
-    public function getAirDataList($usn, $sensorId) {
+    public function getAirDataList($usn, $sensorId)
+    {
         /** usn과 sensor_id로 모은 column 내용을 가져옴
          **
          */
@@ -33,12 +36,20 @@ final class ChartsController extends BaseController {
         return $execResult;
     }
 
-    public function charts(Request $request, Response $response, $args) {
+    public function charts(Request $request, Response $response, $args)
+    {
         $this->view->render($response, 'charts.twig');
         return $response;
     }
 
-    public function chartsHandle(Request $request, Response $response, $args) {
+    public function chartshistory(Request $request, Response $response, $args)
+    {
+        $this->view->render($response, 'charts_history.twig');
+        return $response;
+    }
+
+    public function chartsHandle(Request $request, Response $response, $args)
+    {
         /** sensorId가 0일 경우 모든 sensorId 선택한 것, 음수일 경우 잘못된 값 입력
          ** 이외에는 각 값이 sensor_id 
          ** 정상일 경우 result => 0, data => air data 값 전부, 
@@ -47,7 +58,7 @@ final class ChartsController extends BaseController {
          */
         $isDevice = $args['isDevice'];
         $sensorId = $_POST['sensor_id'];
-        
+
         if ($isDevice == 0)
             $usn = $_SESSION['usn'];
         else if ($isDevice == 1)
@@ -56,19 +67,17 @@ final class ChartsController extends BaseController {
             echo json_encode(array('result' => -5));
             return;
         }
-        
+
         if ($sensorId == 0) {
             $resultExec = $this->getAllAirDataList($usn);
             if ($resultExec == -1) {
                 echo json_encode(array('result' => -1));
                 return;
             }
-        }
-        else if ($sensorId < 0) {
+        } else if ($sensorId < 0) {
             echo json_encode(array('result' => -2));
             return;
-        }
-        else {
+        } else {
             $resultExec = $this->getAirDataList($usn, $sensorId);
             if ($resultExec == -1) {
                 echo json_encode(array('result' => -1));
@@ -77,8 +86,9 @@ final class ChartsController extends BaseController {
         }
 
         echo json_encode(array(
-            'result' => 0, 
-            'data' => $resultExec));
+            'result' => 0,
+            'data' => $resultExec
+        ));
         return;
     }
 }
