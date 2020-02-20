@@ -47,6 +47,10 @@ $app->get('/index', 'App\Controller\IndexController:index')
 
 $app->get('/profile', 'App\Controller\IndexController:profile')
     ->setName('profile');
+//index heart ========================================================================
+
+$app->get('/hearthistory', 'App\Controller\HeartController:hearthistory')
+    ->setName('hearthistory');
 
 //index/map ==========================================================================================
 $app->get('/map', 'App\Controller\MapController:map')

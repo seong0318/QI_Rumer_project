@@ -235,9 +235,8 @@
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="/chartshistory">Charts History</a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="../influencer-profile.html">Influencer
-                                                            Profile</a>
+                                                   li class="nav-item">
+                                                        <a class="nav-link" href="/hearthistory">Heart History</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -307,8 +306,14 @@
                     </div>
 
                 </select>
-                <input type="text" id="testDatepickerStart">~
-                <input type="text" id="testDatepickerEnd">    
+                <form method="post" action="">
+     <p>Start Date: <input name = "starttdatepicker" type="text"  id="startdatepicker"></p>
+
+    <p>Last Date: <input name = "lastdatepicker" type="text"  id="lastdatepicker"></p>
+
+    <input type="submit" value="Get Data" name="data"/>
+
+    </form>  
             </div>
             <!-- ============================================================== -->
             <!-- footer -->
@@ -360,14 +365,19 @@
         google.charts.load("visualization", "1", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(updateCharts);
         google.charts.setOnLoadCallback(drawChart);
-$(function() {
-    $( "#testDatepickerStart" ).datepicker({
+ $(function() {
+    var startdate = $('#startdatepicker').datepicker({  }).val();
     });
-});
 $(function() {
-    $( "#testDatepickerEnd" ).datepicker({
+    var lastdate = $('#lastdatepicker').datepicker({  }).val();
     });
-});
+$("#dateInput").click(function(){
+    event.preventDefault();
+    var startDate = document.getElementById("startdatepicker");
+    var endDate = document.getElementById("lastdatepicker");
+    alert(startDate);
+
+})
     </script>
 </body>
 
