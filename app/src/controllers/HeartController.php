@@ -5,7 +5,7 @@ namespace App\Controller;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-final class ChartsController extends BaseController
+final class HeartController extends BaseController
 {
     public function getAllAirDataList($usn)
     {
@@ -42,9 +42,9 @@ final class ChartsController extends BaseController
         return $response;
     }
 
-    public function chartshistory(Request $request, Response $response, $args)
+    public function hearthistory(Request $request, Response $response, $args)
     {
-        $this->view->render($response, 'charts_history.twig');
+        $this->view->render($response, 'heart_history.twig');
         return $response;
     }
 

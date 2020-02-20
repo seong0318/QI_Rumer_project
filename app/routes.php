@@ -45,17 +45,26 @@ $app->get('/index', 'App\Controller\IndexController:index')
 
 $app->get('/profile', 'App\Controller\IndexController:profile')
     ->setName('profile');
+//index heart ========================================================================
+
+$app->get('/hearthistory', 'App\Controller\HeartController:hearthistory')
+    ->setName('hearthistory');
 
 //index/map ==========================================================================================
 $app->get('/map', 'App\Controller\MapController:map')
     ->setName('map');
 
+$app->get('/maphistory', 'App\Controller\MapController:maphistory')
+    ->setName('maphistory');
+
 $app->post('/maphandle/{isDevice}', 'App\Controller\MapController:mapHandle')
     ->setName('map_handle');
-
 //index/charts============================================================================
 $app->get('/charts', 'App\Controller\ChartsController:charts')
     ->setName('charts');
+
+$app->get('/chartshistory', 'App\Controller\ChartsController:chartshistory')
+    ->setName('chartshistory');
 
 $app->post('/chartshandle/{isDevice}', 'App\Controller\ChartsController:chartsHandle')
     ->setName('chart_handle');
