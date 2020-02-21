@@ -95,3 +95,7 @@ $app->post('/idcancelhandle/{isDevice}', 'App\Controller\IdCancellationControlle
 //Scheduler test =========================================================================
 $app->get('/schedule', 'App\Controller\ScheduleController:Schedule')
     ->setName('schedule');
+
+//Insert Sensor Data
+$app->post('/sensor/insert/polar', 'App\Controller\InsertSensorData:insertPolarData')
+    ->setName('sensor_insert_polar');
