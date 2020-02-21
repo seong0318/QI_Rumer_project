@@ -11,16 +11,15 @@ final class InsertSensorData extends BaseController {
      */
     private function insertSql($lat, $lng, $hr, $rr, $usn, $mac) {
         $sql = "insert into heart_data (measured_time, latitude, longtitude, heart_rate, rr_interval, usn, sensor_id)
-        select NOW(), :lat, :lng, :hr, :rr, :usn, sensor_id
+        select NOW(), :lat, :lng, :hr, :rr, usn, sensor_id
         from sensor
-        where mac_address = :mac;";
+        where mac_address = :mac";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = [
             'lat' => $lat,
             'lng' => $lng,
             'hr' => $hr,
             'rr' => $rr,
-            'usn' => $usn,
             'mac' => $mac
         ];
         try {
