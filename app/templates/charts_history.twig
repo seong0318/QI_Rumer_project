@@ -1,11 +1,11 @@
-<!doctype html>
+
 <html lang="en">
 
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Rumer - Map</title>
+    <title>Rumer - Charts</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="bootstrap/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -165,9 +165,8 @@
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                                <a class="dropdown-item" href="javascript:void(0);" onclick="callChangePassword();"><i class="fas fa-cog mr-2"></i>Password Change</a>
-								<a class="dropdown-item" href="javascript:void(0);" onclick="callIdCancellation();"><i class="fas fa-cog mr-2"></i>ID Cancellation</a>
-	                            <a class="dropdown-item" href="javascript:void(0);" onclick="callSignOut();"><i class="fas fa-power-off mr-2"></i>Sign out</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -245,6 +244,8 @@
                                     </ul>
                                 </div>
                             </li>
+                           
+                                      
                                     </ul>
                                 </div>
                             </li>
@@ -259,50 +260,54 @@
         <!-- ============================================================== -->
         <!-- wrapper  -->
         <!-- ============================================================== -->
-        <div class="dashboard-wrapper">
+        <div class="dashboard-wrapper" style="min-height: 0;"><br>
             <div class="container-fluid dashboard-content">
-                <div class="row">
+
+
+                <div class="row"><br>
 
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <!-- body============================================================== -->
-                        </br>
-                        <div id="map"></div>
+                             
+                                <br><br>
+                            <div id="chart_div"></div>
                         <!-- body end============================================================== -->
-                    </div>
-                    
+                    </div>                    
                 </div>
             </div>
-            <div class="border-top user-social-box">
-                <div class=" user-social-media d-xl-inline-block">
-                    <span class="mr-2 twitter-color">
-                        <input class="btn" type="button" value="O3" onclick="setCircle(0)" style="color:rgb(0,228,0)">
-                    </span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block">
-                    <span class="mr-2  pinterest-color">
-                        <input class="btn" type="button" value="PM2.5" onclick="setCircle(1)" style="color:rgb(0,228,0)">
-                    </span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block">
-                    <span class="mr-2 instagram-color">
-                        <input class="btn" type="button" value="PM10" onclick="setCircle(2)" style="color:rgb(0,228,0)">
-                    </span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block">
-                    <span class="mr-2  facebook-color">
-                        <input class="btn" type="button" value="CO" onclick="setCircle(3)" style="color:rgb(0,228,0)">
-                    </span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block ">
-                    <span class="mr-2 medium-color">
-                        <input class="btn" type="button" value="SO2" onclick="setCircle(4)" style="color:rgb(0,228,0)">
-                        </span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block">
-                    <span class="mr-2 youtube-color"> 
-                    <button class="btn" type="button" value="NO2" onclick="setCircle(5)" style="color:rgb(0,228,0)">NO2</button>
+            <br>
+            <div class="border-top user-social-box" style="margin:20px;">
+
+                <span id="checkboxes" >
+                    <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="1" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >CO
                     </span>
-                </div>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="2" checked style="width:20px;height:20px; font-size:50px;margin:0px     " >SO2
+                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="3" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >O3
+                    </span>
+
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="4" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >NO2
+                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="5" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >PM2.5
+                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="6" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >PM10
+                    </span>
+                </span>
+
+                <select class="user-social-media d-xl-inline-block" id="options">
+                    <div class="mr-2 youtube-color">
+                        <option value="0" selected>All</option>
+                    </div>
+
+                </select>
+                <input type="text" id="testDatepickerStart">~
+                <input type="text" id="testDatepickerEnd">    
             </div>
             <!-- ============================================================== -->
             <!-- footer -->
@@ -310,7 +315,10 @@
             <div class="footer">
                 <div class="container-fluid">
                     <div class="row">
-                        
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            Copyright © 2018 Concept. All rights reserved. Dashboard by <a
+                                href="https://colorlib.com/wp/">Colorlib</a>.
+                        </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="text-md-right footer-links d-none d-sm-block">
                                 <a href="javascript: void(0);">About</a>
@@ -335,13 +343,30 @@
     <script src="bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="bootstrap/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="bootstrap/assets/libs/js/main-js.js"></script>
+    // jQuery UI CSS파일 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+// jQuery 기본 js파일
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+// jQuery UI 라이브러리 js파일
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 
-    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&callback=initMap">
-    </script>
+    
     <!-- 우리가 만든 javascript 코드 추가하는 곳 -->
     <script src="js/index.js"></script>
-    <script src="js/map.js"></script>    
+    <script src="js/charts.js"></script>   
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load("visualization", "1", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(updateCharts);
+        google.charts.setOnLoadCallback(drawChart);
+$(function() {
+    $( "#testDatepickerStart" ).datepicker({});
+});
+$(function() {
+    $( "#testDatepickerEnd" ).datepicker({
+    });
+});
+    </script>
 </body>
+
 </html>
