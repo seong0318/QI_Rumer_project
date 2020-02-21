@@ -75,6 +75,8 @@ function getChartsData() {
 			{ id: 'no2', label: 'NO2', type: 'number' },
 			{ id: 'pm2.5', label: 'PM2.5', type: 'number' },
 			{ id: 'pm10', label: 'PM10', type: 'number' },
+			//미세먼지센서 삭제시 교체
+			//{ id: 'temperature', label: 'Temperature', type: 'number' },
 		],
 		rows: [],
 	};
@@ -95,6 +97,8 @@ function getChartsData() {
 				{ v: parseFloat(airData.no2) },
 				{ v: parseFloat(airData['pm2.5']) },
 				{ v: parseFloat(airData.pm10) },
+				//온도 추가시 미세먼지 지우고 어베데이트
+				//{v : parseFloat(airData.temperature)},
 			],
 		};
 		data.rows.push(elem);
@@ -122,15 +126,14 @@ function drawChart(columns) {
 	};
 
 	lineChart.draw(view, materialOptions);
+	setInterval(() => {
+		let columns = [0];
+		$('#checkboxes input:checked').map(function() {
+			columns.push(parseInt(this.value));
+		});
+		drawChart(columns);
+	}, 5000);
 }
-
-setInterval(() => {
-	let columns = [0];
-	$('#checkboxes input:checked').map(function() {
-		columns.push(parseInt(this.value));
-	});
-	drawChart(columns);
-}, 200000);
 
 var updateCharts = $('#checkboxes input').click(function() {
 	let columns = [0];

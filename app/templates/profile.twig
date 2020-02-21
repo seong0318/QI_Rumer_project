@@ -62,7 +62,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="home">
                         <hr>
-                        <form class="form" action="##" method="post" id="registrationForm">
+                        
                             <div class="form-group">
 
                                 <div class="col-xs-6">
@@ -118,12 +118,11 @@
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <br>
-                                    <button class="btn btn-lg btn-success" type="submit"><i
+                                    <button id="save" class="btn btn-lg btn-success" ><i
                                             class="glyphicon glyphicon-ok-sign"></i> Save</button>
 
                                 </div>
                             </div>
-                        </form>
 
                         <hr>
 
@@ -157,5 +156,8 @@ $(document).ready(function() {
         readURL(this);
     });
 });
+$("#save").click(function() {
+  event.preventDefault();
+ $("#first_name").attr("readOnly", "readOnly");)};
 </script>
 </body>
