@@ -18,18 +18,23 @@ final class ChartsController extends BaseController {
         return $execResult;
     }
 
-    public function getAirDataList($usn, $sensorId) {
+    public function getAirDataList($usn, $sensorId, $startTime, $endTime) {
         /** usn과 sensor_id로 모은 column 내용을 가져옴
          **
          */
-        $sql = "select * from sensor natural join aqi_data where usn = :usn and sensor_id = :sensor_id";
+        $sql = "select * 
+        from sensor natural join aqi_data 
+        where usn = :usn and sensor_id = :sensor_id and date(measured_time) between :start and :end";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = [
             'usn' => $usn,
-            'sensor_id' => $sensorId
+            'sensor_id' => $sensorId,
+            'start' => $startTime,
+            'end' => $endTime
         ];
         if (!$stmt->execute($params)) return -1;
         $execResult = $stmt->fetchall();
+        
         return $execResult;
     }
 
@@ -47,11 +52,13 @@ final class ChartsController extends BaseController {
          */
         $isDevice = $args['isDevice'];
         $sensorId = $_POST['sensor_id'];
+        $startTime = $_POST['start_time'];
+        $endTime = $_POST['end_time'];
         
         if ($isDevice == 0)
             $usn = $_SESSION['usn'];
         else if ($isDevice == 1)
-            $usn = $_GET['usn'];
+            $usn = $_POST['usn'];
         else {
             echo json_encode(array('result' => -5));
             return;
@@ -69,7 +76,7 @@ final class ChartsController extends BaseController {
             return;
         }
         else {
-            $resultExec = $this->getAirDataList($usn, $sensorId);
+            $resultExec = $this->getAirDataList($usn, $sensorId, $startTime, $endTime);
             if ($resultExec == -1) {
                 echo json_encode(array('result' => -1));
                 return;

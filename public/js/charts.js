@@ -144,4 +144,3 @@ var updateCharts = $("#checkboxes input").click(function() {
   });
   drawChart(columns);
 });
-
