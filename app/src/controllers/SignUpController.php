@@ -125,7 +125,7 @@ final class SignUpController extends BaseController {
 
         $mailSubject = "Website Activation Email";
         $mailBody = "<h1>THANK YOU</h1>Please click the link to activate your account.<br>
-        <a href='http://192.168.33.99/signupverify?nonce=$nonce'>Register My Account</a><br>";
+        <a href='http://teama-iot.calit2.net/signupverify?nonce=$nonce'>Register My Account</a><br>";
         $mailAltBody = "Thank you . Please click the link to activate your account.";
 
         if ($this->storeTempUser($_POST['user_name'], $nonce) != 0) {

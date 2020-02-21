@@ -1,15 +1,16 @@
 $("#pwd_btn").click(function() {
   event.preventDefault();
-  var formData = $("#input_form").serialize();
+  let formData = $("#input_form").serialize();
 
   $.ajax({
     type: "POST",
-    url: "./idcancelhandle",
+    url: "./idcancelhandle/0",
     data: formData,
     datatype: "JSON"
   })
     .done(function(json) {
-      var execResult = JSON.parse(json);
+      let jsonData = JSON.parse(json);
+      let execResult = jsonData["result"];
 
       switch (execResult) {
         case 0:
@@ -25,6 +26,9 @@ $("#pwd_btn").click(function() {
         case -3:
           alert("Please login first");
           window.location.href = "/signin";
+          break;
+        case -5:
+          alert("ERROR: Invalid isDevice");
           break;
         default:
           alert("Invalid Access: " + execResult);
