@@ -96,7 +96,7 @@ function getHeartData() {
 
 function drawChart(columns) {
 	let chartDiv = document.getElementById('chart_div');
-	let chartsData = getHeartsData();
+	let chartsData = getHeartData();
 	let data = new google.visualization.DataTable(chartsData);
 	let view = new google.visualization.DataView(data);
 	let checkedElem = document.getElementsByName('checked_elem');
@@ -115,14 +115,6 @@ function drawChart(columns) {
 
 	lineChart.draw(view, materialOptions);
 }
-
-setInterval(() => {
-	let columns = [0];
-	$('#checkboxes input:checked').map(function() {
-		columns.push(parseInt(this.value));
-	});
-	drawChart(columns);
-}, 1000);
 
 var updateCharts = $('#checkboxes input').click(function() {
 	let columns = [0];
