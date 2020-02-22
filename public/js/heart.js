@@ -130,7 +130,7 @@ setInterval(() => {
 		columns.push(parseInt(this.value));
 	});
 	drawChart(columns);
-}, 200000);
+}, 1000);
 
 var updateCharts = $('#checkboxes input').click(function() {
 	let columns = [0];

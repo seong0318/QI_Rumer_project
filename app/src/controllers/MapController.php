@@ -5,8 +5,10 @@ namespace App\Controller;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-final class MapController extends BaseController {
-    public function getRecentlyAirDataList($usn) {
+final class MapController extends BaseController
+{
+    public function getRecentlyAirDataList($usn)
+    {
         /** usn으로 air data의 sensor id 별 가장 최신의 
          ** 모든 column 내용을 가져옴
          */
@@ -24,17 +26,23 @@ final class MapController extends BaseController {
         return $execResult;
     }
 
-    public function map(Request $request, Response $response, $args) {
+    public function map(Request $request, Response $response, $args)
+    {
         $this->view->render($response, 'map.twig');
         return $response;
     }
-
-    public function mapHandle(Request $request, Response $response, $args) {
+    public function maphistory(Request $request, Response $response, $args)
+    {
+        $this->view->render($response, 'map_history.twig');
+        return $response;
+    }
+    public function mapHandle(Request $request, Response $response, $args)
+    {
         /** 정상일 경우 result => 0, data => air data 값 전부, 
          ** 로그인 되어 있지 않는 경우 result => -5 반환
          */
         $isDevice = $args['isDevice'];
-        
+
         if ($isDevice == 0)
             $usn = $_SESSION['usn'];
         else if ($isDevice == 1)
@@ -43,11 +51,12 @@ final class MapController extends BaseController {
             echo json_encode(array('result' => -5));
             return;
         }
-        
+
         $resultExec = $this->getRecentlyAirDataList($usn);
         echo json_encode(array(
-            'result' => 0, 
-            'data' => $resultExec));
+            'result' => 0,
+            'data' => $resultExec
+        ));
         return;
     }
 }

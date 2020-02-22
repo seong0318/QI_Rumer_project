@@ -5,7 +5,7 @@ namespace App\Controller;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-final class ChartsController extends BaseController
+final class HeartController extends BaseController
 {
     public function getAllAirDataList($usn)
     {
@@ -20,23 +20,19 @@ final class ChartsController extends BaseController
         return $execResult;
     }
 
-    public function getAirDataList($usn, $sensorId, $startTime, $endTime) {
+    public function getAirDataList($usn, $sensorId)
+    {
         /** usn과 sensor_id로 모은 column 내용을 가져옴
          **
          */
-        $sql = "select * 
-        from sensor natural join aqi_data 
-        where usn = :usn and sensor_id = :sensor_id and date(measured_time) between :start and :end";
+        $sql = "select * from sensor natural join aqi_data where usn = :usn and sensor_id = :sensor_id";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = [
             'usn' => $usn,
-            'sensor_id' => $sensorId,
-            'start' => $startTime,
-            'end' => $endTime
+            'sensor_id' => $sensorId
         ];
         if (!$stmt->execute($params)) return -1;
         $execResult = $stmt->fetchall();
-        
         return $execResult;
     }
 
@@ -46,9 +42,9 @@ final class ChartsController extends BaseController
         return $response;
     }
 
-    public function chartshistory(Request $request, Response $response, $args)
+    public function hearthistory(Request $request, Response $response, $args)
     {
-        $this->view->render($response, 'charts_history.twig');
+        $this->view->render($response, 'heart_history.twig');
         return $response;
     }
 
@@ -62,13 +58,11 @@ final class ChartsController extends BaseController
          */
         $isDevice = $args['isDevice'];
         $sensorId = $_POST['sensor_id'];
-        $startTime = $_POST['start_time'];
-        $endTime = $_POST['end_time'];
-      
+
         if ($isDevice == 0)
             $usn = $_SESSION['usn'];
         else if ($isDevice == 1)
-            $usn = $_POST['usn'];
+            $usn = $_GET['usn'];
         else {
             echo json_encode(array('result' => -5));
             return;
@@ -83,10 +77,8 @@ final class ChartsController extends BaseController
         } else if ($sensorId < 0) {
             echo json_encode(array('result' => -2));
             return;
-        }
-        else {
-            $resultExec = $this->getAirDataList($usn, $sensorId, $startTime, $endTime);
-
+        } else {
+            $resultExec = $this->getAirDataList($usn, $sensorId);
             if ($resultExec == -1) {
                 echo json_encode(array('result' => -1));
                 return;
