@@ -21,40 +21,6 @@
 	<title>Rumer - index</title>
 	<script type="text/javascript" src="smoothie.js"></script>
 
-	{# <script type="text/javascript">
-		var arr;
-		var data = Math.floor(Math.random() * 120) + 80;
-		var line = new TimeSeries();
-  
-		function createTimeline(msg) {
-		  var chart = new SmoothieChart({
-			millisPerPixel: 100,
-			grid: { fillStyle: "#000000" },
-			labels: { fillStyle: "#FFFFFF", precision: 0 },
-			timestampFormatter: SmoothieChart.timeFormatter
-		  });
-  
-		  // Add a random value to each line every second
-		  setInterval(function() {
-			var data = Math.floor(Math.random() * 120) + 80;
-			line.append(new Date().getTime(), data); //input data
-		  }, 1000);
-  
-		  // Add to SmoothieChart
-		  chart.addTimeSeries(line, {
-			strokeStyle: "rgb(255, 255, 255)",
-			lineWidth: 3,
-			fillStyle: "rgba(0,0,0,0.30)"
-		  }); //config line
-		  // var smoothie = new SmoothieChart();
-		  chart.streamTo(document.getElementById("chart"), 1000); //draw
-		  document.getElementById("i_data").innerHTML = data;
-		  //        console.log(data);
-		  
-		}
-
-		</script> #}
-
 	
 </head>
 
@@ -242,14 +208,15 @@
                                                      <li class="nav-item">
                                                         <a class="nav-link" href="/hearthistory">Heart History</a>
                                                     </li>
+													 <li class="nav-item">
+                                                        <a class="nav-link" href="/historytable">AQI History Table</a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                           
-                                      
                                     </ul>
                                 </div>
                             </li>
@@ -338,100 +305,17 @@
 	                                    </div>
 	                                </div>
 	                                <div class="border-top user-social-box">
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 twitter-color"><input class="btn" type="button" value="O3" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)">  </span><span>13,291</span></div>
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  pinterest-color"><input class="btn" type="button" value="PM2.5" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"> </span><span>84,019</span></div>
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 instagram-color"><input class="btn" type="button" value="PM10" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"></span><span>12,300</span></div>
-	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  facebook-color"><input class="btn" type="button" value="CO" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"> </span><span>92,920</span></div>
-	                                    <div class="user-social-media d-xl-inline-block "><span class="mr-2 medium-color"><input class="btn" type="button" value="SO2" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"></span><span>291</span></div>
-										<div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"><input class="btn" type="button" value="NO2" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"></span><span>1291</span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2 twitter-color"><input class="btn" type="button" value="O3" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)">  </span><span></span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  pinterest-color"><input class="btn" type="button" value="PM2.5" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"> </span><span></span></div>
+	                                    <div class="user-social-media d-xl-inline-block"><span class="mr-2  facebook-color"><input class="btn" type="button" value="CO" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"> </span><span></span></div>
+	                                    <div class="user-social-media d-xl-inline-block "><span class="mr-2 medium-color"><input class="btn" type="button" value="SO2" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"></span><span></span></div>
+										<div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"><input class="btn" type="button" value="NO2" onclick="location.href='http://192.168.33.99/charts';" style="color:rgb(0,228,0)"></span><span></span></div>
 										{# <div class="user-social-media d-xl-inline-block"><span class="mr-2 youtube-color"><input class="btn" type="button" value="AQI" onclick="func1()" style="color:rgb(0,228,0)"></span><span>100</span></div> #}
 	                                </div>
 	                            </div>
 	                        </div>
 	                    </div>
-	                    <!-- ============================================================== -->
-	                    <!-- end influencer profile  -->
-	                    <!-- ============================================================== -->
-	                    <!-- ============================================================== -->
-	                    <!-- widgets   -->
-	                    <!-- ============================================================== -->
-	                    <!-- <div class="row"> -->
-	                        <!-- ============================================================== -->
-	                        <!-- four widgets   -->
-	                        <!-- ============================================================== -->
-	                        <!-- ============================================================== -->
-	                        <!-- total views   -->
-	                        <!-- ============================================================== -->
-	                        <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-	                            <div class="card">
-	                                <div class="card-body">
-	                                    <div class="d-inline-block">
-	                                        <h5 class="text-muted">Total Views</h5>
-	                                        <h2 class="mb-0"> 10,28,056</h2>
-	                                    </div>
-	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
-	                                        <i class="fa fa-eye fa-fw fa-sm text-info"></i>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div> -->
-	                        <!-- ============================================================== -->
-	                        <!-- end total views   -->
-	                        <!-- ============================================================== -->
-	                        <!-- ============================================================== -->
-	                        <!-- total followers   -->
-	                        <!-- ============================================================== -->
-	                        <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-	                            <div class="card">
-	                                <div class="card-body">
-	                                    <div class="d-inline-block">
-	                                        <h5 class="text-muted">Total Followers</h5>
-	                                        <h2 class="mb-0"> 24,763</h2>
-	                                    </div>
-	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
-	                                        <i class="fa fa-user fa-fw fa-sm text-primary"></i>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div> -->
-	                        <!-- ============================================================== -->
-	                        <!-- end total followers   -->
-	                        <!-- ============================================================== -->
-	                        <!-- ============================================================== -->
-	                        <!-- partnerships   -->
-	                        <!-- ============================================================== -->
-	                        <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-	                            <div class="card">
-	                                <div class="card-body">
-	                                    <div class="d-inline-block">
-	                                        <h5 class="text-muted">Partnerships</h5>
-	                                        <h2 class="mb-0">14</h2>
-	                                    </div>
-	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-secondary-light mt-1">
-	                                        <i class="fa fa-handshake fa-fw fa-sm text-secondary"></i>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div> -->
-	                        <!-- ============================================================== -->
-	                        <!-- end partnerships   -->
-	                        <!-- ============================================================== -->
-	                        <!-- ============================================================== -->
-	                        <!-- total earned   -->
-	                        <!-- ============================================================== -->
-	                        <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-	                            <div class="card">
-	                                <div class="card-body">
-	                                    <div class="d-inline-block">
-	                                        <h5 class="text-muted">Total Earned</h5>
-	                                        <h2 class="mb-0"> $149.00</h2>
-	                                    </div>
-	                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-brand-light mt-1">
-	                                        <i class="fa fa-money-bill-alt fa-fw fa-sm text-brand"></i>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div> -->
+	            
 	                        <!-- ============================================================== -->
 	                        <!-- end total earned   -->
 	                        <!-- ============================================================== -->
@@ -491,64 +375,7 @@
 	                            <div class="card">
 	                                <h5 class="card-header" style="color:#e43863">HEART RATE</h5>
 	                                <div class="card-body" style="height: 270px;alin-content:center;align-content: center;justify-content: center;display: flex;">
-	                                    <!-- <div class="mb-3">
-	                                        <div class="d-inline-block">
-	                                            <h4 class="mb-0">15 - 20</h4>
-	                                        </div>
-	                                        <div class="progress mt-2 float-right progress-md">
-	                                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 45%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="mb-3">
-	                                        <div class="d-inline-block">
-	                                            <h4 class="mb-0">20 - 25</h4>
-	                                        </div>
-	                                        <div class="progress mt-2 float-right progress-md">
-	                                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 55%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="mb-3">
-	                                        <div class="d-inline-block">
-	                                            <h4 class="mb-0">25 - 30</h4>
-	                                        </div>
-	                                        <div class="progress mt-2 float-right progress-md">
-	                                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="mb-3">
-	                                        <div class="d-inline-block">
-	                                            <h4 class="mb-0">30 - 35</h4>
-	                                        </div>
-	                                        <div class="progress mt-2 float-right progress-md">
-	                                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 35%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="mb-3">
-	                                        <div class="d-inline-block">
-	                                            <h4 class="mb-0">35 - 40</h4>
-	                                        </div>
-	                                        <div class="progress mt-2 float-right progress-md">
-	                                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 21%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="mb-3">
-	                                        <div class="d-inline-block">
-	                                            <h4 class="mb-0">45 - 50</h4>
-	                                        </div>
-	                                        <div class="progress mt-2 float-right progress-md">
-	                                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 85%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="mb-3">
-	                                        <div class="d-inline-block">
-	                                            <h4 class="mb-0">50 - 55</h4>
-											</div> -->
-		                                        <!-- <div class="progress mt-2 float-right progress-md">
-	                                             <div class="progress-bar bg-secondary" role="progressbar" style="width: 25%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div> 
-	                                        </div> -->
-	                                    <!-- </div> -->
-
-										<span id="heart_id" style="height : 100%,width:100%;font-size:150px;align-content: center;color:#e43863">10</span>
+										<span id="heart_id" style="height : 100%,width:100%;font-size:150px;align-content: center;color:#e43863">--</span>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -573,264 +400,13 @@
 	                        <!-- ============================================================== -->
 	                    </div>
 	                    <div class="row">
-	                        <!-- ============================================================== -->
-	                        <!-- campaign activities   -->
-	                        <!-- ============================================================== -->
-	                        {# <div class="col-lg-12">
-	                            <div class="section-block">
-	                                <h3 class="section-title">My Active Campaigns</h3>
-	                            </div>
-	                            <div class="card">
-	                                <div class="campaign-table table-responsive">
-	                                    <table class="table">
-	                                        <thead>
-	                                            <tr class="border-0">
-	                                                <th class="border-0">Company</th>
-	                                                <th class="border-0">Campaign Name</th>
-	                                                <th class="border-0">Social Platform</th>
-	                                                <th class="border-0">Min / Max Views</th>
-	                                                <th class="border-0">Status</th>
-	                                                <th class="border-0">Start Date</th>
-	                                                <th class="border-0">Action</th>
-	                                            </tr>
-	                                        </thead>
-	                                        <tbody>
-	                                            <tr>
-	                                                <td>
-	                                                    <div class="m-r-10"><img src="bootstrap/assets/images/dribbble.png" alt="user" width="35"></div>
-	                                                </td>
-	                                                <td>Fashion E Commerce </td>
-	                                                <td>
-	                                                    <div class="avatar-group">
-	                                                        <span><a href="#"><i class="fab fa-fw fa-facebook-square facebook-color"></i></a></span>
-	                                                        <span><a href="#"><i class="fab fa-fw fa-twitter-square twitter-color"></i></a></span>
-	                                                        <span><a href="#"><i class="fab fa-fw fa-instagram instagram-color"></i></a></span>
-	                                                        <span><a href="#"><i class="fab fa-fw fa-pinterest-square pinterest-color"></i></a></span>
-	                                                    </div>
-	                                                </td>
-	                                                <td>1,00,000 / 1,50,000</td>
-	                                                <td>70%</td>
-	                                                <td>7 Aug,2018</td>
-	                                                <td>
-	                                                    <div class="dropdown float-right">
-	                                                        <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="true">
-	                                                                <i class="mdi mdi-dots-vertical"></i>
-	                                                                     </a>
-	                                                        <div class="dropdown-menu dropdown-menu-right">
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-	                                                        </div>
-	                                                    </div>
-	                                                </td>
-	                                            </tr>
-	                                            <tr>
-	                                                <td>
-	                                                    <div class="m-r-10"><img src="bootstrap/assets/images/github.png" alt="user" width="35"></div>
-	                                                </td>
-	                                                <td>Fitness Products </td>
-	                                                <td>
-	                                                    <div class="avatar-group">
-	                                                        <span><a href="#"><i class="fab fa-fw fa-facebook-square facebook-color "></i></a></span>
-	                                                        <span><a href="#"><i class="fab fa-fw fa-twitter-square twitter-color "></i></a></span>
-	                                                    </div>
-	                                                </td>
-	                                                <td>2,50,000 / 3,50,000</td>
-	                                                <td>70%</td>
-	                                                <td>10 Aug,2018</td>
-	                                                <td>
-	                                                    <div class="dropdown float-right">
-	                                                        <a href="#" class="dropdown-toggle  card-drop" data-toggle="dropdown" aria-expanded="true">
-	                                            <i class="mdi mdi-dots-vertical"></i>
-	                                        </a>
-	                                                        <div class="dropdown-menu dropdown-menu-right">
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-	                                                        </div>
-	                                                    </div>
-	                                                </td>
-	                                            </tr>
-	                                            <tr>
-	                                                <td>
-	                                                    <div class="m-r-10"><img src="bootstrap/assets/images/dropbox.png" alt="user" width="35"></div>
-	                                                </td>
-	                                                <td>Gym Trainer Program </td>
-	                                                <td>
-	                                                    <div class="avatar-group">
-	                                                        <span><a href="#"><i class="fab fa-fw fa-facebook-square facebook-color "></i></a></span>
-	                                                        <span><a href="#"><i class="fab fa-fw fa-pinterest-square pinterest-color "></i></a></span>
-	                                                    </div>
-	                                                </td>
-	                                                <td>3,50,000 / 4,50,000</td>
-	                                                <td>70%</td>
-	                                                <td>22 Aug,2018</td>
-	                                                <td>
-	                                                    <div class="dropdown float-right">
-	                                                        <a href="#" class="dropdown-toggle  card-drop" data-toggle="dropdown" aria-expanded="true">
-	                                            <i class="mdi mdi-dots-vertical"></i>
-	                                        </a>
-	                                                        <div class="dropdown-menu dropdown-menu-right">
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-	                                                        </div>
-	                                                    </div>
-	                                                </td>
-	                                            </tr>
-	                                            <tr>
-	                                                <td>
-	                                                    <div class="m-r-10"><img src="bootstrap/assets/images/bitbucket.png" alt="user" width="30"></div>
-	                                                </td>
-	                                                <td>2018 Top Product </td>
-	                                                <td>
-	                                                    <div class="avatar-group">
-	                                                        <span><a href="#"><i class="fab fa-fw fa-pinterest-square pinterest-color"></i></a></span>
-	                                                    </div>
-	                                                </td>
-	                                                <td>4,50,000 / 5,50,000</td>
-	                                                <td>70%</td>
-	                                                <td>25 Aug,2018</td>
-	                                                <td>
-	                                                    <div class="dropdown float-right">
-	                                                        <a href="#" class="dropdown-toggle  card-drop" data-toggle="dropdown" aria-expanded="true">
-	                                            <i class="mdi mdi-dots-vertical"></i>
-	                                        </a>
-	                                                        <div class="dropdown-menu dropdown-menu-right">
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-	                                                        </div>
-	                                                    </div>
-	                                                </td>
-	                                            </tr>
-	                                            <tr>
-	                                                <td>
-	                                                    <div class="m-r-10"><img src="bootstrap/assets/images/mail_chimp.png" alt="user" width="30"></div>
-	                                                </td>
-	                                                <td>Top Dashboard Sale 2018</td>
-	                                                <td>
-	                                                    <div class="avatar-group">
-	                                                        <span><a href="#"><i class="fab fa-fw fa-facebook-square facebook-color"></i></a></span>
-	                                                        <span><a href="#"><i class="fab fa-fw fa-pinterest-square pinterest-color"></i></a></span>
-	                                                    </div>
-	                                                </td>
-	                                                <td>5,50,000 / 6,50,000</td>
-	                                                <td>70%</td>
-	                                                <td>27 Aug,2018</td>
-	                                                <td>
-	                                                    <div class="dropdown float-right">
-	                                                        <a href="#" class="dropdown-toggle  card-drop" data-toggle="dropdown" aria-expanded="true">
-	                                            <i class="mdi mdi-dots-vertical"></i>
-	                                        </a>
-	                                                        <div class="dropdown-menu dropdown-menu-right">
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-	                                                            <!-- item-->
-	                                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-	                                                        </div>
-	                                                    </div>
-	                                                </td>
-	                                            </tr>
-	                                        </tbody>
-	                                    </table>
-	                                </div>
-	                            </div>
-	                        </div> #}
-	                        <!-- ============================================================== -->
-	                        <!-- end campaign activities   -->
-	                        <!-- ============================================================== -->
+	                    
 	                    </div>
 	                    <!-- ============================================================== -->
 	                    <!-- recommended campaigns   -->
 	                    <!-- ============================================================== -->
 	                    <div class="row">
-	                        {# <div class="col-lg-12">
-	                            <div class="section-block">
-	                                <h3 class="section-title">Recommended Campaigns</h3>
-	                            </div>
-	                        </div>
-	                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-	                            <div class="card campaign-card text-center">
-	                                <div class="card-body">
-	                                    <div class="campaign-img"><img src="bootstrap/assets/images/dribbble.png" alt="user" class="user-avatar-xl"></div>
-	                                        <div class="campaign-info">
-	                                            <h3 class="mb-1">Campaigns Name</h3>
-	                                            <p class="mb-3">Vestibulum porttitor laoreet faucibus.</p>
-	                                            <p class="mb-1">Min, Views:<span class="text-dark font-medium ml-2">2,50,000</span></p>
-	                                            <p>Payout: <span class="text-dark font-medium ml-2">$22</span></p>
-	                                            <a href="#"><i class="fab fa-twitter-square fa-sm twitter-color"></i> </a><a href="#"><i class="fab fa-snapchat-square fa-sm snapchat-color"></i></a>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-	                                <div class="card campaign-card text-center">
-	                                    <div class="card-body">
-	                                        <div class="campaign-img"><img src="bootstrap/assets/images/github.png" alt="user" class=" user-avatar-xl"></div>
-	                                            <div class="campaign-info">
-	                                                <h3 class="mb-1">Campaigns Name</h3>
-	                                                <p class="mb-3">Lorem ipsum dolor sit ament</p>
-	                                                <p class="mb-1">Min, Views:<span class="text-dark font-medium ml-2">1,00,000</span></p>
-	                                                <p>Payout: <span class="text-dark font-medium ml-2">$28</span></p>
-	                                                <a href="#"><i class="fab fa-instagram fa-sm instagram-color"></i> </a><a href="#"><i class="fab fa-facebook-square fa-sm facebook-color"></i></a>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-	                                    <div class="card campaign-card text-center">
-	                                        <div class="card-body">
-	                                            <div class="campaign-img"><img src="bootstrap/assets/images/slack.png" alt="user" class="user-avatar-xl"></div>
-	                                                <div class="campaign-info">
-	                                                    <h3 class="mb-1">Campaigns Name</h3>
-	                                                    <p class="mb-3">Maecenas mattis tempor libero pretium.</p>
-	                                                    <p class="mb-1">Min, Views:<span class="text-dark font-medium ml-2">3,80,000</span></p>
-	                                                    <p>Payout: <span class="text-dark font-medium ml-2">$36</span></p>
-	                                                    <a href="#"><i class="fab fa-facebook-square fa-sm facebook-color"></i> </a><a href="#"><i class="fab fa-snapchat-square fa-sm snapchat-color"></i></a>
-	                                                </div>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-	                                        <div class="card campaign-card text-center">
-	                                            <div class="card-body">
-	                                                <div class="campaign-img"><img src="bootstrap/assets/images/mail_chimp.png" alt="user" class="user-avatar-xl"></div>
-	                                                    <div class="campaign-info">
-	                                                        <h3 class="mb-1">Campaigns Name</h3>
-	                                                        <p class="mb-3">Proin vitae lacinia leo</p>
-	                                                        <p class="mb-1">Min, Views:<span class="text-dark font-medium ml-2">4,50,000</span></p>
-	                                                        <p>Payout: <span class="text-dark font-medium ml-2">$57</span></p>
-	                                                        <a href="#"><i class="fab fa-twitter-square fa-sm twitter-color"></i> </a><a href="#"><i class="fab fa-snapchat-square fa-sm snapchat-color"></i></a>
-	                                                        <a href="#"><i class="fab fa-facebook-square fa-sm facebook-color"></i></a>
-	                                                    </div>
-	                                                </div>
-	                                            </div>
-	                                        </div> #}
+	             
 	                                    </div>
 	                                    <!-- ============================================================== -->
 	                                    <!-- end recommended campaigns   -->
@@ -896,9 +472,9 @@
 
 	<script>
 	setInterval(() => {
-		let sensorOne = Math.floor(Math.random() * 120) + 80;
+		let sensorOne = Math.floor(Math.random() * 10) + 70;
 		document.getElementById("heart_id").innerHTML = sensorOne;
-	}, 1000);
+	}, 30000);
 
 	
 

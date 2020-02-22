@@ -26,6 +26,11 @@ final class IndexController extends BaseController
         return $response;
     }
 
+    public function profile(Request $request, Response $response, $args)
+    {
+        $this->view->render($response, 'profile.twig');
+    }
+
     public function charts(Request $request, Response $response, $args)
     {
 

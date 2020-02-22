@@ -73,7 +73,7 @@ function getChartsData() {
 			{ id: 'so2', label: 'SO2', type: 'number' },
 			{ id: 'o3', label: 'O3', type: 'number' },
 			{ id: 'no2', label: 'NO2', type: 'number' },
-			{ id: 'pm2.5', label: 'PM2.5', type: 'number' },
+			{ id: 'pm25', label: 'PM25', type: 'number' },
 			{ id: 'pm10', label: 'PM10', type: 'number' },
 		],
 		rows: [],
@@ -93,7 +93,7 @@ function getChartsData() {
 				{ v: parseFloat(airData.so2) },
 				{ v: parseFloat(airData.o3) },
 				{ v: parseFloat(airData.no2) },
-				{ v: parseFloat(airData['pm2.5']) },
+				{ v: parseFloat(airData['pm25']) },
 				{ v: parseFloat(airData.pm10) },
 			],
 		};
@@ -123,14 +123,14 @@ function drawChart(columns) {
 
 	lineChart.draw(view, materialOptions);
 }
-
 setInterval(() => {
 	let columns = [0];
 	$('#checkboxes input:checked').map(function() {
 		columns.push(parseInt(this.value));
 	});
+	console.log('con');
 	drawChart(columns);
-}, 200000);
+}, 1000);
 
 var updateCharts = $('#checkboxes input').click(function() {
 	let columns = [0];
