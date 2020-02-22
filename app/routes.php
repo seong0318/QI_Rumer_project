@@ -78,6 +78,11 @@ $app->get('/sensorlist', 'App\Controller\SensorListController:sensorList')
 $app->get('/sensorlisthandle/{isDevice}', 'App\Controller\SensorListController:sensorListHandle')
     ->setName('sensorlist_handle');
 
+//index/historytable==========================================================================
+$app->get('/historytable', 'App\Controller\HistoryTableController:historytable')
+    ->setName('historytable');
+
+
 //sensor deregist===================================================================================
 $app->post('/sensorderegist/{isDevice}', 'App\Controller\SensorDeregistController:sensorDeregist')
     ->setName('sensor_deregist');
