@@ -7,12 +7,12 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 final class HeartController extends BaseController
 {
-    public function getAllAirDataList($usn)
+    public function getAllHeartDataList($usn)
     {
-        /** usn으로 air data의 모든 column 내용을 가져옴
+        /** usn으로 heart data의 모든 column 내용을 가져옴
          ** 
          */
-        $sql = "select * from sensor natural join aqi_data where usn = :usn";
+        $sql = "select * from sensor natural join heart_data where usn = :usn";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = ['usn' => $usn];
         if (!$stmt->execute($params)) return -1;
@@ -20,12 +20,12 @@ final class HeartController extends BaseController
         return $execResult;
     }
 
-    public function getAirDataList($usn, $sensorId)
+    public function getHeartDataList($usn, $sensorId)
     {
         /** usn과 sensor_id로 모은 column 내용을 가져옴
          **
          */
-        $sql = "select * from sensor natural join aqi_data where usn = :usn and sensor_id = :sensor_id";
+        $sql = "select * from sensor natural join heart_data where usn = :usn and sensor_id = :sensor_id";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = [
             'usn' => $usn,
@@ -36,11 +36,6 @@ final class HeartController extends BaseController
         return $execResult;
     }
 
-    public function charts(Request $request, Response $response, $args)
-    {
-        $this->view->render($response, 'charts.twig');
-        return $response;
-    }
 
     public function hearthistory(Request $request, Response $response, $args)
     {
@@ -48,7 +43,7 @@ final class HeartController extends BaseController
         return $response;
     }
 
-    public function chartsHandle(Request $request, Response $response, $args)
+    public function heartHandle(Request $request, Response $response, $args)
     {
         /** sensorId가 0일 경우 모든 sensorId 선택한 것, 음수일 경우 잘못된 값 입력
          ** 이외에는 각 값이 sensor_id 
@@ -69,7 +64,7 @@ final class HeartController extends BaseController
         }
 
         if ($sensorId == 0) {
-            $resultExec = $this->getAllAirDataList($usn);
+            $resultExec = $this->getAllHeartDataList($usn);
             if ($resultExec == -1) {
                 echo json_encode(array('result' => -1));
                 return;
@@ -78,7 +73,7 @@ final class HeartController extends BaseController
             echo json_encode(array('result' => -2));
             return;
         } else {
-            $resultExec = $this->getAirDataList($usn, $sensorId);
+            $resultExec = $this->getHeartDataList($usn, $sensorId);
             if ($resultExec == -1) {
                 echo json_encode(array('result' => -1));
                 return;

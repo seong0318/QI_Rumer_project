@@ -1,11 +1,11 @@
-<!doctype html>
+
 <html lang="en">
 
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Rumer - History table</title>
+    <title>Rumer - historytable</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="bootstrap/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -27,7 +27,7 @@
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
-    <div class="dashboard-main-wrapper">
+    <div class="dashboard-main-wrapper" style="min-height: 0;">
         <!-- ============================================================== -->
         <!-- navbar -->
         <!-- ============================================================== -->
@@ -74,7 +74,7 @@
                                                             class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
                                                             class="notification-list-user-name">
-                                                            John Abraham</span>is now following you
+                                                            SEONG HYUN</span>is now following you
                                                         <div class="notification-date">2 days ago</div>
                                                     </div>
                                                 </div>
@@ -161,7 +161,7 @@
                                 aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">
-                                        John Abraham</h5>
+                                        SEONG HYUN</h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
@@ -235,7 +235,7 @@
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="/chartshistory">Charts History</a>
                                                     </li>
-                                                     <li class="nav-item">
+                                                    <li class="nav-item">
                                                         <a class="nav-link" href="/hearthistory">Heart History</a>
                                                     </li>
                                                      <li class="nav-item">
@@ -263,53 +263,57 @@
         <!-- ============================================================== -->
         <!-- wrapper  -->
         <!-- ============================================================== -->
-        <div class="dashboard-wrapper">
+        <div class="dashboard-wrapper"><br>
             <div class="container-fluid dashboard-content">
-                <div class="row">
+
+
+                <div class="row"><br>
 
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <!-- body============================================================== -->
-                        <!-- body end============================================================== -->
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                             
+                                <br><br>
 
-                        <div class="card">
-                            <h5 class="card-header" style="color: aliceblue;">My Sensor Table</h5>
-                            <div class="card-body" style="background-color:white">
-                                <table class="table" id="sensor_table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Index</th>
-                                            <th scope="col">Sensor Name</th>
-                                            <th scope="col">Type</th>
-                                            <th scope="col">Mac Address</th>
-                                            <th scope="col">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                        <!-- body end============================================================== -->
+                    </div>                    
                 </div>
             </div>
-            <div class="border-top user-social-box">
-                <div class=" user-social-media d-xl-inline-block">
-                    <span class="mr-2 twitter-color">
-                        <input class="btn" type="button" value="Udoo Sensor" onclick="showSensorList(0)" style="color:rgb(0,228,0)">
-                    </span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block">
-                    <span class="mr-2  pinterest-color">
-                        <input class="btn" type="button" value="Polar Sensor" onclick="showSensorList(1);" style="color:rgb(0,228,0)">
-                    </span><span></span>
-                </div>
-                <div class="user-social-media d-xl-inline-block">
-                    <span class="mr-2 instagram-color">
-                        <input class="btn" type="button" value="All" onclick="showSensorList(2)" style="color:rgb(0,228,0)">
-                    </span><span></span>
-                </div>
+            <br>
+            <div class="border-top user-social-box" style="margin:20px;">
+
+                <span id="checkboxes" >
+                    <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="1" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >CO
+                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="2" checked style="width:20px;height:20px; font-size:50px;margin:0px     " >SO2
+                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="3" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >O3
+                    </span>
+
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="4" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >NO2
+                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="5" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >PM2.5
+                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="6" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >Tesmperature
+                    </span>
+                </span>
+
+                <select class="user-social-media d-xl-inline-block" id="options">
+                    <div class="mr-2 youtube-color">
+                        <option value="0" selected>ALL</option>
+                    </div>
+                </select>
+                <form method="post" action="">
+     <p>Start Date: <input name = "starttdatepicker" type="text"  id="startdatepicker"></p>
+    <p>Last Date: <input name = "lastdatepicker" type="text"  id="lastdatepicker"></p>
+    <input type="submit" value="Get Data" name="data"/>
+
+    </form>  
             </div>
             <!-- ============================================================== -->
             <!-- footer -->
@@ -345,13 +349,36 @@
     <script src="bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="bootstrap/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="bootstrap/assets/libs/js/main-js.js"></script>
+    // jQuery UI CSS파일 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+// jQuery 기본 js파일
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+// jQuery UI 라이브러리 js파일
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 
-    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js">
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmDUcoo7s8F1hxoVYROjiA9F9VIPRMO4&callback=initMap">
-    </script>
+    
     <!-- 우리가 만든 javascript 코드 추가하는 곳 -->
-    <script src="js/sensor_list.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/charts.js"></script>   
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load("visualization", "1", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(updateCharts);
+        google.charts.setOnLoadCallback(drawChart);
+ $(function() {
+    var startdate = $('#startdatepicker').datepicker({  }).val();
+    });
+$(function() {
+    var lastdate = $('#lastdatepicker').datepicker({  }).val();
+    });
+$("#dateInput").click(function(){
+    event.preventDefault();
+    var startDate = document.getElementById("startdatepicker");
+    var endDate = document.getElementById("lastdatepicker");
+    alert(startDate);
+
+})
+    </script>
 </body>
+
 </html>

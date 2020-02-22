@@ -120,17 +120,31 @@ function drawChart(columns) {
 		width: 900,
 		height: 500,
 	};
-
-	lineChart.draw(view, materialOptions);
+	var options = {
+		title: 'AQI Values in your sensors',
+		hAxis: {
+			titleTextStyle: { color: '#333' },
+			slantedText: true,
+			slantedTextAngle: 10,
+		},
+		vAxis: { minValue: 1 },
+		explorer: {
+			actions: ['dragToZoom', 'rightClickToReset'],
+			axis: 'horizontal',
+			keepInBounds: true,
+			maxZoomIn: 100.0,
+		},
+	};
+	lineChart.draw(view, options);
 }
-setInterval(() => {
-	let columns = [0];
-	$('#checkboxes input:checked').map(function() {
-		columns.push(parseInt(this.value));
-	});
-	console.log('con');
-	drawChart(columns);
-}, 1000);
+// setInterval(() => {
+// 	let columns = [0];
+// 	$('#checkboxes input:checked').map(function() {
+// 		columns.push(parseInt(this.value));
+// 	});
+// 	console.log('con');
+// 	drawChart(columns);
+// }, 2000);
 
 var updateCharts = $('#checkboxes input').click(function() {
 	let columns = [0];

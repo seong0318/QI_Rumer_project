@@ -74,7 +74,7 @@
                                                             class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
                                                             class="notification-list-user-name">
-                                                            John Abraham</span>is now following you
+                                                            SEONG HYUN</span>is now following you
                                                         <div class="notification-date">2 days ago</div>
                                                     </div>
                                                 </div>
@@ -161,7 +161,7 @@
                                 aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">
-                                        John Abraham</h5>
+                                        SEONG HYUN</h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
@@ -305,7 +305,7 @@
 
                 <select class="user-social-media d-xl-inline-block" id="options">
                     <div class="mr-2 youtube-color">
-                        <option value="0" selected></option>
+                        <option value="0" selected>ALL</option>
                     </div>
 
                 </select>
@@ -362,25 +362,13 @@
     
     <!-- 우리가 만든 javascript 코드 추가하는 곳 -->
     <script src="js/index.js"></script>
-    <script src="js/charts.js"></script>   
+    <script src="js/charts_realtime.js"></script>   
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         google.charts.load("visualization", "1", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(updateCharts);
         google.charts.setOnLoadCallback(drawChart);
- $(function() {
-    var startdate = $('#startdatepicker').datepicker({  }).val();
-    });
-$(function() {
-    var lastdate = $('#lastdatepicker').datepicker({  }).val();
-    });
-$("#dateInput").click(function(){
-    event.preventDefault();
-    var startDate = document.getElementById("startdatepicker");
-    var endDate = document.getElementById("lastdatepicker");
-    alert(startDate);
 
-})
     </script>
 </body>
 
