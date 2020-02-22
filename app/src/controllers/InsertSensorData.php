@@ -132,7 +132,7 @@ final class InsertSensorData extends BaseController {
             return;
         }
 
-        $execResult = $this->insertAqiData($lat, $lng, $mac, $temp, $no2, $o3, $co, $so2, $pm25, $airDataId);
+        $execResult = $this->insertAqiData($lat, $lng, $mac, $temp, $no2, $o3, $co, $so2, $pm25, $lastInsertId);
         echo json_encode(array('result' => $execResult));
         return;
     }
