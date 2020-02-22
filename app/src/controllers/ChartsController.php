@@ -43,7 +43,7 @@ final class ChartsController extends BaseController
 
     public function charts(Request $request, Response $response, $args)
     {
-        $this->view->render($response, 'charts.twig');
+        $this->view->render($response, 'charts_realtime.twig');
         return $response;
     }
 

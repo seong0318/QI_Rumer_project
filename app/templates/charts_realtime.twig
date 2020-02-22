@@ -305,7 +305,7 @@
 
                 <select class="user-social-media d-xl-inline-block" id="options">
                     <div class="mr-2 youtube-color">
-                        <option value="0" selected></option>
+                        <option value="0" selected>ALL</option>
                     </div>
 
                 </select>
@@ -362,25 +362,13 @@
     
     <!-- 우리가 만든 javascript 코드 추가하는 곳 -->
     <script src="js/index.js"></script>
-    <script src="js/charts.js"></script>   
+    <script src="js/charts_realtime.js"></script>   
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         google.charts.load("visualization", "1", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(updateCharts);
         google.charts.setOnLoadCallback(drawChart);
- $(function() {
-    var startdate = $('#startdatepicker').datepicker({  }).val();
-    });
-$(function() {
-    var lastdate = $('#lastdatepicker').datepicker({  }).val();
-    });
-$("#dateInput").click(function(){
-    event.preventDefault();
-    var startDate = document.getElementById("startdatepicker");
-    var endDate = document.getElementById("lastdatepicker");
-    alert(startDate);
 
-})
     </script>
 </body>
 

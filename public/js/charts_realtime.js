@@ -117,7 +117,7 @@ function drawChart(columns) {
 		chart: {
 			title: 'AQI Values in your sensors',
 		},
-		width: 900,
+		width: 1400,
 		height: 500,
 	};
 

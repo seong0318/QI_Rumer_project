@@ -50,6 +50,10 @@ $app->get('/profile', 'App\Controller\IndexController:profile')
 $app->get('/hearthistory', 'App\Controller\HeartController:hearthistory')
     ->setName('hearthistory');
 
+$app->post('/hearthandle/{isDevice}', 'App\Controller\HeartController:heartHandle')
+    ->setName('heart_handle');
+
+
 //index/map ==========================================================================================
 $app->get('/map', 'App\Controller\MapController:map')
     ->setName('map');

@@ -1,11 +1,11 @@
 var isAddOption = false;
 
-function addOptionSensor(airDataList) {
+function addOptionSensor(heartDataList) {
 	let sensorNameList = [];
 
 	//  sensorNameList key: sensor_name, val: sensor_id
-	for (airData of airDataList)
-		sensorNameList[airData.sensor_name] = airData.sensor_id;
+	for (heartData of heartDataList)
+		sensorNameList[heartData.sensor_name] = heartData.sensor_id;
 
 	for (sensorName in sensorNameList) {
 		let option = new Option(sensorName, sensorNameList[sensorName]);
@@ -14,12 +14,12 @@ function addOptionSensor(airDataList) {
 	}
 }
 
-function getAirDataList(sensorId) {
-	let airDataList;
+function getHeartDataList(sensorId) {
+	let heartDataList;
 
 	$.ajax({
 		type: 'POST',
-		url: './chartshandle/0',
+		url: './hearthandle/0',
 		data: { sensor_id: sensorId },
 		datatype: 'JSON',
 		async: false,
@@ -30,7 +30,7 @@ function getAirDataList(sensorId) {
 
 			switch (execResult) {
 				case 0:
-					airDataList = jsonData.data;
+					heartDataList = jsonData.data;
 					break;
 				case -1:
 					alert('ERROR: sql query error');
@@ -59,42 +59,34 @@ function getAirDataList(sensorId) {
 			);
 		});
 
-	return airDataList;
+	return heartDataList;
 }
 
-function getChartsData() {
+function getHeartData() {
 	let sensorId = document.getElementById('options');
 
-	let airDataList = getAirDataList(parseInt(sensorId.value));
+	let heartDataList = getHeartDataList(parseInt(sensorId.value));
 	let data = {
 		cols: [
 			{ id: 'time', label: 'Time', type: 'date' },
-			{ id: 'co', label: 'CO', type: 'number' },
-			{ id: 'so2', label: 'SO2', type: 'number' },
-			{ id: 'o3', label: 'O3', type: 'number' },
-			{ id: 'no2', label: 'NO2', type: 'number' },
-			{ id: 'pm25', label: 'PM25', type: 'number' },
-			{ id: 'pm10', label: 'PM10', type: 'number' },
+			{ id: 'heart_rate', label: 'HEART RATE', type: 'number' },
+			{ id: 'rr_interval', label: 'RR', type: 'number' },
 		],
 		rows: [],
 	};
 
 	if (!isAddOption) {
-		addOptionSensor(airDataList);
+		addOptionSensor(heartDataList);
 		isAddOption = true;
 	}
 
-	for (airData of airDataList) {
-		let date = new Date(airData.measured_time);
+	for (heartData of heartDataList) {
+		let date = new Date(heartData.measured_time);
 		let elem = {
 			c: [
 				{ v: date },
-				{ v: parseFloat(airData.co) },
-				{ v: parseFloat(airData.so2) },
-				{ v: parseFloat(airData.o3) },
-				{ v: parseFloat(airData.no2) },
-				{ v: parseFloat(airData['pm25']) },
-				{ v: parseFloat(airData.pm10) },
+				{ v: parseFloat(heartData.heart_rate) },
+				{ v: parseFloat(heartData.rr_interval) },
 			],
 		};
 		data.rows.push(elem);
@@ -104,7 +96,7 @@ function getChartsData() {
 
 function drawChart(columns) {
 	let chartDiv = document.getElementById('chart_div');
-	let chartsData = getChartsData();
+	let chartsData = getHeartsData();
 	let data = new google.visualization.DataTable(chartsData);
 	let view = new google.visualization.DataView(data);
 	let checkedElem = document.getElementsByName('checked_elem');
@@ -115,7 +107,7 @@ function drawChart(columns) {
 
 	var materialOptions = {
 		chart: {
-			title: 'AQI Values in your sensors',
+			title: 'HEART Values in your sensors',
 		},
 		width: 900,
 		height: 500,
