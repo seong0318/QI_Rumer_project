@@ -43,7 +43,7 @@ final class ChartsController extends BaseController
 
     public function charts(Request $request, Response $response, $args)
     {
-        $this->view->render($response, 'charts.twig');
+        $this->view->render($response, 'charts_realtime.twig');
         return $response;
     }
 
@@ -98,5 +98,222 @@ final class ChartsController extends BaseController
             'data' => $resultExec
         ));
         return;
+    }
+
+    public function aqiDataTrans($no2, $o3, $co, $so2, $pm25)
+    {
+        $aqiAirData = array();
+        $airData = array($no2, $o3, $co, $so2, $pm25);
+        $aqiGood = array(0, 50);
+        $aqiModerate = array(51, 50);
+        $aqiUnhealthyFor = array(101, 50);
+        $aqiUnhealthy = array(151, 50);
+        $aqiVery = array(201, 100);
+        $aqiHazardous = array(301, 100);
+        $aqi2Hazardous = array(401, 100);
+
+        for ($i = 0; $i < 5; $i++) {
+            switch ($i) {
+                case '0':
+                    if ($airData[$i] < 53) {
+                        $clow = 0;
+                        $chigh = 53;
+                        $resulteAqi = ($aqiGood[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiGood[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 100) {
+                        $clow = 54;
+                        $chigh = 100;
+                        $resulteAqi = ($aqiModerate[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiModerate[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 360) {
+                        $clow = 101;
+                        $chigh = 360;
+                        $resulteAqi = ($aqiUnhealthyFor[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiUnhealthyFor[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 649) {
+                        $clow = 361;
+                        $chigh = 649;
+                        $resulteAqi = ($aqiUnhealthy[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiUnhealthy[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 1249) {
+                        $clow = 650;
+                        $chigh = 1249;
+                        $resulteAqi = ($aqiVery[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiVery[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 1649) {
+                        $clow = 1250;
+                        $chigh = 1649;
+                        $resulteAqi = ($aqiHazardous[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiHazardous[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 2049) {
+                        $clow = 1650;
+                        $chigh = 2049;
+                        $resulteAqi = ($aqi2Hazardous[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqi2Hazardous[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    }
+                    break;
+                case '1':
+                    if ($airData[$i] < 54) {
+                        $clow = 0;
+                        $chigh = 54;
+                        $resulteAqi = ($aqiGood[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiGood[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 124) {
+                        $clow = 55;
+                        $chigh = 124;
+                        $resulteAqi = ($aqiModerate[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiModerate[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 164) {
+                        $clow = 125;
+                        $chigh = 164;
+                        $resulteAqi = ($aqiUnhealthyFor[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiUnhealthyFor[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 204) {
+                        $clow = 165;
+                        $chigh = 204;
+                        $resulteAqi = ($aqiUnhealthy[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiUnhealthy[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 404) {
+                        $clow = 205;
+                        $chigh = 404;
+                        $resulteAqi = ($aqiVery[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiVery[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 504) {
+                        $clow = 405;
+                        $chigh = 504;
+                        $resulteAqi = ($aqiHazardous[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiHazardous[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 604) {
+                        $clow = 505;
+                        $chigh = 604;
+                        $resulteAqi = ($aqi2Hazardous[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqi2Hazardous[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    }
+                    break;
+                case '2':
+                    //co
+                    if ($airData[$i] < 4.4) {
+                        $clow = 0;
+                        $chigh = 4.4;
+                        $resulteAqi = ($aqiGood[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiGood[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 9.4) {
+                        $clow = 4.5;
+                        $chigh = 9.4;
+                        $resulteAqi = ($aqiModerate[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiModerate[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 12.4) {
+                        $clow = 9.5;
+                        $chigh = 12.4;
+                        $resulteAqi = ($aqiUnhealthyFor[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiUnhealthyFor[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 15.4) {
+                        $clow = 12.5;
+                        $chigh = 15.4;
+                        $resulteAqi = ($aqiUnhealthy[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiUnhealthy[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 30.4) {
+                        $clow = 15.5;
+                        $chigh = 30.4;
+                        $resulteAqi = ($aqiVery[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiVery[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 40.4) {
+                        $clow = 30.5;
+                        $chigh = 40.4;
+                        $resulteAqi = ($aqiHazardous[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiHazardous[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 50.4) {
+                        $clow = 40.5;
+                        $chigh = 50.5;
+                        $resulteAqi = ($aqi2Hazardous[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqi2Hazardous[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    }
+                    break;
+                case '3':
+                    //so2
+                    if ($airData[$i] < 35) {
+                        $clow = 0;
+                        $chigh = 35;
+                        $resulteAqi = ($aqiGood[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiGood[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 75) {
+                        $clow = 36;
+                        $chigh = 75;
+                        $resulteAqi = ($aqiModerate[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiModerate[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 185) {
+                        $clow = 76;
+                        $chigh = 185;
+                        $resulteAqi = ($aqiUnhealthyFor[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiUnhealthyFor[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 304) {
+                        $clow = 186;
+                        $chigh = 304;
+                        $resulteAqi = ($aqiUnhealthy[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiUnhealthy[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 604) {
+                        $clow = 305;
+                        $chigh = 604;
+                        $resulteAqi = ($aqiVery[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiVery[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 804) {
+                        $clow = 605;
+                        $chigh = 804;
+                        $resulteAqi = ($aqiHazardous[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiHazardous[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 1004) {
+                        $clow = 805;
+                        $chigh = 1004;
+                        $resulteAqi = ($aqi2Hazardous[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqi2Hazardous[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    }
+                    break;
+                case '4':
+                    //pm25
+                    if ($airData[$i] < 54) {
+                        $clow = 0;
+                        $chigh = 54;
+                        $resulteAqi = ($aqiGood[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiGood[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 154) {
+                        $clow = 55;
+                        $chigh = 154;
+                        $resulteAqi = ($aqiModerate[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiModerate[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 254) {
+                        $clow = 155;
+                        $chigh = 254;
+                        $resulteAqi = ($aqiUnhealthyFor[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiUnhealthyFor[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 354) {
+                        $clow = 255;
+                        $chigh = 354;
+                        $resulteAqi = ($aqiUnhealthy[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiUnhealthy[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 424) {
+                        $clow = 355;
+                        $chigh = 424;
+                        $resulteAqi = ($aqiVery[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiVery[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 504) {
+                        $clow = 425;
+                        $chigh = 504;
+                        $resulteAqi = ($aqiHazardous[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqiHazardous[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    } elseif ($airData[$i] < 604) {
+                        $clow = 505;
+                        $chigh = 604;
+                        $resulteAqi = ($aqi2Hazardous[1] * ($airData[$i] - $clow) / $chigh - $clow) + $aqi2Hazardous[0];
+                        $aqiAirData[$i] = $resulteAqi;
+                    }
+                    break;
+                default:
+                    echo "몬가 잘못됨";
+                    break;
+            }
+            if ($i == 4) {
+                return $aqiAirData;
+            }
+        }
     }
 }

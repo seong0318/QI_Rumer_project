@@ -134,27 +134,40 @@ function getChartsData() {
 }
 
 function drawChart(columns) {
-  let chartDiv = document.getElementById("chart_div");
-  let chartsData = getChartsData();
-  let data = new google.visualization.DataTable(chartsData);
-  let view = new google.visualization.DataView(data);
-  let checkedElem = document.getElementsByName("checked_elem");
+	let chartDiv = document.getElementById('chart_div');
+	let chartsData = getChartsData();
+	let data = new google.visualization.DataTable(chartsData);
+	let view = new google.visualization.DataView(data);
+	let checkedElem = document.getElementsByName('checked_elem');
 
-  view.setColumns(columns);
+	view.setColumns(columns);
 
-  let lineChart = new google.visualization.LineChart(chartDiv);
+	let lineChart = new google.visualization.LineChart(chartDiv);
 
-  var materialOptions = {
-    chart: {
-      title: "AQI Values in your sensors"
-    },
-    width: 900,
-    height: 500
-  };
-
-  lineChart.draw(view, materialOptions);
+	var materialOptions = {
+		chart: {
+			title: 'AQI Values in your sensors',
+		},
+		width: 900,
+		height: 500,
+	};
+	var options = {
+		title: 'AQI Values in your sensors',
+		hAxis: {
+			titleTextStyle: { color: '#333' },
+			slantedText: true,
+			slantedTextAngle: 10,
+		},
+		vAxis: { minValue: 1 },
+		explorer: {
+			actions: ['dragToZoom', 'rightClickToReset'],
+			axis: 'horizontal',
+			keepInBounds: true,
+			maxZoomIn: 100.0,
+		},
+	};
+	lineChart.draw(view, options);
 }
-
 var updateCharts = $("#checkboxes input").click(function() {
   let columns = [0];
   $("#checkboxes input:checked").map(function() {
@@ -173,4 +186,3 @@ $(document).ready(function() {
 
     drawChart(columns);
   });
-});

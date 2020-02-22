@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Rumer - heart history</title>
+    <title>Rumer - historytable</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="bootstrap/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -237,9 +237,9 @@
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="/hearthistory">Heart History</a>
-                                                         <li class="nav-item">
-                                                        <a class="nav-link" href="/historytable">AQI History Table</a>
                                                     </li>
+                                                     <li class="nav-item">
+                                                        <a class="nav-link" href="/historytable">AQI History Table</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -273,7 +273,7 @@
                         <!-- body============================================================== -->
                              
                                 <br><br>
-                            <div id="chart_div"></div>
+
                         <!-- body end============================================================== -->
                     </div>                    
                 </div>
@@ -282,25 +282,35 @@
             <div class="border-top user-social-box" style="margin:20px;">
 
                 <span id="checkboxes" >
+                    <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="1" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >CO
+                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="2" checked style="width:20px;height:20px; font-size:50px;margin:0px     " >SO2
+                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="3" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >O3
+                    </span>
 
                       <span class="mr-2" style="font-size:20px">
-                        <input class="btn" name="checked_elem" type="checkbox" value="1" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >Heart Rate
+                        <input class="btn" name="checked_elem" type="checkbox" value="4" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >NO2
                     </span>
-                     <span class="mr-2" style="font-size:20px">
-                        <input class="btn" name="checked_elem" type="checkbox" value="2" checked style="width:20px;height:20px; font-size:50px;margin:0px     " >RR interval                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="5" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >PM2.5
+                    </span>
+                      <span class="mr-2" style="font-size:20px">
+                        <input class="btn" name="checked_elem" type="checkbox" value="6" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >Tesmperature
+                    </span>
                 </span>
 
                 <select class="user-social-media d-xl-inline-block" id="options">
                     <div class="mr-2 youtube-color">
-                        <option value="3" selected>All</option>
+                        <option value="0" selected>ALL</option>
                     </div>
-
                 </select>
                 <form method="post" action="">
      <p>Start Date: <input name = "starttdatepicker" type="text"  id="startdatepicker"></p>
-
     <p>Last Date: <input name = "lastdatepicker" type="text"  id="lastdatepicker"></p>
-
     <input type="submit" value="Get Data" name="data"/>
 
     </form>  
@@ -312,10 +322,14 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                       
+                            Copyright © 2018 Concept. All rights reserved. Dashboard by <a
+                                href="https://colorlib.com/wp/">Colorlib</a>.
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="text-md-right footer-links d-none d-sm-block">
+                                <a href="javascript: void(0);">About</a>
+                                <a href="javascript: void(0);">Support</a>
+                                <a href="javascript: void(0);">Contact Us</a>
                             </div>
                         </div>
                     </div>
@@ -335,7 +349,7 @@
     <script src="bootstrap/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="bootstrap/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="bootstrap/assets/libs/js/main-js.js"></script>
-// jQuery UI CSS파일 
+    // jQuery UI CSS파일 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 // jQuery 기본 js파일
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
@@ -345,7 +359,7 @@
     
     <!-- 우리가 만든 javascript 코드 추가하는 곳 -->
     <script src="js/index.js"></script>
-    <script src="js/heart.js"></script>   
+    <script src="js/charts.js"></script>   
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         google.charts.load("visualization", "1", { packages: ["corechart"] });
