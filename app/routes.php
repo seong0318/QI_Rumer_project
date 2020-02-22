@@ -5,8 +5,6 @@
 $app->get('/', 'App\Controller\HomeController:homePage')
     ->setName('homepage');
 
-
-
 //sign up =================================================================================
 $app->get('/signup', 'App\Controller\SignUpController:signUp')
     ->setName('sign_up');
@@ -91,7 +89,7 @@ $app->post('/sensorderegist/{isDevice}', 'App\Controller\SensorDeregistControlle
 $app->get('/changepassword', 'App\Controller\ChangePasswordController:changePassword')
     ->setName('change_password');
 
-$app->post('/changepwdbtn', 'App\Controller\ChangePasswordController:changePwdBtn')
+$app->post('/changepwdbtn/{isDevice}', 'App\Controller\ChangePasswordController:changePwdBtn')
     ->setName('change_pwd_btn');
 
 //verified page =========================================================================
@@ -105,9 +103,16 @@ $app->post('/verifiedpassword', 'App\Controller\VerifiedPasswordController:verif
 $app->get('/idcancellation', 'App\Controller\IdCancellationController:idCancellation')
     ->setName('id_cancellation');
 
-$app->post('/idcancelhandle', 'App\Controller\IdCancellationController:idCancelHandle')
+$app->post('/idcancelhandle/{isDevice}', 'App\Controller\IdCancellationController:idCancelHandle')
     ->setName('id_cancel_handle');
 
 //Scheduler test =========================================================================
 $app->get('/schedule', 'App\Controller\ScheduleController:Schedule')
     ->setName('schedule');
+
+//Insert Sensor Data
+$app->post('/sensor/insert/polar', 'App\Controller\InsertSensorData:insertPolarData')
+    ->setName('sensor_insert_polar');
+
+$app->post('/sensor/insert/udoo', 'App\Controller\InsertSensorData:insertUdooData')
+    ->setName('sensor_insert_udoo');
