@@ -108,3 +108,6 @@ $app->get('/schedule', 'App\Controller\ScheduleController:Schedule')
 //Insert Sensor Data
 $app->post('/sensor/insert/polar', 'App\Controller\InsertSensorData:insertPolarData')
     ->setName('sensor_insert_polar');
+
+$app->post('/sensor/insert/udoo', 'App\Controller\InsertSensorData:insertUdooData')
+    ->setName('sensor_insert_udoo');
