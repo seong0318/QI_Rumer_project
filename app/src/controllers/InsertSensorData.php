@@ -286,23 +286,13 @@ final class InsertSensorData extends BaseController {
     }
 
     private function insertAqiData($lat, $lng, $mac, $temp, $no2, $o3, $co, $so2, $pm25, $airDataId) {
-<<<<<<< Updated upstream
         /** 앱에 연결된 Udoo sensor에서 받아온 값을 통해 AQI 값을 계산 후 DB에 저장 
          ** 정상일 경우 삽입된 데이터의 0, sql 에러일 경우 -1, primary key 중복일 경우 -2, 
          ** insert된 개수가 1이 아닐 경우 -3(mac address 오류) 반환
         */
-        $sql = "insert into aqi_data (measured_time, latitude, longitude, co, so2, o3, no2, pm25, temperature, air_data_id, sensor_id)
-=======
-        /** raw air data로 aqi 계산해서 삽입함
-         ** 에러는 air data와 공유하고 aqi 함수에서 오류날 경우 -4 반환
-         */
         $aqiArr = $this->aqiDataTrans($no2, $o3, $co, $so2, $pm25);
 
-        if ($aqiArr == -1)
-            return -4;
-
-        $sql = "insert into aqi_data_id (measured_time, latitude, longtitude, co, so2, o3, no2, pm25, temperature, air_data_id, sensor_id)
->>>>>>> Stashed changes
+        $sql = "insert into aqi_data (measured_time, latitude, longitude, co, so2, o3, no2, pm25, temperature, air_data_id, sensor_id)
         select NOW(), :lat, :lng, :co, :so2, :o3, :no2, :pm25, :temp, :air_data_id, sensor_id
         from sensor
         where mac_address = :mac";
