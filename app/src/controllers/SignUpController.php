@@ -12,8 +12,10 @@ use PHPMailer\PHPMailer\Exception;
 
 include '../app/src/util.php';
 
-final class SignUpController extends BaseController {
-    public function duplicateUser($username) {
+final class SignUpController extends BaseController
+{
+    public function duplicateUser($username)
+    {
         /*  사용자의 이름으로 중복된 ID가 존재하는지 확인
         **  반환값은 찾은 ID 수로 반환
         */
@@ -34,7 +36,8 @@ final class SignUpController extends BaseController {
         return $userResult['count(*)'];
     }
 
-    public function storeTempUser($username, $nonce) {
+    public function storeTempUser($username, $nonce)
+    {
         /*  temp_user 테이블에 값 저장
         **  
         */
@@ -47,13 +50,13 @@ final class SignUpController extends BaseController {
         try {
             if ($stmt->execute($params)) return 0;
             else return -1;
-        }
-        catch (UniqueConstraintViolationException $e){
+        } catch (UniqueConstraintViolationException $e) {
             return -2;
         }
     }
 
-    public function verifyNonceAndChangeVerifyState($nonce) {
+    public function verifyNonceAndChangeVerifyState($nonce)
+    {
         /*  temp_user 테이블의 nonce_link 열을 이용해
         **  사용자의 sign up 인증을 진행한다
         */
@@ -68,7 +71,8 @@ final class SignUpController extends BaseController {
         else return -1;
     }
 
-    public function storeUserInfo($userInfo) {
+    public function storeUserInfo($userInfo)
+    {
         /*  user 정보를 인증 전 상태로 저장
         ** 
         */
@@ -86,7 +90,8 @@ final class SignUpController extends BaseController {
         else return -1;
     }
 
-    public function deleteUserInfo($username) {
+    public function deleteUserInfo($username)
+    {
         $sql = "delete from user where user_name = :username";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = ['username' => $username];
@@ -95,27 +100,30 @@ final class SignUpController extends BaseController {
         else return -1;
     }
 
-    public function deleteTempUser($nonce) {
+    public function deleteTempUser($nonce)
+    {
         /*  nonce을 이용해 temp_user_table 내용을 삭제
         ** 
         */
         $sql = "delete from temp_user where nonce_link = :nonce";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = ['nonce' => $nonce];
-        
+
         if ($stmt->execute($params))
             return 0;
         else return -1;
     }
 
-    public function signUp(Request $request, Response $response, $args) {
+    public function signUp(Request $request, Response $response, $args)
+    {
         /*  sign up 페이지를 띄우는 기본 함수
         **  사용자로부터 입력된 값을 Ajax POST 방식으로 전달
         */
         $this->view->render($response, 'sign_up.twig');
-    }    
+    }
 
-    public function signUpHandle(Request $request, Response $response, $args) {
+    public function signUpHandle(Request $request, Response $response, $args)
+    {
         /*  sign up 페이지의 register 버튼
         **  storeUserInfo에서 오류 발생시 -1 반환
         **  storeTempUser에서 오류 발생시 -2 반환
@@ -135,7 +143,7 @@ final class SignUpController extends BaseController {
 
         if ($this->storeUserInfo($_POST) != 0) {
             $this->deleteTempUser($nonce);
-            
+
             echo json_encode(array('result' => -1));
             return;
         }
@@ -147,12 +155,13 @@ final class SignUpController extends BaseController {
             echo json_encode(array('result' => -4));
             return;
         }
-        
+
         echo json_encode(array('result' => 0));
         return;
     }
 
-    public function usernameCheck(Request $request, Response $response, $args) {
+    public function usernameCheck(Request $request, Response $response, $args)
+    {
         /*  username 중복 검사를 실행하는 버튼
         **  아이디 사용자 수를 json 형식으로 반환함
         */
@@ -167,20 +176,20 @@ final class SignUpController extends BaseController {
         /*  사용자가 nonce link를 누른 후부터 진행되는 sign up의 인증 과정
         **
         */
-        if ($this->verifyNonceAndChangeVerifyState($_GET['nonce']) != 0){
+        if ($this->verifyNonceAndChangeVerifyState($_GET['nonce']) != 0) {
             echo "ERROR: Verify error";
-            if ($this->deleteTempUser($_GET['nonce']) != 0){
+            if ($this->deleteTempUser($_GET['nonce']) != 0) {
                 echo "ERROR: Clear temp_user error";
                 return json_encode(-3);
             }
         }
-          
-        if ($this->deleteTempUser($_GET['nonce']) != 0){
+
+        if ($this->deleteTempUser($_GET['nonce']) != 0) {
             echo "ERROR: Clear temp_user error";
-            return json_encode(-3); 
+            return json_encode(-3);
         }
-        
+
         $this->flash->addMessage('Test', 'this is message');
-        return $response->withRedirect('verifiedpage');  
+        return $response->withRedirect('verifiedpage');
     }
 }
