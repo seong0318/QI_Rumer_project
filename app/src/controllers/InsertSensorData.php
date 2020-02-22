@@ -23,8 +23,7 @@ final class InsertSensorData extends BaseController {
             'mac' => $mac
         ];
         try {
-            if ($stmt->execute($params)) return 0;
-            else return -1;
+            if (!$stmt->execute($params)) return -1;
         }
         catch (UniqueConstraintViolationException $e){
             return -2;
@@ -37,7 +36,7 @@ final class InsertSensorData extends BaseController {
     }
 
     private function insertAirData($temp, $no2, $o3, $co, $so2, $pm25, $mac) {
-        /** 앱에 연결된 polar sensor에서 받아온 값을 DB에 저장 
+        /** 앱에 연결된 Udoo sensor에서 받아온 값을 DB에 저장 
          ** 정상일 경우 삽입된 데이터의 id값, sql 에러일 경우 -1, primary key 중복일 경우 -2, insert된 개수가 1이 아닐 경우 -3 반환
         */
         $sql = "insert into air_data (co, so2, o3, no2, pm25, temperature, sensor_id)
@@ -55,8 +54,7 @@ final class InsertSensorData extends BaseController {
             'mac' => $mac
         ];
         try {
-            if ($stmt->execute($params)) return 0;
-            else return -1;
+            if (!$stmt->execute($params)) return -1;
         }
         catch (UniqueConstraintViolationException $e){
             return -2;
@@ -64,12 +62,18 @@ final class InsertSensorData extends BaseController {
 
         $updatedRowNum = $stmt->rowCount();
         if ($updatedRowNum != 1) return -3;
+
+        $lastInsertId = $this->em->getConnection()->query("SELECT LAST_INSERT_ID() AS id")->fetch();
         
-        return mysqli_insert_id();
+        return $lastInsertId['id'];
     }
 
     private function insertAqiData($lat, $lng, $mac, $temp, $no2, $o3, $co, $so2, $pm25, $airDataId) {
-        $sql = "insert into aqi_data_id (measured_time, latitude, longtitude, co, so2, o3, no2, pm25, temperature, air_data_id, sensor_id)
+        /** 앱에 연결된 Udoo sensor에서 받아온 값을 통해 AQI 값을 계산 후 DB에 저장 
+         ** 정상일 경우 삽입된 데이터의 0, sql 에러일 경우 -1, primary key 중복일 경우 -2, 
+         ** insert된 개수가 1이 아닐 경우 -3(mac address 오류) 반환
+        */
+        $sql = "insert into aqi_data (measured_time, latitude, longitude, co, so2, o3, no2, pm25, temperature, air_data_id, sensor_id)
         select NOW(), :lat, :lng, :co, :so2, :o3, :no2, :pm25, :temp, :air_data_id, sensor_id
         from sensor
         where mac_address = :mac";
@@ -87,8 +91,7 @@ final class InsertSensorData extends BaseController {
             'mac' => $mac
         ];
         try {
-            if ($stmt->execute($params)) return 0;
-            else return -1;
+            if (!$stmt->execute($params)) return -1;
         }
         catch (UniqueConstraintViolationException $e){
             return -2;
@@ -108,6 +111,10 @@ final class InsertSensorData extends BaseController {
     }
 
     public function insertUdooData(Request $request, Response $response, $args) {
+        /** raw air data와 aqi 를 저장함
+         ** 정상일 경우 0, 마지막으로 삽입된 id 값이 이상(음수)할 경우 바로 종료
+         ** 그 외의 insertAqiData와 에러 공유
+         */
         $lat = $_POST['lat'];
         $lng = $_POST['lng'];
         $temp =$_POST['temp'];
