@@ -20,14 +20,14 @@ return [
                     __DIR__ . '/src/models'
                 ],
                 'auto_generate_proxies' => true,
-                'proxy_dir' =>  __DIR__.'/../cache/proxies',
+                'proxy_dir' =>  __DIR__ . '/../cache/proxies',
                 'cache' => null,
             ],
             'connection' => [
                 'driver'   => 'pdo_mysql',
                 'host'     => '127.0.0.1',
                 'port'     => 3306,
-                'dbname'   => 'mydb',
+                'dbname'   => 'teama-2020winter',
                 'user'     => 'root',
                 'password' => '12345678',
             ]
@@ -43,7 +43,7 @@ return [
             'host' => '127.0.0.1',
             'user' => 'root',
             'pass' => '12345678',
-            'dbname' => 'mydb'
+            'dbname' => 'teama-2020winter'
         ]
     ],
 ];
