@@ -1,13 +1,13 @@
 var isAddOption = false;
 
 $(function() {
-  var startdate = $("#startdatepicker")
+  $("#startdatepicker")
     .datepicker({ dateFormat: "yy-mm-dd" })
     .val();
 });
 
 $(function() {
-  var lastdate = $("#lastdatepicker")
+  $("#lastdatepicker")
     .datepicker({ dateFormat: "yy-mm-dd" })
     .val();
 });
@@ -53,7 +53,6 @@ function getAirDataList(sensorId, startTime, endTime) {
 
       switch (execResult) {
         case 0:
-          console.log(jsonData.data);
           airDataList = jsonData.data;
           break;
         case -1:
@@ -92,9 +91,6 @@ function getChartsData() {
   let endTime = $("#lastdatepicker")
     .datepicker()
     .val();
-  console.log("sensor id: ", sensorId.value);
-  console.log("start time: ", startTime);
-  console.log("end time: ", endTime);
 
   let airDataList = getAirDataList(
     parseInt(sensorId.value),
@@ -158,13 +154,6 @@ function drawChart(columns) {
 
   lineChart.draw(view, materialOptions);
 }
-setInterval(() => {
-  let columns = [0];
-  $("#checkboxes input:checked").map(function() {
-    columns.push(parseInt(this.value));
-  });
-  drawChart(columns);
-}, 1000);
 
 var updateCharts = $("#checkboxes input").click(function() {
   let columns = [0];
@@ -172,4 +161,16 @@ var updateCharts = $("#checkboxes input").click(function() {
     columns.push(parseInt(this.value));
   });
   drawChart(columns);
+});
+
+$(document).ready(function() {
+  $("#get_data_btn").click(function() {
+    let columns = [0];
+    $("#checkboxes input:checked").map(function() {
+      columns.push(parseInt(this.value));
+    });
+    console.log(columns);
+
+    drawChart(columns);
+  });
 });

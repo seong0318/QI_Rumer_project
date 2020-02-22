@@ -28,8 +28,6 @@ final class IndexController extends BaseController
 
     public function charts(Request $request, Response $response, $args)
     {
-
-        $this->view->render($response, 'charts.twig');
         return $response;
     }
     public function getAqiData($usn)

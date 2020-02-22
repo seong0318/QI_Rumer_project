@@ -27,7 +27,7 @@
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
-    <div class="dashboard-main-wrapper">
+    <div class="dashboard-main-wrapper" style="min-height: 0;">
         <!-- ============================================================== -->
         <!-- navbar -->
         <!-- ============================================================== -->
@@ -179,7 +179,7 @@
         <!-- ============================================================== -->
         <!-- left sidebar -->
         <!-- ============================================================== -->
-               <div class="nav-left-sidebar sidebar-dark">
+                <div class="nav-left-sidebar sidebar-dark">
             <div class="menu-list">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
@@ -235,7 +235,7 @@
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="/chartshistory">Charts History</a>
                                                     </li>
-                                                     <li class="nav-item">
+                                                    <li class="nav-item">
                                                         <a class="nav-link" href="/hearthistory">Heart History</a>
                                                     </li>
                                                 </ul>
@@ -260,7 +260,7 @@
         <!-- ============================================================== -->
         <!-- wrapper  -->
         <!-- ============================================================== -->
-        <div class="dashboard-wrapper" style="min-height: 0;"><br>
+        <div class="dashboard-wrapper"><br>
             <div class="container-fluid dashboard-content">
 
 
@@ -288,7 +288,6 @@
                       <span class="mr-2" style="font-size:20px">
                         <input class="btn" name="checked_elem" type="checkbox" value="3" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >O3
                     </span>
-
                       <span class="mr-2" style="font-size:20px">
                         <input class="btn" name="checked_elem" type="checkbox" value="4" checked style="width:20px;height:20px; font-size:50px;margin:0px      " >NO2
                     </span>
@@ -296,18 +295,21 @@
                         <input class="btn" name="checked_elem" type="checkbox" value="5" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >PM2.5
                     </span>
                       <span class="mr-2" style="font-size:20px">
-                        <input class="btn" name="checked_elem" type="checkbox" value="6" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >PM10
+                        <input class="btn" name="checked_elem" type="checkbox" value="6" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >Temperature
                     </span>
                 </span>
 
                 <select class="user-social-media d-xl-inline-block" id="options">
                     <div class="mr-2 youtube-color">
-                        <option value="0" selected>All</option>
                     </div>
 
                 </select>
-                <input type="text" id="testDatepickerStart">~
-                <input type="text" id="testDatepickerEnd">    
+                <form method="post" action="">
+                    <p>Start Date: <input name = "starttdatepicker" type="text"  id="startdatepicker"></p>
+                    <p>Last Date: <input name = "lastdatepicker" type="text"  id="lastdatepicker"></p>
+                </form>
+                <button id="get_data_btn" type="submit">Get Data</button>
+
             </div>
             <!-- ============================================================== -->
             <!-- footer -->
@@ -353,20 +355,12 @@
     
     <!-- 우리가 만든 javascript 코드 추가하는 곳 -->
     <script src="js/index.js"></script>
-    <script src="js/charts.js"></script>   
+    <script src="js/charts_history.js"></script>   
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         google.charts.load("visualization", "1", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(updateCharts);
         google.charts.setOnLoadCallback(drawChart);
-$(function() {
-    $( "#testDatepickerStart" ).datepicker({});
-});
-$(function() {
-    $( "#testDatepickerEnd" ).datepicker({
-    });
-});
     </script>
 </body>
-
 </html>
