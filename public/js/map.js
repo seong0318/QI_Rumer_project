@@ -76,7 +76,7 @@ function initMap() {
               <th scope='col'>O3</th>\
               <th scope='col'>NO2</th>\
               <th scope='col'>PM2.5</th>\
-              <th scope='col'>PM10</th>\
+              <th scope='col'>temperature</th>\
             </tr>\
           </thead>\
           <tbody>\
@@ -106,10 +106,10 @@ function initMap() {
       airData["no2"] +
       "</td>\
               <td>" +
-      airData["pm2.5"] +
+      airData["pm25"] +
       "</td>\
               <td>" +
-      airData["pm10"] +
+      airData["temperature"] +
       "</td>\
             </tr>\
           </tbody>\
@@ -203,7 +203,7 @@ function setCircle(aqi_type) {
       iterMarker("pm2.5");
       break;
     case 2:
-      iterMarker("pm10");
+      iterMarker("temperature");
       break;
     case 3:
       iterMarker("co");
