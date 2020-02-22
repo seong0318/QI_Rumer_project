@@ -302,18 +302,15 @@
 
                 <select class="user-social-media d-xl-inline-block" id="options">
                     <div class="mr-2 youtube-color">
-                        <option value="0" selected>All</option>
                     </div>
 
                 </select>
                 <form method="post" action="">
-     <p>Start Date: <input name = "starttdatepicker" type="text"  id="startdatepicker"></p>
+                    <p>Start Date: <input name = "starttdatepicker" type="text"  id="startdatepicker"></p>
+                    <p>Last Date: <input name = "lastdatepicker" type="text"  id="lastdatepicker"></p>
+                </form>
+                <button id="get_data_btn" type="submit">Get Data</button>
 
-    <p>Last Date: <input name = "lastdatepicker" type="text"  id="lastdatepicker"></p>
-
-    <input type="submit" value="Get Data" name="data"/>
-
-    </form>  
             </div>
             <!-- ============================================================== -->
             <!-- footer -->
@@ -365,20 +362,6 @@
         google.charts.load("visualization", "1", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(updateCharts);
         google.charts.setOnLoadCallback(drawChart);
- $(function() {
-    var startdate = $('#startdatepicker').datepicker({  }).val();
-    });
-$(function() {
-    var lastdate = $('#lastdatepicker').datepicker({  }).val();
-    });
-$("#dateInput").click(function(){
-    event.preventDefault();
-    var startDate = document.getElementById("startdatepicker");
-    var endDate = document.getElementById("lastdatepicker");
-    alert(startDate);
-
-})
     </script>
 </body>
-
 </html>

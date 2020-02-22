@@ -5,6 +5,7 @@ function checkSpace(str) {
 $("#pwd2").keyup(function() {
   var pwd1 = $("#pwd1").val();
   var pwd2 = $("#pwd2").val();
+
   if (checkSpace(pwd1)) {
     alert('you can\'t use "blank" as Password ');
     $("#register").attr("disabled", "disabled");
@@ -17,6 +18,7 @@ $("#pwd2").keyup(function() {
 });
 $("#username_btn").click(function() {
   let username = $("#user_name").val();
+
   $.ajax({
     type: "GET",
     url: "./usernamecheck",
@@ -27,6 +29,7 @@ $("#username_btn").click(function() {
     .done(function(json) {
       let jsonData = JSON.parse(json);
       let num_user = jsonData["result"];
+
       if (num_user < 0) alert("query error");
       else if (num_user == 0) {
         alert("usable username");
@@ -52,11 +55,13 @@ $("#username_btn").click(function() {
 $("#register").click(function() {
   event.preventDefault();
   usernameBtn = document.getElementById("username_btn");
+
   if (!usernameBtn.disabled) {
     alert("Please check id duplication first.");
     return;
   } else {
     let formData = $("#input_form").serialize();
+
     $.ajax({
       type: "POST",
       url: "./signuphandle",
@@ -67,6 +72,7 @@ $("#register").click(function() {
       .done(function(json) {
         let jsonData = JSON.parse(json);
         let execResult = jsonData["result"];
+
         switch (execResult) {
           case 0:
             alert(
