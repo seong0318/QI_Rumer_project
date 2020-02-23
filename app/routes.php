@@ -97,8 +97,11 @@ $app->get('/historytable', 'App\Controller\HistoryTableController:historytable')
     ->setName('historytable');
 
 
-//sensor deregist===================================================================================
-$app->post('/sensorderegist/{isDevice}', 'App\Controller\SensorDeregistController:sensorDeregist')
+//sensor manage===================================================================================
+$app->post('/sensor/regist', 'App\Controller\SensorManage:sensorRegist')
+    ->setName('sensor_deregist');
+
+$app->post('/sensorderegist/{isDevice}', 'App\Controller\SensorManage:sensorDeregist')
     ->setName('sensor_deregist');
 
 //changepassword =================================================================================
