@@ -78,46 +78,42 @@ function initMap() {
               <th scope='col'>SO2</th>\
               <th scope='col'>O3</th>\
               <th scope='col'>NO2</th>\
-              <th scope='col'>PM25</th>\
-              <th scope='col'>PM10</th>\
-              //<th scope='col'>TEMPERATEURE</th>\
+              <th scope='col'>PM2.5</th>\
+              <th scope='col'>temperature</th>\
             </tr>\
           </thead>\
           <tbody>\
             <tr>\
               <td>" +
-			airData['result_sensor_name'] +
-			'</td>\
-              <td>' +
-			airData['measured_time'] +
-			'</td>\
-              <td>' +
-			airData['latitude'] +
-			'</td>\
-              <td>' +
-			airData['longitude'] +
-			'</td>\
-              <td>' +
-			airData['co'] +
-			'</td>\
-              <td>' +
-			airData['so2'] +
-			'</td>\
-              <td>' +
-			airData['o3'] +
-			'</td>\
-              <td>' +
-			airData['no2'] +
-			'</td>\
-              <td>' +
-			airData['pm25'] +
-			'</td>\
-              <td>' +
-			airData['pm10'] +
-			'</td>\
-      /*<td>' +
-			airData['temperature'] +
-			'</td>*/\
+      airData["result_sensor_name"] +
+      "</td>\
+              <td>" +
+      airData["measured_time"] +
+      "</td>\
+              <td>" +
+      airData["latitude"] +
+      "</td>\
+              <td>" +
+      airData["longitude"] +
+      "</td>\
+              <td>" +
+      airData["co"] +
+      "</td>\
+              <td>" +
+      airData["so2"] +
+      "</td>\
+              <td>" +
+      airData["o3"] +
+      "</td>\
+              <td>" +
+      airData["no2"] +
+      "</td>\
+              <td>" +
+      airData["pm25"] +
+      "</td>\
+              <td>" +
+      airData["temperature"] +
+      "</td>\
             </tr>\
           </tbody>\
         </table>\
@@ -202,31 +198,27 @@ function iterMarker(type) {
 }
 
 function setCircle(aqi_type) {
-	switch (aqi_type) {
-		case 0:
-			iterMarker('o3');
-			break;
-		case 1:
-			iterMarker('pm25');
-			break;
-		case 2:
-			iterMarker('pm10');
-			break;
-		/*
-        온도 로 교체 될 시 아에 지워야하는것인가?
-      */
-
-		case 3:
-			iterMarker('co');
-			break;
-		case 4:
-			iterMarker('so2');
-			break;
-		case 5:
-			iterMarker('no2');
-			break;
-		default:
-			alert('ERROR: Invalid input type');
-			break;
-	}
+  switch (aqi_type) {
+    case 0:
+      iterMarker("o3");
+      break;
+    case 1:
+      iterMarker("pm2.5");
+      break;
+    case 2:
+      iterMarker("temperature");
+      break;
+    case 3:
+      iterMarker("co");
+      break;
+    case 4:
+      iterMarker("so2");
+      break;
+    case 5:
+      iterMarker("no2");
+      break;
+    default:
+      alert("ERROR: Invalid input type");
+      break;
+  }
 }
