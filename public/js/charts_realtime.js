@@ -123,6 +123,7 @@ function drawChart(columns) {
 
 	lineChart.draw(view, materialOptions);
 }
+
 setInterval(() => {
 	let columns = [0];
 	$('#checkboxes input:checked').map(function() {

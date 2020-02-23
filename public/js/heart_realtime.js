@@ -1,17 +1,5 @@
 var isAddOption = false;
 
-$(function() {
-  $("#startdatepicker")
-    .datepicker({ dateFormat: "yy-mm-dd" })
-    .val();
-});
-
-$(function() {
-  $("#lastdatepicker")
-    .datepicker({ dateFormat: "yy-mm-dd" })
-    .val();
-});
-
 function addOptionSensor(heartDataList) {
   let sensorNameList = [];
 
@@ -26,16 +14,14 @@ function addOptionSensor(heartDataList) {
   }
 }
 
-function getHeartDataList(sensorId, startTime, endTime) {
+function getHeartRealtimeList(sensorId, startTime, endTime) {
   let heartDataList;
 
   $.ajax({
     type: "POST",
-    url: "./hearthandle/0",
+    url: "./heartrealtimechart/0",
     data: {
-      sensor_id: sensorId,
-      start_time: startTime,
-      end_time: endTime
+      sensor_id: sensorId
     },
     datatype: "JSON",
     async: false
@@ -80,17 +66,7 @@ function getHeartDataList(sensorId, startTime, endTime) {
 
 function getHeartData() {
   let sensorId = document.getElementById("options");
-  let startTime = $("#startdatepicker")
-    .datepicker()
-    .val();
-  let endTime = $("#lastdatepicker")
-    .datepicker()
-    .val();
-  let heartDataList = getHeartDataList(
-    parseInt(sensorId.value),
-    startTime,
-    endTime
-  );
+  let heartDataList = getHeartRealtimeList(parseInt(sensorId.value));
   let data = {
     cols: [
       { id: "time", label: "Time", type: "date" },
@@ -148,6 +124,15 @@ function drawChart(columns) {
   lineChart.draw(view, options);
 }
 
+setInterval(() => {
+	let columns = [0];
+	$('#checkboxes input:checked').map(function() {
+		columns.push(parseInt(this.value));
+	});
+	console.log('con');
+	drawChart(columns);
+}, 1000);
+
 var updateCharts = $("#checkboxes input").click(function() {
   let columns = [0];
 
@@ -156,16 +141,4 @@ var updateCharts = $("#checkboxes input").click(function() {
   });
 
   drawChart(columns);
-});
-
-$(document).ready(function() {
-  $("#get_data_btn").click(function() {
-    let columns = [0];
-
-    $("#checkboxes input:checked").map(function() {
-      columns.push(parseInt(this.value));
-    });
-
-    drawChart(columns);
-  });
 });
