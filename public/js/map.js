@@ -47,8 +47,8 @@ function getRecentlyAirDataList() {
 
 function initMap() {
 	let map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 5,
-		center: { lat: 32.877108, lng: -117.235582 },
+		zoom: 15,
+		center: { lat: 32.880574, lng: -117.235505 },
 	});
 	let airDataList, markerCluster;
 	let locations = [];
@@ -85,35 +85,35 @@ function initMap() {
           <tbody>\
             <tr>\
               <td>" +
-      airData["result_sensor_name"] +
-      "</td>\
-              <td>" +
-      airData["measured_time"] +
-      "</td>\
-              <td>" +
-      airData["latitude"] +
-      "</td>\
-              <td>" +
-      airData["longitude"] +
-      "</td>\
-              <td>" +
-      airData["co"] +
-      "</td>\
-              <td>" +
-      airData["so2"] +
-      "</td>\
-              <td>" +
-      airData["o3"] +
-      "</td>\
-              <td>" +
-      airData["no2"] +
-      "</td>\
-              <td>" +
-      airData["pm25"] +
-      "</td>\
-              <td>" +
-      airData["temperature"] +
-      "</td>\
+			airData['result_sensor_name'] +
+			'</td>\
+              <td>' +
+			airData['measured_time'] +
+			'</td>\
+              <td>' +
+			airData['latitude'] +
+			'</td>\
+              <td>' +
+			airData['longitude'] +
+			'</td>\
+              <td>' +
+			airData['co'] +
+			'</td>\
+              <td>' +
+			airData['so2'] +
+			'</td>\
+              <td>' +
+			airData['o3'] +
+			'</td>\
+              <td>' +
+			airData['no2'] +
+			'</td>\
+              <td>' +
+			airData['pm25'] +
+			'</td>\
+              <td>' +
+			airData['temperature'] +
+			'</td>\
             </tr>\
           </tbody>\
         </table>\
@@ -132,9 +132,9 @@ function initMap() {
 			center: pos,
 			clickable: false,
 			fillColor: '#fcc056',
-			fillOpacity: 1,
+			fillOpacity: 0.3,
 			map: map,
-			radius: 500,
+			radius: 100,
 			strokeColor: '#fcc056',
 			strokeOpacity: 0.3,
 		});
@@ -142,10 +142,10 @@ function initMap() {
 		circles[pos] = circ;
 	}
 
-	markerCluster = new MarkerClusterer(map, markers, {
-		imagePath:
-			'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-	});
+	// markerCluster = new MarkerClusterer(map, markers, {
+	// 	imagePath:
+	// 		'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+	// });
 
 	google.maps.event.addListener(map, 'zoom_changed', function() {
 		var zoom = map.getZoom();
@@ -198,27 +198,27 @@ function iterMarker(type) {
 }
 
 function setCircle(aqi_type) {
-  switch (aqi_type) {
-    case 0:
-      iterMarker("o3");
-      break;
-    case 1:
-      iterMarker("pm2.5");
-      break;
-    case 2:
-      iterMarker("temperature");
-      break;
-    case 3:
-      iterMarker("co");
-      break;
-    case 4:
-      iterMarker("so2");
-      break;
-    case 5:
-      iterMarker("no2");
-      break;
-    default:
-      alert("ERROR: Invalid input type");
-      break;
-  }
+	switch (aqi_type) {
+		case 0:
+			iterMarker('o3');
+			break;
+		case 1:
+			iterMarker('pm2.5');
+			break;
+		case 2:
+			iterMarker('temperature');
+			break;
+		case 3:
+			iterMarker('co');
+			break;
+		case 4:
+			iterMarker('so2');
+			break;
+		case 5:
+			iterMarker('no2');
+			break;
+		default:
+			alert('ERROR: Invalid input type');
+			break;
+	}
 }

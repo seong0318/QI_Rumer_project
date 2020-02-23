@@ -470,14 +470,15 @@
 
 	<!-- 우리가 만든 javascript 코드 추가하는 곳 -->
 	<script src="js/index.js"></script>
-	    <script src="js/index_sensor_list.js"></script>
-		<script src="js/map.js"></script>    
-
+	<script src="js/index_sensor_list.js"></script>
+	<script src="js/map.js"></script>    
+	<script src="js/heart_value.js"></script>
 	<script>
-
-	
-
-	</script>
+setInterval(() => {
+  let sensorOne = Math.floor(Math.random() * 10) + 70;
+  document.getElementById("heart_id").innerHTML = sensorOne;
+}, 30000);
+</script>
 </body>
 
 </body>

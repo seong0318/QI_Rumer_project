@@ -116,20 +116,21 @@ final class HeartController extends BaseController
         ));
         return;
     }
-    public function getRecentlyHeartDataList($usn)
+    public function getRecentlyHeartDataList($usn, $sensorId)
     {
         /** usn으로 heart data의 sensor id 별 가장 최신의 
          ** 모든 column 내용을 가져옴
          */
         $sql = "select *
-                from heart_data as a
-                join (select max(measured_time) as d, usn, sensor_name as result_sensor_name
-                      from heart_data natural join sensor as c
-                      group by c.sensor_id) as b
-                where b.usn = :usn
-                and a.measured_time = b.d;";
+                from heart_data natural join sensor
+                where usn = :usn and sensor_id = :sensor_id
+                order by measured_time desc
+                limit 1";
         $stmt = $this->em->getConnection()->prepare($sql);
-        $params = ['usn' => $usn];
+        $params = [
+            'usn' => $usn,
+            'sensor_id' => $sensorId
+        ];
         if (!$stmt->execute($params)) return -1;
         $execResult = $stmt->fetchall();
         return $execResult;
@@ -185,17 +186,18 @@ final class HeartController extends BaseController
          ** 로그인 되어 있지 않는 경우 result => -5 반환
          */
         $isDevice = $args['isDevice'];
+        $sensorId = $_POST['sensor_id'];
 
         if ($isDevice == 0)
             $usn = $_SESSION['usn'];
         else if ($isDevice == 1)
-            $usn = $_GET['usn'];
+            $usn = $_POST['usn'];
         else {
             echo json_encode(array('result' => -5));
             return;
         }
 
-        $resultExec = $this->getRecentlyHeartDataList($usn);
+        $resultExec = $this->getRecentlyHeartDataList($usn, $sensorId);
         echo json_encode(array(
             'result' => 0,
             'data' => $resultExec
