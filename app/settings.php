@@ -20,7 +20,7 @@ return [
                     __DIR__ . '/src/models'
                 ],
                 'auto_generate_proxies' => true,
-                'proxy_dir' =>  __DIR__.'/../cache/proxies',
+                'proxy_dir' =>  __DIR__ . '/../cache/proxies',
                 'cache' => null,
             ],
             'connection' => [
@@ -28,8 +28,8 @@ return [
                 'host'     => '127.0.0.1',
                 'port'     => 3306,
                 'dbname'   => 'teama-2020winter',
-                'user'     => 'teama-iot',
-                'password' => 'a3faser88basdf'
+                'user'     => 'root',
+                'password' => '12345678',
             ]
         ],
 
@@ -41,8 +41,8 @@ return [
 
         'db' => [
             'host' => '127.0.0.1',
-            'user' => 'teama-iot',
-            'pass' => 'a3faser88basdf',
+            'user' => 'root',
+            'pass' => '12345678',
             'dbname' => 'teama-2020winter'
         ]
     ],

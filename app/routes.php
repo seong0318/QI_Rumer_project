@@ -45,10 +45,9 @@ $app->get('/index', 'App\Controller\IndexController:index')
 
 $app->get('/profile', 'App\Controller\IndexController:profile')
     ->setName('profile');
-//index heart ========================================================================
 
-$app->get('/hearthistory', 'App\Controller\HeartController:hearthistory')
-    ->setName('hearthistory');
+$app->post('/heartrealtimehandle/{isDevice}', 'App\Controller\HeartController:heartRealTimeHandle')
+    ->setName('heartrealtime_handle');
 
 //index/map ==========================================================================================
 $app->get('/map', 'App\Controller\MapController:map')
@@ -59,15 +58,32 @@ $app->get('/maphistory', 'App\Controller\MapController:maphistory')
 
 $app->post('/maphandle/{isDevice}', 'App\Controller\MapController:mapHandle')
     ->setName('map_handle');
+
 //index/charts============================================================================
 $app->get('/charts', 'App\Controller\ChartsController:charts')
     ->setName('charts');
 
 $app->get('/chartshistory', 'App\Controller\ChartsController:chartshistory')
-    ->setName('chartshistory');
+    ->setName('charts_history');
 
 $app->post('/chartshandle/{isDevice}', 'App\Controller\ChartsController:chartsHandle')
     ->setName('chart_handle');
+
+$app->post('/udoorealtimechart/{isDevice}', 'App\Controller\ChartsController:UdooRealtimeChart')
+    ->setName('chart_handle');
+
+//index heart ========================================================================
+$app->get('/hearthistory', 'App\Controller\HeartController:hearthistory')
+->setName('heart_history');
+
+$app->get('/heartrealtime', 'App\Controller\HeartController:heartrealtime')
+->setName('heart_realtime');
+
+$app->post('/heartrealtimechart/{isDevice}', 'App\Controller\HeartController:heartRealtimeChart')
+->setName('heart_realtime_chart');
+
+$app->post('/hearthandle/{isDevice}', 'App\Controller\HeartController:heartHandle')
+->setName('heart_handle');
 
 //index/sensorlist==========================================================================
 $app->get('/sensorlist', 'App\Controller\SensorListController:sensorList')
@@ -75,6 +91,11 @@ $app->get('/sensorlist', 'App\Controller\SensorListController:sensorList')
 
 $app->get('/sensorlisthandle/{isDevice}', 'App\Controller\SensorListController:sensorListHandle')
     ->setName('sensorlist_handle');
+
+//index/historytable==========================================================================
+$app->get('/historytable', 'App\Controller\HistoryTableController:historytable')
+    ->setName('historytable');
+
 
 //sensor deregist===================================================================================
 $app->post('/sensorderegist/{isDevice}', 'App\Controller\SensorDeregistController:sensorDeregist')

@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Rumer - Charts</title>
+    <title>Rumer - historytable</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="bootstrap/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -74,7 +74,7 @@
                                                             class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
                                                             class="notification-list-user-name">
-                                                            John Abraham</span>is now following you
+                                                            SEONG HYUN</span>is now following you
                                                         <div class="notification-date">2 days ago</div>
                                                     </div>
                                                 </div>
@@ -161,7 +161,7 @@
                                 aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">
-                                        John Abraham</h5>
+                                        SEONG HYUN</h5>
                                     <span class="status"></span><span class="ml-2">Available</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
@@ -210,6 +210,8 @@
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="/sensorlist">Sensorlist View</a>
+                                                    </li><li class="nav-item">
+                                                        <a class="nav-link" href="/heartrealtime">Real Time Heart</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="/charts">Real Time Charts</a>
@@ -237,6 +239,9 @@
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="/hearthistory">Heart History</a>
+                                                    </li>
+                                                     <li class="nav-item">
+                                                        <a class="nav-link" href="/historytable">AQI History Table</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -270,7 +275,7 @@
                         <!-- body============================================================== -->
                              
                                 <br><br>
-                            <div id="chart_div"></div>
+
                         <!-- body end============================================================== -->
                     </div>                    
                 </div>
@@ -296,21 +301,18 @@
                         <input class="btn" name="checked_elem" type="checkbox" value="5" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >PM2.5
                     </span>
                       <span class="mr-2" style="font-size:20px">
-                        <input class="btn" name="checked_elem" type="checkbox" value="6" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >PM10
+                        <input class="btn" name="checked_elem" type="checkbox" value="6" checked style="width:20px;height:20px; font-size:50px;margin:0px    " >Tesmperature
                     </span>
                 </span>
 
                 <select class="user-social-media d-xl-inline-block" id="options">
                     <div class="mr-2 youtube-color">
-                        <option value="0" selected>All</option>
+                        <option value="0" selected>ALL</option>
                     </div>
-
                 </select>
                 <form method="post" action="">
      <p>Start Date: <input name = "starttdatepicker" type="text"  id="startdatepicker"></p>
-
     <p>Last Date: <input name = "lastdatepicker" type="text"  id="lastdatepicker"></p>
-
     <input type="submit" value="Get Data" name="data"/>
 
     </form>  
