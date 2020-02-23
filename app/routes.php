@@ -69,6 +69,9 @@ $app->get('/chartshistory', 'App\Controller\ChartsController:chartshistory')
 $app->post('/chartshandle/{isDevice}', 'App\Controller\ChartsController:chartsHandle')
     ->setName('chart_handle');
 
+$app->post('/udoorealtimechart/{isDevice}', 'App\Controller\ChartsController:UdooRealtimeChart')
+    ->setName('chart_handle');
+
 //index heart ========================================================================
 $app->get('/hearthistory', 'App\Controller\HeartController:hearthistory')
 ->setName('heart_history');

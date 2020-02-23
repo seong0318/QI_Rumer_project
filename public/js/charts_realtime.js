@@ -19,7 +19,7 @@ function getAirDataList(sensorId) {
 
 	$.ajax({
 		type: 'POST',
-		url: './chartshandle/0',
+		url: './udoorealtimechart/0',
 		data: { sensor_id: sensorId },
 		datatype: 'JSON',
 		async: false,
