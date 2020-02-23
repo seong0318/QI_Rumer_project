@@ -15,28 +15,27 @@ final class SensorManage extends BaseController
         $sql = "select usn from sensor where mac_address = :mac";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = ['mac' => $mac];
-        if ($stmt->execute($params)) return -1;
+        if (!$stmt->execute($params)) return -1;
         $execResult = $stmt->fetch();
-        return $execResult['usn'];
+        return $execResult;
     }
 
     private function sensorInsert($name, $type, $mac, $usn)
     {
         /** 새로운 센서 등록
-         ** 정상일 경우 0, sql 에러일 경우 -1, 삽입이 안될 경우 -2, 이미 등록된 장치일 경우 -3을 반환
+         ** 정상일 경우 0, sql 에러일 경우 -1, 삽입이 안될 경우 -2
          */
-        $isDup = $this->sensorDuplicateCheck($mac);
-        if (isset($isDup))
-            return -3;
-
         $sql = "insert into sensor (sensor_name, type, mac_address, usn) values (:name, :type, :mac, :usn)";
+
         $stmt = $this->em->getConnection()->prepare($sql);
+
         $params = [
             'name' => $name,
             'type' => $type,
             'mac' => $mac,
             'usn' => $usn
         ];
+
         if (!$stmt->execute($params)) return -1;
 
         $numInsertedRow = $stmt->rowCount();
@@ -73,7 +72,17 @@ final class SensorManage extends BaseController
 
     public function sensorRegist(Request $request, Response $response, $args)
     {
-        $execResult = $this->sensorInsert($_POST['sensor_name'], $_POST['type'], $_POST['mac'], $_POST['usn']);
+        /** 새로운 센서 등록
+         ** 정상일 경우 0, sql 에러일 경우 -1, 삽입이 안될 경우 -2, 이미 등록된 장치일 경우 -3을 반환
+         */
+        $isDup = $this->sensorDuplicateCheck($_POST['mac']);
+
+        if ($isDup != 0) {
+            echo json_encode(array('result' => -3));
+            return;
+        }
+
+        $execResult = $this->sensorInsert($_POST['name'], $_POST['type'], $_POST['mac'], $_POST['usn']);
 
         echo json_encode(array('result' => $execResult));
         return;
