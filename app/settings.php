@@ -28,8 +28,8 @@ return [
                 'host'     => '127.0.0.1',
                 'port'     => 3306,
                 'dbname'   => 'teama-2020winter',
-                'user'     => 'root',
-                'password' => '12345678',
+                'user'     => 'teama-iot',
+                'password' => 'a3faser88basdf',
             ]
         ],
 
@@ -41,8 +41,8 @@ return [
 
         'db' => [
             'host' => '127.0.0.1',
-            'user' => 'root',
-            'pass' => '12345678',
+            'user' => 'teama-iot',
+            'pass' => 'a3faser88basdf',
             'dbname' => 'teama-2020winter'
         ]
     ],
