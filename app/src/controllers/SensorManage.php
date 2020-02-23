@@ -7,11 +7,28 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 final class SensorManage extends BaseController
 {
-    public function sensorInsert($name, $type, $mac, $usn)
+    /** mac으로 장치의 사용자를 찾음
+     ** 정상일 경우 usn, sql 오류일 경우 -1 반환
+     */
+    private function sensorDuplicateCheck($mac)
+    {
+        $sql = "select usn from sensor where mac_address = :mac";
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $params = ['mac' => $mac];
+        if ($stmt->execute($params)) return -1;
+        $execResult = $stmt->fetch();
+        return $execResult['usn'];
+    }
+
+    private function sensorInsert($name, $type, $mac, $usn)
     {
         /** 새로운 센서 등록
-         ** 정상일 경우 0, sql 에러일 경우 -1, 삭제가 안될 경우 -2, 그 외의 -3을 반환
+         ** 정상일 경우 0, sql 에러일 경우 -1, 삽입이 안될 경우 -2, 이미 등록된 장치일 경우 -3을 반환
          */
+        $isDup = $this->sensorDuplicateCheck($mac);
+        if (isset($isDup))
+            return -3;
+
         $sql = "insert into sensor (sensor_name, type, mac_address, usn) values (:name, :type, :mac, :usn)";
         $stmt = $this->em->getConnection()->prepare($sql);
         $params = [
@@ -22,14 +39,14 @@ final class SensorManage extends BaseController
         ];
         if (!$stmt->execute($params)) return -1;
 
-        $numDeletedRow = $stmt->rowCount();
+        $numInsertedRow = $stmt->rowCount();
 
-        if ($numDeletedRow == 1) return 0;
-        else if ($numDeletedRow == 0) return -2;
-        else return -3;
+        if ($numInsertedRow == 0) return -2;
+
+        return 0;
     }
 
-    public function sensorDelete($sensorId)
+    private function sensorDelete($sensorId)
     {
         /** sensor_id 값으로 sensor를 삭제함
          ** 정상일 경우 0, sql 에러일 경우 -1, 삭제가 안될 경우 -2, 그 외의 -3을 반환
@@ -49,7 +66,7 @@ final class SensorManage extends BaseController
     public function sensorDeregist(Request $request, Response $response, $args)
     {
         $execResult = $this->sensorDelete($_POST['sensor_id']);
-        
+
         echo json_encode(array('result' => $execResult));
         return;
     }

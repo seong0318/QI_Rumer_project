@@ -99,7 +99,7 @@ $app->get('/historytable', 'App\Controller\HistoryTableController:historytable')
 
 //sensor manage===================================================================================
 $app->post('/sensor/regist', 'App\Controller\SensorManage:sensorRegist')
-    ->setName('sensor_deregist');
+    ->setName('sensor_regist');
 
 $app->post('/sensorderegist/{isDevice}', 'App\Controller\SensorManage:sensorDeregist')
     ->setName('sensor_deregist');
